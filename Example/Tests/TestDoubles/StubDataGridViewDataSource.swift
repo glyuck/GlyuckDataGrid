@@ -19,4 +19,12 @@ class StubDataGridViewDataSource: NSObject, DataGridViewDataSource {
     func numberOfRowsInDataGridView(dataGridView: DataGridView) -> Int {
         return numberOfRows
     }
+
+    func dataGridView(dataGridView: DataGridView, titleForHeaderForColumn column: Int) -> String {
+        return "Title for column \(column)"
+    }
+
+    func dataGridView(dataGridView: DataGridView, textForColumn column: Int, atRow row: Int) -> String {
+        return "Text for cell \(column)x\(row)"
+    }
 }

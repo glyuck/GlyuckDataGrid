@@ -12,6 +12,8 @@ import UIKit
 @objc public protocol DataGridViewDataSource {
     func numberOfColumnsInDataGridView(dataGridView: DataGridView) -> Int
     func numberOfRowsInDataGridView(dataGridView: DataGridView) -> Int
+    func dataGridView(dataGridView: DataGridView, titleForHeaderForColumn column: Int) -> String
+    func dataGridView(dataGridView: DataGridView, textForColumn column: Int, atRow row: Int) -> String
 }
 
 

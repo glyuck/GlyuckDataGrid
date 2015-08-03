@@ -11,6 +11,7 @@
 		0EF99790E2E6C94F82AC5BE2 /* Pods_GlyuckDataGrid_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20AB0B922B7550F463E724F1 /* Pods_GlyuckDataGrid_Example.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		390C05C51B6FB6CE0040E5D7 /* DataGridViewContentCellSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 390C05C11B6FB5630040E5D7 /* DataGridViewContentCellSpec.swift */; };
 		390C05C61B6FB6D10040E5D7 /* DataGridViewHeaderCellSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 390C05C31B6FB56F0040E5D7 /* DataGridViewHeaderCellSpec.swift */; };
+		390C05C81B6FBA730040E5D7 /* DataGridDataSourceWrapperSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 390C05C71B6FBA730040E5D7 /* DataGridDataSourceWrapperSpec.swift */; };
 		394EA4361B6F498E00328166 /* DataGridViewSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 394EA4341B6BDFB100328166 /* DataGridViewSpec.swift */; };
 		394EA43C1B6F5DC700328166 /* StubDataGridViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 394EA4381B6F5D1C00328166 /* StubDataGridViewDelegate.swift */; };
 		394EA43D1B6F5DC900328166 /* StubDataGridViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 394EA43A1B6F5D2900328166 /* StubDataGridViewDataSource.swift */; };
@@ -40,6 +41,7 @@
 		2B373DDF395A4A1865F4DA1E /* Pods_GlyuckDataGrid_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GlyuckDataGrid_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		390C05C11B6FB5630040E5D7 /* DataGridViewContentCellSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataGridViewContentCellSpec.swift; sourceTree = "<group>"; };
 		390C05C31B6FB56F0040E5D7 /* DataGridViewHeaderCellSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataGridViewHeaderCellSpec.swift; sourceTree = "<group>"; };
+		390C05C71B6FBA730040E5D7 /* DataGridDataSourceWrapperSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataGridDataSourceWrapperSpec.swift; sourceTree = "<group>"; };
 		394EA4341B6BDFB100328166 /* DataGridViewSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataGridViewSpec.swift; sourceTree = "<group>"; };
 		394EA4381B6F5D1C00328166 /* StubDataGridViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StubDataGridViewDelegate.swift; sourceTree = "<group>"; };
 		394EA43A1B6F5D2900328166 /* StubDataGridViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StubDataGridViewDataSource.swift; sourceTree = "<group>"; };
@@ -176,6 +178,7 @@
 				390C05C01B6FB5420040E5D7 /* Cells */,
 				394EA4371B6F5D0B00328166 /* TestDoubles */,
 				399D79871B6BD9E10070BC49 /* Utility */,
+				390C05C71B6FBA730040E5D7 /* DataGridDataSourceWrapperSpec.swift */,
 				394EA4341B6BDFB100328166 /* DataGridViewSpec.swift */,
 				399D79851B6BD66D0070BC49 /* DataGridViewLayoutSpec.swift */,
 				607FACE91AFB9204008FA782 /* Supporting Files */,
@@ -415,6 +418,7 @@
 				394EA43C1B6F5DC700328166 /* StubDataGridViewDelegate.swift in Sources */,
 				399D79861B6BD66D0070BC49 /* DataGridViewLayoutSpec.swift in Sources */,
 				390C05C61B6FB6D10040E5D7 /* DataGridViewHeaderCellSpec.swift in Sources */,
+				390C05C81B6FBA730040E5D7 /* DataGridDataSourceWrapperSpec.swift in Sources */,
 				394EA4361B6F498E00328166 /* DataGridViewSpec.swift in Sources */,
 				390C05C51B6FB6CE0040E5D7 /* DataGridViewContentCellSpec.swift in Sources */,
 			);
