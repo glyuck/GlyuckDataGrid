@@ -10,12 +10,14 @@ import UIKit
 
 
 @objc public protocol DataGridViewDataSource {
-
+    func numberOfColumnsInDataGrid(dataGridView: DataGridView) -> Int
 }
 
 
 @objc public protocol DataGridViewDelegate {
-
+    optional func sectionHeaderHeightForDataGridView(dataGridView: DataGridView) -> CGFloat
+    optional func dataGridView(dataGridView: DataGridView, widthForColumn column: Int) -> CGFloat
+    optional func dataGridView(dataGridView: DataGridView, heightForRow row: Int) -> CGFloat
 }
 
 

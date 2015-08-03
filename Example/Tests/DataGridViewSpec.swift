@@ -9,25 +9,6 @@ import Nimble
 import GlyuckDataGrid
 
 
-class MockDataSource: NSObject, UICollectionViewDataSource {
-    @objc internal func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 0
-    }
-
-    @objc internal func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        return UICollectionViewCell()
-    }
-}
-
-class MockDataGridViewDataSource: NSObject, DataGridViewDataSource {
-}
-
-class MockDelegate: NSObject, UICollectionViewDelegate {
-}
-
-class MockDataGridViewDelegate: NSObject, DataGridViewDelegate {
-
-}
 class DataGridViewSpec: QuickSpec {
     override func spec() {
         var dataGridView: DataGridView!
@@ -38,7 +19,7 @@ class DataGridViewSpec: QuickSpec {
 
         describe("dataGridDataSource") {
             it("should assign dataSource to DataGridDataSourceWrapper") {
-                let dataSource = MockDataGridViewDataSource()
+                let dataSource = StubDataGridViewDataSource()
                 dataGridView.dataGridDataSource = dataSource
                 expect(dataGridView.dataSource).to(beTruthy())
                 let dataSourceWrapper = dataGridView.dataSource as! DataGridDataSourceWrapper
@@ -48,7 +29,7 @@ class DataGridViewSpec: QuickSpec {
 
         describe("dataGridDelegate") {
             it("should assign delegate to DataGridDelegateWrapper") {
-                let delegate = MockDataGridViewDelegate()
+                let delegate = StubDataGridViewDelegate()
                 dataGridView.dataGridDelegate = delegate
                 expect(dataGridView.delegate).to(beTruthy())
                 let delegateWrapper = dataGridView.delegate as! DataGridDelegateWrapper
@@ -59,6 +40,14 @@ class DataGridViewSpec: QuickSpec {
         describe("layout") {
             it("should be instance of DataGridViewLayout") {
                 expect(dataGridView.collectionViewLayout).to(beAKindOf(DataGridViewLayout.self))
+            }
+            it("should have collectionView and dataGridView properties set") {
+                let layout = dataGridView.collectionViewLayout as? DataGridViewLayout
+                expect(layout).to(beTruthy())
+                if let layout = layout {
+                    expect(layout.dataGridView) === dataGridView
+                    expect(layout.collectionView) === dataGridView
+                }
             }
         }
     }
