@@ -24,72 +24,64 @@ import UIKit
 }
 
 
-public class DataGridView: UICollectionView {
+public class DataGridView: UIView {
+    private(set) public lazy var collectionView: UICollectionView = {
+        let collectionView = UICollectionView(frame: self.frame, collectionViewLayout: self.layout)
+        collectionView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+        self.addSubview(collectionView)
+        return collectionView
+    }()
 
-    convenience init(frame: CGRect) {
-        let layout = DataGridViewLayout()
-        self.init(frame: frame, collectionViewLayout: layout)
-    }
+    private(set) public lazy var layout: DataGridViewLayout = {
+        return DataGridViewLayout(dataGridView: self)
+    }()
 
-    public override var dataSource: UICollectionViewDataSource? {
+    private(set) public var dataSourceWrapper: DataGridDataSourceWrapper?
+    public weak var dataSource: DataGridViewDataSource? {
         set {
             if let newValue = newValue {
-                assert(newValue.isKindOfClass(DataGridDataSourceWrapper.self), "You should use dataGridDataSource instead of dataSource")
-            }
-            super.dataSource = newValue
-        }
-        get {
-            return super.dataSource
-        }
-    }
-
-    public override var delegate: UICollectionViewDelegate? {
-        set {
-            if let newValue = newValue {
-                assert(newValue.isKindOfClass(DataGridDelegateWrapper.self), "You should use dataGridDelegate instead of delegate")
-            }
-            super.delegate = newValue
-        }
-        get {
-            return super.delegate
-        }
-    }
-
-    internal var dataGridDataSourceWrapper: DataGridDataSourceWrapper?
-    public weak var dataGridDataSource: DataGridViewDataSource? {
-        set {
-            if let newValue = newValue {
-                dataGridDataSourceWrapper = DataGridDataSourceWrapper(dataGridDataSource: newValue)
+                dataSourceWrapper = DataGridDataSourceWrapper(dataGridView: self, dataGridDataSource: newValue)
             } else {
-                dataGridDataSourceWrapper = nil
+                dataSourceWrapper = nil
             }
-            dataSource = dataGridDataSourceWrapper
+            collectionView.dataSource = dataSourceWrapper
         }
         get {
-            return dataGridDataSourceWrapper?.dataGridDataSource
+            return dataSourceWrapper?.dataGridDataSource
         }
     }
 
-    internal var dataGridDelegateWrapper: DataGridDelegateWrapper?
-    public weak var dataGridDelegate: DataGridViewDelegate? {
+    private(set) public var delegateWrapper: DataGridDelegateWrapper?
+    public weak var delegate: DataGridViewDelegate? {
         set {
             if let newValue = newValue {
-                dataGridDelegateWrapper = DataGridDelegateWrapper(dataGridDelegate: newValue)
+                delegateWrapper = DataGridDelegateWrapper(dataGridView: self, dataGridDelegate: newValue)
             } else {
-                dataGridDelegateWrapper = nil
+                delegateWrapper = nil
             }
-            delegate = dataGridDelegateWrapper
+            collectionView.delegate = delegateWrapper
         }
         get {
-            return dataGridDelegateWrapper?.dataGridDelegate
+            return delegateWrapper?.dataGridDelegate
         }
     }
 
     public func numberOfColumns() -> Int {
-        return dataGridDataSource?.numberOfColumnsInDataGridView(self) ?? 0
+        return dataSource?.numberOfColumnsInDataGridView(self) ?? 0
     }
 
     public func numberOfRows() -> Int {
-        return dataGridDataSource?.numberOfRowsInDataGridView(self) ?? 0
+        return dataSource?.numberOfRowsInDataGridView(self) ?? 0
+    }
+
+    // UIScrollView
+
+    public var contentOffset: CGPoint {
+        set { collectionView.contentOffset = newValue }
+        get { return collectionView.contentOffset }
+    }
+
+    public func setContentOffset(contentOffset: CGPoint, animated: Bool) {
+        collectionView.setContentOffset(contentOffset, animated: animated)
     }
 }

@@ -9,9 +9,11 @@
 import UIKit
 
 public class DataGridDataSourceWrapper: NSObject, UICollectionViewDataSource {
+    public weak var dataGridView: DataGridView!
     public weak var dataGridDataSource: DataGridViewDataSource!
 
-    public init(dataGridDataSource: DataGridViewDataSource) {
+    public init(dataGridView: DataGridView, dataGridDataSource: DataGridViewDataSource) {
+        self.dataGridView = dataGridView
         self.dataGridDataSource = dataGridDataSource
         super.init()
     }
@@ -19,22 +21,17 @@ public class DataGridDataSourceWrapper: NSObject, UICollectionViewDataSource {
     // MARK: - UICollectionViewDataSource
 
     public func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
-        if let numberOfRows = dataGridDataSource?.numberOfRowsInDataGridView(collectionView as! DataGridView) {
+        if let numberOfRows = dataGridDataSource?.numberOfRowsInDataGridView(dataGridView) {
             return numberOfRows + 1
         }
         return 0
     }
 
     public func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return dataGridDataSource?.numberOfColumnsInDataGridView(collectionView as! DataGridView) ?? 0
+        return dataGridDataSource?.numberOfColumnsInDataGridView(dataGridView) ?? 0
     }
 
     public func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        guard let dataGridView = collectionView as? DataGridView else {
-            // TODO: Throw an exception?
-            return UICollectionViewCell()
-        }
-
         if indexPath.section == 0 {
             let cell = DataGridViewHeaderCell()
             cell.textLabel.text = dataGridDataSource.dataGridView(dataGridView, titleForHeaderForColumn: indexPath.row)

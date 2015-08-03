@@ -18,20 +18,16 @@ class DataGridViewLayoutSpec: QuickSpec {
         var layout: DataGridViewLayout!
 
         beforeEach {
-            layout = DataGridViewLayout()
-            dataGridView = DataGridView(frame: frame, collectionViewLayout: layout)
+            dataGridView = DataGridView(frame: frame)
+            layout = dataGridView.layout
         }
 
         describe("layoutAttributesForItemAtIndexPath") {
             beforeEach {
-                dataGridView.dataGridDataSource = stubDataSource
+                dataGridView.dataSource = stubDataSource
             }
             // Headers positioning
             context("layout header") {
-                it("should return nil if dataGridView is nil") {
-                    layout = DataGridViewLayout()
-                    expect(layout.layoutAttributesForItemAtIndexPath(NSIndexPath(forItem: 0, inSection: 0))).to(beNil())
-                }
                 it("should return correct coordinates for first header") {
                     let attributes = layout.layoutAttributesForItemAtIndexPath(NSIndexPath(forItem: 0, inSection: 0))!
 
@@ -133,7 +129,7 @@ class DataGridViewLayoutSpec: QuickSpec {
                     stubDelegate.rowHeight = 25
                     stubDelegate.sectionHeaderHeight = 50
                     stubDelegate.columnWidth = 100
-                    dataGridView.dataGridDelegate = stubDelegate
+                    dataGridView.delegate = stubDelegate
                 }
 
                 func ensureItems(items: [Int], sections: [Int], inLayoutAttributes attributes: [UICollectionViewLayoutAttributes]) {
@@ -144,11 +140,6 @@ class DataGridViewLayoutSpec: QuickSpec {
                             expect(res).to(beTrue(), description: "Expected layout attributes to contain index path IndexPath(forItem: \(item), inSection: \(section)")
                         }
                     }
-                }
-
-                it("should return nil if dataGridView is nil") {
-                    layout = DataGridViewLayout()
-                    expect(layout.layoutAttributesForElementsInRect(CGRect(x: 0, y: 0, width: 100, height: 100))).to(beNil())
                 }
 
                 it("should return corresponding rows and columns") {
@@ -210,7 +201,7 @@ class DataGridViewLayoutSpec: QuickSpec {
         describe("cells sizes") {
             describe("heightForRow") {
                 it("should return delegate's dataGrid:heightForRow if present") {
-                    dataGridView.dataGridDelegate = stubDelegate
+                    dataGridView.delegate = stubDelegate
                     expect(layout.heightForRow(0)) == stubDelegate.rowHeight
                 }
 
@@ -222,11 +213,11 @@ class DataGridViewLayoutSpec: QuickSpec {
 
             describe("widthForColumn:") {
                 it("should return delegate's dataGrid:widthForColumn:inSection: if present") {
-                    dataGridView.dataGridDelegate = stubDelegate
+                    dataGridView.delegate = stubDelegate
                     expect(layout.widthForColumn(0)) == stubDelegate.columnWidth
                 }
                 it("should return equal widths for columns if delegate missing/not implements method") {
-                    dataGridView.dataGridDataSource = stubDataSource
+                    dataGridView.dataSource = stubDataSource
                     stubDataSource.numberOfColumns = 7
                     // Ensure dataGrid width isn't devisible evenly on number of columns
                     let exactColumnWidth = frame.width / CGFloat(stubDataSource.numberOfColumns)
@@ -244,7 +235,7 @@ class DataGridViewLayoutSpec: QuickSpec {
 
             describe("heightForHeaderInSection") {
                 it("should return delegate's dataGrid:heightForRowAtIndexPath if present") {
-                    dataGridView.dataGridDelegate = stubDelegate
+                    dataGridView.delegate = stubDelegate
                     expect(layout.heightForSectionHeader()) == stubDelegate.sectionHeaderHeight
                 }
 

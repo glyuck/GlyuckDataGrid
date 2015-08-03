@@ -9,9 +9,11 @@
 import UIKit
 
 public class DataGridDelegateWrapper:  NSObject, UICollectionViewDelegate {
-    public weak var dataGridDelegate: DataGridViewDelegate!
+    private(set) public weak var dataGridView: DataGridView!
+    private(set) public weak var dataGridDelegate: DataGridViewDelegate!
 
-    init(dataGridDelegate: DataGridViewDelegate) {
+    init(dataGridView: DataGridView, dataGridDelegate: DataGridViewDelegate) {
+        self.dataGridView = dataGridView
         self.dataGridDelegate = dataGridDelegate
         super.init()
     }

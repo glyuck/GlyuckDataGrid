@@ -9,20 +9,31 @@
 import UIKit
 
 public class DataGridViewLayout: UICollectionViewLayout {
-    public var dataGridView: DataGridView? {
-        return self.collectionView as? DataGridView
-    }
+    private(set) public var dataGridView: DataGridView!
 
     public var rowHeight: CGFloat = 44
     public var sectionHeaderHeight: CGFloat = 44
 
+    public init(dataGridView: DataGridView) {
+        self.dataGridView = dataGridView
+        super.init()
+    }
+
+    public override init() {
+        fatalError("init() has not been implemented")
+    }
+
+    public required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     public func heightForRow(row: Int) -> CGFloat {
-        return dataGridView?.dataGridDelegate?.dataGridView?(dataGridView!, heightForRow: row) ?? rowHeight
+        return dataGridView?.delegate?.dataGridView?(dataGridView!, heightForRow: row) ?? rowHeight
     }
 
     public func widthForColumn(column: Int) -> CGFloat {
-        guard let width = dataGridView?.dataGridDelegate?.dataGridView?(dataGridView!, widthForColumn: column) else {
-            if let dataGridView = dataGridView, dataSource = dataGridView.dataGridDataSource {
+        guard let width = dataGridView?.delegate?.dataGridView?(dataGridView!, widthForColumn: column) else {
+            if let dataGridView = dataGridView, dataSource = dataGridView.dataSource {
                 let exactWidth = dataGridView.frame.width / CGFloat(dataSource.numberOfColumnsInDataGridView(dataGridView))
                 return column == 0 ? ceil(exactWidth) : floor(exactWidth)
             }
@@ -32,18 +43,15 @@ public class DataGridViewLayout: UICollectionViewLayout {
     }
 
     public func heightForSectionHeader() -> CGFloat {
-        return dataGridView?.dataGridDelegate?.sectionHeaderHeightForDataGridView?(dataGridView!) ?? sectionHeaderHeight
+        return dataGridView?.delegate?.sectionHeaderHeightForDataGridView?(dataGridView!) ?? sectionHeaderHeight
     }
 
     // MARK: UICollectionViewLayout
 
     public override func layoutAttributesForItemAtIndexPath(indexPath: NSIndexPath) -> UICollectionViewLayoutAttributes? {
-        guard let dataGridView = dataGridView else {
-            return nil
-        }
         let attributes = UICollectionViewLayoutAttributes(forCellWithIndexPath: indexPath)
         let x = Array(0..<indexPath.row).reduce(0) { $0 + widthForColumn($1)}
-        let y = indexPath.section == 0 ? dataGridView.contentOffset.y : Array(0..<indexPath.section-1).reduce(heightForSectionHeader()) { $0 + heightForRow($1)}
+        let y = indexPath.section == 0 ? dataGridView.collectionView.contentOffset.y : Array(0..<indexPath.section-1).reduce(heightForSectionHeader()) { $0 + heightForRow($1)}
         let width = widthForColumn(indexPath.row)
         let height = indexPath.section == 0 ? heightForSectionHeader() : heightForRow(indexPath.section - 1)
         attributes.frame = CGRect(x: x, y: y, width: width, height: height)
@@ -52,9 +60,6 @@ public class DataGridViewLayout: UICollectionViewLayout {
     }
 
     public override func layoutAttributesForElementsInRect(rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
-        guard let dataGridView = dataGridView else {
-            return nil
-        }
         var items = [Int]()
         var sections = [0]
 
