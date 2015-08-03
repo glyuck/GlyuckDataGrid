@@ -127,6 +127,84 @@ class DataGridViewLayoutSpec: QuickSpec {
                     }
                 }
             }
+
+            describe("layoutAttributesForElementsInRect") {
+                beforeEach {
+                    stubDelegate.rowHeight = 25
+                    stubDelegate.sectionHeaderHeight = 50
+                    stubDelegate.columnWidth = 100
+                    dataGridView.dataGridDelegate = stubDelegate
+                }
+
+                func ensureItems(items: [Int], sections: [Int], inLayoutAttributes attributes: [UICollectionViewLayoutAttributes]) {
+                    expect(attributes.count) == items.count * sections.count
+                    for item in items {
+                        for section in sections {
+                            let res = attributes.filter { $0.indexPath.item == item && $0.indexPath.section == section }.count == 1
+                            expect(res).to(beTrue(), description: "Expected layout attributes to contain index path IndexPath(forItem: \(item), inSection: \(section)")
+                        }
+                    }
+                }
+
+                it("should return nil if dataGridView is nil") {
+                    layout = DataGridViewLayout()
+                    expect(layout.layoutAttributesForElementsInRect(CGRect(x: 0, y: 0, width: 100, height: 100))).to(beNil())
+                }
+
+                it("should return corresponding rows and columns") {
+                    let rect = CGRect(
+                        x: 0,
+                        y: 0,
+                        width: 2 * stubDelegate.columnWidth,
+                        height: stubDelegate.sectionHeaderHeight + 2 * stubDelegate.rowHeight
+                    )
+                    let attributes = layout.layoutAttributesForElementsInRect(rect)
+
+                    ensureItems([0, 1], sections: [0, 1, 2], inLayoutAttributes: attributes!)
+                }
+
+                it("should not return off-screen rows/columns") {
+                    let rect = CGRect(
+                        x: stubDelegate.columnWidth,
+                        y: stubDelegate.rowHeight,
+                        width: 2 * stubDelegate.columnWidth,
+                        height: stubDelegate.sectionHeaderHeight + 2 * stubDelegate.rowHeight
+                    )
+                    let attributes = layout.layoutAttributesForElementsInRect(rect)
+
+                    ensureItems([1, 2], sections: [0, 2, 3], inLayoutAttributes: attributes!)
+                }
+
+                it("should return half-on-screen rows&columns") {
+                    let rect = CGRect(
+                        x: stubDelegate.columnWidth / 2,
+                        y: stubDelegate.rowHeight / 2,
+                        width: 2 * stubDelegate.columnWidth,
+                        height: stubDelegate.sectionHeaderHeight + 2 * stubDelegate.rowHeight
+                    )
+                    let attributes = layout.layoutAttributesForElementsInRect(rect)
+
+                    ensureItems([0, 1, 2], sections: [0, 1, 2, 3], inLayoutAttributes: attributes!)
+                }
+
+                it("should return veeery wide rows") {
+                    stubDelegate.columnWidth = 300
+                    let rect = CGRect(x: 350, y: 0, width: 100, height: stubDelegate.sectionHeaderHeight + 2 * stubDelegate.rowHeight)
+
+                    let attributes = layout.layoutAttributesForElementsInRect(rect)
+
+                    ensureItems([1], sections: [0, 1, 2], inLayoutAttributes: attributes!)
+                }
+
+                it("should return veeeeery tall columns") {
+                    stubDelegate.rowHeight = 300
+                    let rect = CGRect(x: 0, y: 325, width: 2 * stubDelegate.columnWidth, height: 100)
+
+                    let attributes = layout.layoutAttributesForElementsInRect(rect)
+
+                    ensureItems([0, 1], sections: [0, 2], inLayoutAttributes: attributes!)
+                }
+            }
         }
 
         describe("cells sizes") {

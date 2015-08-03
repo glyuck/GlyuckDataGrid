@@ -10,7 +10,8 @@ import UIKit
 
 
 @objc public protocol DataGridViewDataSource {
-    func numberOfColumnsInDataGrid(dataGridView: DataGridView) -> Int
+    func numberOfColumnsInDataGridView(dataGridView: DataGridView) -> Int
+    func numberOfRowsInDataGridView(dataGridView: DataGridView) -> Int
 }
 
 
@@ -80,5 +81,13 @@ public class DataGridView: UICollectionView {
         get {
             return dataGridDelegateWrapper?.dataGridDelegate
         }
+    }
+
+    public func numberOfColumns() -> Int {
+        return dataGridDataSource?.numberOfColumnsInDataGridView(self) ?? 0
+    }
+
+    public func numberOfRows() -> Int {
+        return dataGridDataSource?.numberOfRowsInDataGridView(self) ?? 0
     }
 }
