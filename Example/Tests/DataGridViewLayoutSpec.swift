@@ -22,6 +22,113 @@ class DataGridViewLayoutSpec: QuickSpec {
             dataGridView = DataGridView(frame: frame, collectionViewLayout: layout)
         }
 
+        describe("layoutAttributesForItemAtIndexPath") {
+            beforeEach {
+                dataGridView.dataGridDataSource = stubDataSource
+            }
+            // Headers positioning
+            context("layout header") {
+                it("should return nil if dataGridView is nil") {
+                    layout = DataGridViewLayout()
+                    expect(layout.layoutAttributesForItemAtIndexPath(NSIndexPath(forItem: 0, inSection: 0))).to(beNil())
+                }
+                it("should return correct coordinates for first header") {
+                    let attributes = layout.layoutAttributesForItemAtIndexPath(NSIndexPath(forItem: 0, inSection: 0))!
+
+                    expect(attributes.frame) == CGRect(
+                        x: 0,
+                        y: 0,
+                        width: layout.widthForColumn(0),
+                        height: layout.heightForSectionHeader()
+                    )
+                }
+                it("should return correct coordinates for second header") {
+                    let attributes = layout.layoutAttributesForItemAtIndexPath(NSIndexPath(forItem: 1, inSection: 0))!
+
+                    expect(attributes.frame) == CGRect(
+                        x: layout.widthForColumn(0),
+                        y: 0,
+                        width: layout.widthForColumn(1),
+                        height: layout.heightForSectionHeader()
+                    )
+                }
+                context("when content is scrolled") {
+                    beforeEach {
+                        dataGridView.contentOffset = CGPointMake(10, 20)
+                    }
+                    it("should return correct coordinates for first header") {
+                        let attributes = layout.layoutAttributesForItemAtIndexPath(NSIndexPath(forItem: 0, inSection: 0))!
+
+                        expect(attributes.frame) == CGRect(
+                            x: 0,
+                            y: dataGridView.contentOffset.y,
+                            width: layout.widthForColumn(0),
+                            height: layout.heightForSectionHeader()
+                        )
+                    }
+                    it("should return correct coordinates for second header") {
+                        let attributes = layout.layoutAttributesForItemAtIndexPath(NSIndexPath(forItem: 1, inSection: 0))!
+
+                        expect(attributes.frame) == CGRect(
+                            x: layout.widthForColumn(0),
+                            y: dataGridView.contentOffset.y,
+                            width: layout.widthForColumn(1),
+                            height: layout.heightForSectionHeader()
+                        )
+                    }
+                }
+            }
+
+            // Cells positioning
+            context("layout cells") {
+                it("should return correct coordinates for first column in first row") {
+                    let attributes = layout.layoutAttributesForItemAtIndexPath(NSIndexPath(forItem: 0, inSection: 1))!
+
+                    expect(attributes.frame) == CGRect(
+                        x: 0,
+                        y: layout.heightForSectionHeader(),
+                        width: layout.widthForColumn(0),
+                        height: layout.heightForRow(0)
+                    )
+                }
+                it("should return correct coordinates for second column in second row") {
+                    let attributes = layout.layoutAttributesForItemAtIndexPath(NSIndexPath(forItem: 1, inSection: 2))!
+
+                    expect(attributes.frame) == CGRect(
+                        x: layout.widthForColumn(0),
+                        y: layout.heightForSectionHeader() + layout.heightForRow(0),
+                        width: layout.widthForColumn(1),
+                        height: layout.heightForRow(1)
+                    )
+                }
+                context("when content is scrolled") {
+                    beforeEach {
+                        dataGridView.contentOffset = CGPointMake(10, 20)
+                    }
+                    it("should return correct coordinates for first column in first row") {
+                        let attributes = layout.layoutAttributesForItemAtIndexPath(NSIndexPath(forItem: 0, inSection: 1))!
+
+                        expect(attributes.frame) == CGRect(
+                            x: 0,
+                            y: layout.heightForSectionHeader(),
+                            width: layout.widthForColumn(0),
+                            height: layout.heightForRow(0)
+                        )
+                    }
+                    it("should return correct coordinates for second column in second row") {
+                        let attributes = layout.layoutAttributesForItemAtIndexPath(NSIndexPath(forItem: 1, inSection: 2))!
+
+                        expect(attributes.frame) == CGRect(
+                            x: layout.widthForColumn(0),
+                            y: layout.heightForSectionHeader() + layout.heightForRow(0),
+                            width: layout.widthForColumn(1),
+                            height: layout.heightForRow(1)
+                        )
+                    }
+                }
+            }
+        }
+
         describe("cells sizes") {
             describe("heightForRow") {
                 it("should return delegate's dataGrid:heightForRow if present") {
