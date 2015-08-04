@@ -30,6 +30,7 @@ public class DataGridView: UIView {
         collectionView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
         collectionView.registerClass(DataGridViewHeaderCell.classForCoder(), forCellWithReuseIdentifier: "DataGridViewHeaderCell")
         collectionView.registerClass(DataGridViewContentCell.classForCoder(), forCellWithReuseIdentifier: "DataGridViewContentCell")
+        collectionView.backgroundColor = UIColor.clearColor()
         self.addSubview(collectionView)
         return collectionView
     }()

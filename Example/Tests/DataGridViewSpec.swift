@@ -48,7 +48,11 @@ class DataGridViewSpec: QuickSpec {
                 let cell = dataGridView.collectionView.dequeueReusableCellWithReuseIdentifier("DataGridViewContentCell", forIndexPath: NSIndexPath(forItem: 0, inSection: 0))
                 expect(cell).to(beTruthy())
             }
-            
+
+            it("should have transparent background") {
+                expect(dataGridView.collectionView.backgroundColor) == UIColor.clearColor()
+            }
+
             describe("layout") {
                 it("should be instance of DataGridViewLayout") {
                     expect(dataGridView.collectionView.collectionViewLayout).to(beAKindOf(DataGridViewLayout.self))
