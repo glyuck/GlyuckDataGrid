@@ -105,4 +105,13 @@ public class DataGridViewLayout: UICollectionViewLayout {
         return result
     }
 
+    public override func shouldInvalidateLayoutForBoundsChange(newBounds: CGRect) -> Bool {
+        return true
+    }
+
+    public override func collectionViewContentSize() -> CGSize {
+        let width = Array(0..<dataGridView.numberOfColumns()).reduce(0) { $0 + widthForColumn($1) }
+        let height = Array(0..<dataGridView.numberOfRows()).reduce(heightForSectionHeader()) { $0 + heightForRow($1) }
+        return CGSize(width: width, height: height)
+    }
 }

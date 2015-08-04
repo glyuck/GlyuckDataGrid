@@ -245,5 +245,21 @@ class DataGridViewLayoutSpec: QuickSpec {
                 }
             }
         }
+
+        describe("shouldInvalidateLayoutForBoundsChange") {
+            it("should return always true") {
+                let rect = CGRect(x: 0, y: 0, width: 100, height: 100)
+                let res = layout.shouldInvalidateLayoutForBoundsChange(rect)
+                expect(res).to(beTrue())
+            }
+        }
+
+        describe("collectionViewContentSize") {
+            it("should return sum width for all columns and sum height for all rows and header") {
+                let size = layout.collectionViewContentSize()
+                expect(size.width) == Array(0..<dataGridView.numberOfColumns()).reduce(0) { $0! + layout.widthForColumn($1) }
+                expect(size.height) == Array(0..<dataGridView.numberOfRows()).reduce(layout.heightForSectionHeader()) { $0 + layout.heightForRow($1) }
+            }
+        }
     }
 }
