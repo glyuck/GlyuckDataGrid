@@ -54,7 +54,12 @@ public class DataGridViewLayout: UICollectionViewLayout {
         let y = indexPath.section == 0 ? dataGridView.collectionView.contentOffset.y : Array(0..<indexPath.section-1).reduce(heightForSectionHeader()) { $0 + heightForRow($1)}
         let width = widthForColumn(indexPath.row)
         let height = indexPath.section == 0 ? heightForSectionHeader() : heightForRow(indexPath.section - 1)
-        attributes.frame = CGRect(x: x, y: y, width: width, height: height)
+        attributes.frame = CGRect(
+            x: x,
+            y: y + collectionView!.contentInset.top,
+            width: width,
+            height: height
+        )
 
         return attributes
     }
@@ -99,4 +104,5 @@ public class DataGridViewLayout: UICollectionViewLayout {
 
         return result
     }
+
 }

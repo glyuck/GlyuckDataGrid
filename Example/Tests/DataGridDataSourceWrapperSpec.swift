@@ -16,7 +16,8 @@ class DataGridDataSourceWrapperSpec: QuickSpec {
         var dataSourceWrapper: DataGridDataSourceWrapper!
 
         beforeEach {
-            dataSourceWrapper = DataGridDataSourceWrapper(dataGridView: dataGridView, dataGridDataSource: stubDataSource)
+            dataGridView.dataSource = stubDataSource
+            dataSourceWrapper = dataGridView.dataSourceWrapper
         }
 
         describe("numberOfSectionsInCollectionView:") {

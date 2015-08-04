@@ -33,11 +33,11 @@ public class DataGridDataSourceWrapper: NSObject, UICollectionViewDataSource {
 
     public func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         if indexPath.section == 0 {
-            let cell = DataGridViewHeaderCell()
+            let cell = collectionView.dequeueReusableCellWithReuseIdentifier("DataGridViewHeaderCell", forIndexPath: indexPath) as! DataGridViewHeaderCell
             cell.textLabel.text = dataGridDataSource.dataGridView(dataGridView, titleForHeaderForColumn: indexPath.row)
             return cell
         } else {
-            let cell = DataGridViewContentCell()
+            let cell = collectionView.dequeueReusableCellWithReuseIdentifier("DataGridViewContentCell", forIndexPath: indexPath) as! DataGridViewContentCell
             cell.textLabel.text = dataGridDataSource.dataGridView(dataGridView, textForColumn: indexPath.row, atRow: indexPath.section - 1)
             return cell
         }

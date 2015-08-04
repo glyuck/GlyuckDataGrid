@@ -19,6 +19,10 @@ class DataGridViewSpec: QuickSpec {
         }
 
         describe("collectionView") {
+            beforeEach {
+                dataGridView.dataSource = stubDataSource
+            }
+
             it("should not be nil") {
                 expect(dataGridView.collectionView).to(beTruthy())
             }
@@ -35,6 +39,16 @@ class DataGridViewSpec: QuickSpec {
                 expect(dataGridView.collectionView.frame) == dataGridView.frame
             }
 
+            it("should register cell with reuseIdentifier DataGridViewHeaderCell") {
+                let cell = dataGridView.collectionView.dequeueReusableCellWithReuseIdentifier("DataGridViewHeaderCell", forIndexPath: NSIndexPath(forItem: 0, inSection: 0))
+                expect(cell).to(beTruthy())
+            }
+
+            it("should register cell with reuseIdentifier DataGridViewContentCell") {
+                let cell = dataGridView.collectionView.dequeueReusableCellWithReuseIdentifier("DataGridViewContentCell", forIndexPath: NSIndexPath(forItem: 0, inSection: 0))
+                expect(cell).to(beTruthy())
+            }
+            
             describe("layout") {
                 it("should be instance of DataGridViewLayout") {
                     expect(dataGridView.collectionView.collectionViewLayout).to(beAKindOf(DataGridViewLayout.self))

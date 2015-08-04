@@ -28,6 +28,8 @@ public class DataGridView: UIView {
     private(set) public lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: self.frame, collectionViewLayout: self.layout)
         collectionView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+        collectionView.registerClass(DataGridViewHeaderCell.classForCoder(), forCellWithReuseIdentifier: "DataGridViewHeaderCell")
+        collectionView.registerClass(DataGridViewContentCell.classForCoder(), forCellWithReuseIdentifier: "DataGridViewContentCell")
         self.addSubview(collectionView)
         return collectionView
     }()
