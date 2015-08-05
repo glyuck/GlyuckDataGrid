@@ -48,6 +48,11 @@ class DataGridViewLayoutSpec: QuickSpec {
                         height: layout.heightForSectionHeader()
                     )
                 }
+                it("should return greater zIndex then for content cell") {
+                    let headerAttributes = layout.layoutAttributesForItemAtIndexPath(NSIndexPath(forItem: 0, inSection: 0))!
+                    let contentAttributes = layout.layoutAttributesForItemAtIndexPath(NSIndexPath(forItem: 0, inSection: 1))!
+                    expect(headerAttributes.zIndex) > contentAttributes.zIndex
+                }
                 context("when content is scrolled") {
                     beforeEach {
                         dataGridView.contentOffset = CGPointMake(10, 20)
@@ -69,6 +74,22 @@ class DataGridViewLayoutSpec: QuickSpec {
                             x: layout.widthForColumn(0),
                             y: dataGridView.contentOffset.y,
                             width: layout.widthForColumn(1),
+                            height: layout.heightForSectionHeader()
+                        )
+                    }
+                }
+                context("when there is contentInset") {
+                    beforeEach {
+                        dataGridView.collectionView.contentInset = UIEdgeInsets(top: 10, left: 10, bottom: 0, right: 0)
+                    }
+
+                    it("should be applied to section header Y position") {
+                        let attributes = layout.layoutAttributesForItemAtIndexPath(NSIndexPath(forItem: 0, inSection: 0))!
+
+                        expect(attributes.frame) == CGRect(
+                            x: 0,
+                            y: dataGridView.collectionView.contentInset.top + dataGridView.collectionView.contentOffset.y,
+                            width: layout.widthForColumn(0),
                             height: layout.heightForSectionHeader()
                         )
                     }

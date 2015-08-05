@@ -51,15 +51,18 @@ public class DataGridViewLayout: UICollectionViewLayout {
     public override func layoutAttributesForItemAtIndexPath(indexPath: NSIndexPath) -> UICollectionViewLayoutAttributes? {
         let attributes = UICollectionViewLayoutAttributes(forCellWithIndexPath: indexPath)
         let x = Array(0..<indexPath.row).reduce(0) { $0 + widthForColumn($1)}
-        let y = indexPath.section == 0 ? dataGridView.collectionView.contentOffset.y : Array(0..<indexPath.section-1).reduce(heightForSectionHeader()) { $0 + heightForRow($1)}
+        let y = indexPath.section == 0 ? dataGridView.collectionView.contentOffset.y + collectionView!.contentInset.top : Array(0..<indexPath.section-1).reduce(heightForSectionHeader()) { $0 + heightForRow($1)}
         let width = widthForColumn(indexPath.row)
         let height = indexPath.section == 0 ? heightForSectionHeader() : heightForRow(indexPath.section - 1)
         attributes.frame = CGRect(
             x: x,
-            y: y + collectionView!.contentInset.top,
+            y: y,
             width: width,
             height: height
         )
+        if indexPath.section == 0 {
+            attributes.zIndex = 2
+        }
 
         return attributes
     }
