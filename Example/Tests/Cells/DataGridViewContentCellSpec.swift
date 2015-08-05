@@ -26,12 +26,13 @@ class DataGridViewContentCellSpec: QuickSpec {
                 expect(cell.textLabel.superview) === cell.contentView
             }
 
-            it("should resize along with cell") {
+            it("should resize along with cell with respect to cell.textLabelInsets") {
                 cell.textLabel.text = ""  // Ensure text label is initialized when tests are started
 
+                cell.textLabelInsets = UIEdgeInsets(top: 1, left: 2, bottom: 3, right: 4)
                 cell.frame = CGRectMake(0, 0, cell.frame.width * 2, cell.frame.height / 2)
                 cell.layoutIfNeeded()
-                expect(cell.textLabel.frame) == cell.frame
+                expect(cell.textLabel.frame) == UIEdgeInsetsInsetRect(cell.bounds, cell.textLabelInsets)
             }
         }
     }
