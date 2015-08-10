@@ -75,6 +75,24 @@ class DataGridDataSourceWrapperSpec: QuickSpec {
                     let cell = dataSourceWrapper.collectionView(dataGridView.collectionView, cellForItemAtIndexPath: NSIndexPath(forItem: 1, inSection: 3)) as! DataGridViewContentCell
                     expect(cell.textLabel.text) == "Text for cell 1x2"
                 }
+
+                context("zebra-striped tables") {
+                    it("should return transparent cells when row1BackgroundColor and row2BackgroundColor are nil") {
+                        let cell1 = dataSourceWrapper.collectionView(dataGridView.collectionView, cellForItemAtIndexPath: NSIndexPath(forItem: 1, inSection: 1)) as! DataGridViewContentCell
+                        let cell2 = dataSourceWrapper.collectionView(dataGridView.collectionView, cellForItemAtIndexPath: NSIndexPath(forItem: 1, inSection: 2)) as! DataGridViewContentCell
+                        expect(cell1.backgroundColor).to(beNil())
+                        expect(cell2.backgroundColor).to(beNil())
+                    }
+
+                    it("should return row1BackgroundColor for odd rows and row2BackgroundColor for even rows") {
+                        dataGridView.row1BackgroundColor = UIColor.redColor()
+                        dataGridView.row2BackgroundColor = UIColor.greenColor()
+                        let cell1 = dataSourceWrapper.collectionView(dataGridView.collectionView, cellForItemAtIndexPath: NSIndexPath(forItem: 1, inSection: 1)) as! DataGridViewContentCell
+                        let cell2 = dataSourceWrapper.collectionView(dataGridView.collectionView, cellForItemAtIndexPath: NSIndexPath(forItem: 1, inSection: 2)) as! DataGridViewContentCell
+                        expect(cell1.backgroundColor) == dataGridView.row1BackgroundColor
+                        expect(cell2.backgroundColor) == dataGridView.row2BackgroundColor
+                    }
+                }
             }
         }
     }

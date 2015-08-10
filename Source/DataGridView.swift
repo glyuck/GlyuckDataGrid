@@ -9,6 +9,9 @@
 import UIKit
 
 
+private var setupAppearanceDispatchTocken = dispatch_once_t()
+
+
 @objc public protocol DataGridViewDataSource {
     func numberOfColumnsInDataGridView(dataGridView: DataGridView) -> Int
     func numberOfRowsInDataGridView(dataGridView: DataGridView) -> Int
@@ -69,6 +72,9 @@ public class DataGridView: UIView {
         }
     }
 
+    public dynamic var row1BackgroundColor: UIColor?
+    public dynamic var row2BackgroundColor: UIColor?
+
     public func numberOfColumns() -> Int {
         return dataSource?.numberOfColumnsInDataGridView(self) ?? 0
     }
@@ -77,6 +83,14 @@ public class DataGridView: UIView {
         return dataSource?.numberOfRowsInDataGridView(self) ?? 0
     }
 
+    public override static func initialize() {
+        super.initialize()
+        dispatch_once(&setupAppearanceDispatchTocken) {
+            let appearance = self.appearance()
+            appearance.row1BackgroundColor = UIColor(white: 0.95, alpha: 1)
+            appearance.row2BackgroundColor = UIColor.whiteColor()
+        }
+    }
     // UIScrollView
 
     public var contentOffset: CGPoint {

@@ -12,6 +12,8 @@ private var setupAppearanceDispatchTocken = dispatch_once_t()
 
 public class DataGridViewContentCell: UICollectionViewCell {
     public dynamic var textLabelInsets = UIEdgeInsetsZero
+    public dynamic var highlightedBackgroundColor = UIColor(white: 0.9, alpha: 1)
+    public dynamic var selectedBackgroundColor = UIColor(white: 0.8, alpha: 1)
 
     private(set) public lazy var textLabel: UILabel = {
         let label = UILabel(frame: self.frame)
@@ -23,7 +25,13 @@ public class DataGridViewContentCell: UICollectionViewCell {
 
     public override var highlighted: Bool {
         didSet {
-            backgroundColor = highlighted ? UIColor.lightGrayColor() : UIColor.whiteColor()
+            contentView.backgroundColor = highlighted ? highlightedBackgroundColor : UIColor.clearColor()
+        }
+    }
+
+    public override var selected: Bool {
+        didSet {
+            contentView.backgroundColor = selected ? selectedBackgroundColor : UIColor.clearColor()
         }
     }
 

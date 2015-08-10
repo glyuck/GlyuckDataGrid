@@ -39,6 +39,11 @@ public class DataGridDataSourceWrapper: NSObject, UICollectionViewDataSource {
         } else {
             let cell = collectionView.dequeueReusableCellWithReuseIdentifier("DataGridViewContentCell", forIndexPath: indexPath) as! DataGridViewContentCell
             cell.textLabel.text = dataGridDataSource.dataGridView(dataGridView, textForColumn: indexPath.row, atRow: indexPath.section - 1)
+            if indexPath.section % 2 == 1 {
+                cell.backgroundColor = dataGridView.row1BackgroundColor
+            } else {
+                cell.backgroundColor = dataGridView.row2BackgroundColor
+            }
             return cell
         }
     }

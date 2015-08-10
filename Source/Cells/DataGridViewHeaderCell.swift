@@ -12,6 +12,8 @@ private var setupAppearanceDispatchTocken = dispatch_once_t()
 
 public class DataGridViewHeaderCell: UICollectionViewCell {
     public dynamic var textLabelInsets = UIEdgeInsetsZero
+    public dynamic var highlightedBackgroundColor = UIColor(white: 0.9, alpha: 1)
+    public dynamic var selectedBackgroundColor = UIColor(white: 0.8, alpha: 1)
 
     private(set) public lazy var textLabel: UILabel = {
         let label = UILabel(frame: self.frame)
@@ -22,7 +24,13 @@ public class DataGridViewHeaderCell: UICollectionViewCell {
 
     public override var highlighted: Bool {
         didSet {
-            backgroundColor = highlighted ? UIColor.lightGrayColor() : UIColor.darkGrayColor()
+            contentView.backgroundColor = highlighted ? highlightedBackgroundColor : UIColor.clearColor()
+        }
+    }
+
+    public override var selected: Bool {
+        didSet {
+            contentView.backgroundColor = selected ? selectedBackgroundColor : UIColor.clearColor()
         }
     }
 
@@ -35,6 +43,7 @@ public class DataGridViewHeaderCell: UICollectionViewCell {
         super.initialize()
         dispatch_once(&setupAppearanceDispatchTocken) {
             let appearance = self.appearance()
+            appearance.backgroundColor = UIColor.whiteColor()
             appearance.textLabelInsets = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
 
             if UILabel.respondsToSelector("appearanceWhenContainedInInstancesOfClasses:") {
