@@ -55,8 +55,8 @@ public class DataGridViewLayout: UICollectionViewLayout {
         let width = widthForColumn(indexPath.row)
         let height = indexPath.section == 0 ? heightForSectionHeader() : heightForRow(indexPath.section - 1)
         attributes.frame = CGRect(
-            x: x,
-            y: y,
+            x: max(0, x),
+            y: max(0, y),
             width: width,
             height: height
         )

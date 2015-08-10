@@ -57,6 +57,18 @@ class DataGridViewLayoutSpec: QuickSpec {
                     beforeEach {
                         dataGridView.contentOffset = CGPointMake(10, 20)
                     }
+                    it("should return unscrolled coordinates if offset negative") {
+                        dataGridView.contentOffset = CGPointMake(-10, -20)
+
+                        let attributes = layout.layoutAttributesForItemAtIndexPath(NSIndexPath(forItem: 0, inSection: 0))!
+
+                        expect(attributes.frame) == CGRect(
+                            x: 0,
+                            y: 0,
+                            width: layout.widthForColumn(0),
+                            height: layout.heightForSectionHeader()
+                        )
+                    }
                     it("should return correct coordinates for first header") {
                         let attributes = layout.layoutAttributesForItemAtIndexPath(NSIndexPath(forItem: 0, inSection: 0))!
 
