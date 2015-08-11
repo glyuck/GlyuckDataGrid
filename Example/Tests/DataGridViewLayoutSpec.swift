@@ -12,20 +12,21 @@ import GlyuckDataGrid
 class DataGridViewLayoutSpec: QuickSpec {
     override func spec() {
         let frame = CGRect(x: 0, y: 0, width: 320, height: 480)
-        let stubDelegate = StubDataGridViewDelegate()
-        let stubDataSource = StubDataGridViewDataSource()
+        var stubDelegate: StubDataGridViewDelegate!
+        var stubDataSource: StubDataGridViewDataSource!
         var dataGridView: DataGridView!
         var layout: DataGridViewLayout!
 
         beforeEach {
+            stubDelegate = StubDataGridViewDelegate()
+            stubDataSource = StubDataGridViewDataSource()
             dataGridView = DataGridView(frame: frame)
+            dataGridView.dataSource = stubDataSource
+            dataGridView.delegate = stubDelegate
             layout = dataGridView.layout
         }
 
         describe("layoutAttributesForItemAtIndexPath") {
-            beforeEach {
-                dataGridView.dataSource = stubDataSource
-            }
             // Headers positioning
             context("layout header") {
                 it("should return correct coordinates for first header") {
@@ -162,7 +163,6 @@ class DataGridViewLayoutSpec: QuickSpec {
                     stubDelegate.rowHeight = 25
                     stubDelegate.sectionHeaderHeight = 50
                     stubDelegate.columnWidth = 100
-                    dataGridView.delegate = stubDelegate
                 }
 
                 func ensureItems(items: [Int], sections: [Int], inLayoutAttributes attributes: [UICollectionViewLayoutAttributes]) {
@@ -234,11 +234,11 @@ class DataGridViewLayoutSpec: QuickSpec {
         describe("cells sizes") {
             describe("heightForRow") {
                 it("should return delegate's dataGrid:heightForRow if present") {
-                    dataGridView.delegate = stubDelegate
                     expect(layout.heightForRow(0)) == stubDelegate.rowHeight
                 }
 
                 it("should return it's rowHeight if delegate missing/not implements method") {
+                    dataGridView.delegate = nil
                     layout.rowHeight = 120
                     expect(layout.heightForRow(0)) == 120
                 }
@@ -246,11 +246,11 @@ class DataGridViewLayoutSpec: QuickSpec {
 
             describe("widthForColumn:") {
                 it("should return delegate's dataGrid:widthForColumn:inSection: if present") {
-                    dataGridView.delegate = stubDelegate
                     expect(layout.widthForColumn(0)) == stubDelegate.columnWidth
                 }
                 it("should return equal widths for columns if delegate missing/not implements method") {
                     dataGridView.dataSource = stubDataSource
+                    dataGridView.delegate = nil
                     stubDataSource.numberOfColumns = 7
                     // Ensure dataGrid width isn't devisible evenly on number of columns
                     let exactColumnWidth = frame.width / CGFloat(stubDataSource.numberOfColumns)
@@ -262,17 +262,19 @@ class DataGridViewLayoutSpec: QuickSpec {
                     }
                 }
                 it("should return zero if delegate and dataSource are not set") {
+                    dataGridView.dataSource = nil
+                    dataGridView.delegate = nil
                     expect(layout.widthForColumn(0)) == 0
                 }
             }
 
             describe("heightForHeaderInSection") {
                 it("should return delegate's dataGrid:heightForRowAtIndexPath if present") {
-                    dataGridView.delegate = stubDelegate
                     expect(layout.heightForSectionHeader()) == stubDelegate.sectionHeaderHeight
                 }
 
                 it("should return it's rowHeight if delegate missing/not implements method") {
+                    dataGridView.delegate = nil
                     layout.sectionHeaderHeight = 120
                     expect(layout.heightForSectionHeader()) == 120
                 }
