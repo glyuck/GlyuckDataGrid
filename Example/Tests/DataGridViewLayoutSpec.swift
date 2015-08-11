@@ -156,6 +156,49 @@ class DataGridViewLayoutSpec: QuickSpec {
                         )
                     }
                 }
+
+                context("when cell is floating") {
+                    it("should return correct coordinates when content scrolled") {
+                        // given
+                        stubDelegate.floatingColumns = [0, 1]
+                        dataGridView.contentOffset = CGPointMake(500, 20)
+
+                        // when
+                        let row0Attributes = layout.layoutAttributesForItemAtIndexPath(NSIndexPath(forItem: 0, inSection: 1))!
+                        let row1Attributes = layout.layoutAttributesForItemAtIndexPath(NSIndexPath(forItem: 1, inSection: 1))!
+
+                        // then
+                        expect(row0Attributes.frame) == CGRect(
+                            x: dataGridView.contentOffset.x,
+                            y: layout.heightForSectionHeader(),
+                            width: layout.widthForColumn(0),
+                            height: layout.heightForRow(0)
+                        )
+                        expect(row1Attributes.frame) == CGRect(
+                            x: dataGridView.contentOffset.x + layout.widthForColumn(0),
+                            y: layout.heightForSectionHeader(),
+                            width: layout.widthForColumn(1),
+                            height: layout.heightForRow(0)
+                        )
+                    }
+
+                    it("should give greater zIndex for floating cells") {
+                        // given
+                        stubDelegate.floatingColumns = [1]
+
+                        // when
+                        let header0Attributes = layout.layoutAttributesForItemAtIndexPath(NSIndexPath(forItem: 0, inSection: 0))!
+                        let header1Attributes = layout.layoutAttributesForItemAtIndexPath(NSIndexPath(forItem: 1, inSection: 0))!
+                        let row0Attributes = layout.layoutAttributesForItemAtIndexPath(NSIndexPath(forItem: 0, inSection: 1))!
+                        let row1Attributes = layout.layoutAttributesForItemAtIndexPath(NSIndexPath(forItem: 1, inSection: 1))!
+
+                        // then
+                        expect(row1Attributes.zIndex) > row0Attributes.zIndex
+                        expect(header1Attributes.zIndex) > header0Attributes.zIndex
+                        expect(header1Attributes.zIndex) > row0Attributes.zIndex
+                        expect(header1Attributes.zIndex) > row1Attributes.zIndex
+                    }
+                }
             }
 
             describe("layoutAttributesForElementsInRect") {

@@ -12,6 +12,7 @@ class StubDataGridViewDelegate: NSObject, DataGridViewDelegate {
     var sectionHeaderHeight: CGFloat = 60
     var rowHeight: CGFloat = 70
     var columnWidth: CGFloat = 100
+    var floatingColumns = [Int]()
 
     func sectionHeaderHeightForDataGridView(dataGridView: DataGridView) -> CGFloat {
         return sectionHeaderHeight
@@ -23,5 +24,9 @@ class StubDataGridViewDelegate: NSObject, DataGridViewDelegate {
 
     func dataGridView(dataGridView: DataGridView, heightForRow row: Int) -> CGFloat {
         return rowHeight
+    }
+
+    func dataGridView(dataGridView: DataGridView, shouldFloatColumn column: Int) -> Bool {
+        return floatingColumns.indexOf(column) != nil
     }
 }

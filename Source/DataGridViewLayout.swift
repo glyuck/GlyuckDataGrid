@@ -63,6 +63,18 @@ public class DataGridViewLayout: UICollectionViewLayout {
         if indexPath.section == 0 {
             attributes.zIndex = 2
         }
+        if dataGridView?.delegate?.dataGridView?(dataGridView!, shouldFloatColumn: indexPath.row) == true {
+            let scrollOffsetX = dataGridView.collectionView.contentOffset.x + collectionView!.contentInset.left
+            let floatWidths = Array(0..<indexPath.row).reduce(CGFloat(0)) {
+                if dataGridView?.delegate?.dataGridView?(dataGridView!, shouldFloatColumn: $1) == true {
+                    return $0 + widthForColumn($1)
+                } else {
+                    return $0
+                }
+            }
+            attributes.frame.origin.x = max(scrollOffsetX + floatWidths, attributes.frame.origin.x)
+            attributes.zIndex += 1
+        }
 
         return attributes
     }

@@ -24,6 +24,7 @@ private var setupAppearanceDispatchTocken = dispatch_once_t()
     optional func sectionHeaderHeightForDataGridView(dataGridView: DataGridView) -> CGFloat
     optional func dataGridView(dataGridView: DataGridView, widthForColumn column: Int) -> CGFloat
     optional func dataGridView(dataGridView: DataGridView, heightForRow row: Int) -> CGFloat
+    optional func dataGridView(dataGridView: DataGridView, shouldFloatColumn column: Int) -> Bool
 }
 
 
