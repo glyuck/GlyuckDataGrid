@@ -1,7 +1,9 @@
 //
-//  DataGridViewContentCellSpec.swift
+//  DataGridViewCellSpec.swift
+//  GlyuckDataGrid
 //
-//  Created by Vladimir Lyukov on 03/08/15.
+//  Created by Vladimir Lyukov on 12/08/15.
+//  Copyright © 2015 CocoaPods. All rights reserved.
 //
 
 import Quick
@@ -9,12 +11,12 @@ import Nimble
 import GlyuckDataGrid
 
 
-class DataGridViewContentCellSpec: QuickSpec {
+class DataGridViewCellSpec: QuickSpec {
     override func spec() {
-        var cell: DataGridViewContentCell!
+        var cell: DataGridViewCell!
 
         beforeEach {
-            cell = DataGridViewContentCell(frame: CGRect(x: 0, y: 0, width: 100, height: 60))
+            cell = DataGridViewCell(frame: CGRect(x: 0, y: 0, width: 100, height: 60))
         }
 
         describe("textLabel") {
