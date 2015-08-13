@@ -17,6 +17,8 @@ public class DataGridViewHeaderCell: DataGridViewCell {
             let appearance = self.appearance()
             appearance.backgroundColor = UIColor.whiteColor()
             appearance.textLabelInsets = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
+            appearance.borderBottomColor = UIColor(white: 0.73, alpha: 1)
+            appearance.borderBottomWidth = 1 / UIScreen.mainScreen().scale
 
             if UILabel.respondsToSelector("appearanceWhenContainedInInstancesOfClasses:") {
                 if #available(iOS 9.0, *) {
