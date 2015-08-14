@@ -20,16 +20,12 @@ public class DataGridViewHeaderCell: DataGridViewCell {
             appearance.borderBottomColor = UIColor(white: 0.73, alpha: 1)
             appearance.borderBottomWidth = 1 / UIScreen.mainScreen().scale
 
-            if UILabel.respondsToSelector("appearanceWhenContainedInInstancesOfClasses:") {
-                if #available(iOS 9.0, *) {
-                    let labelAppearance = UILabel.appearanceWhenContainedInInstancesOfClasses([self])
-                    labelAppearance.font = UIFont.systemFontOfSize(14, weight: UIFontWeightRegular)
-                    labelAppearance.textAlignment = .Center
-                    labelAppearance.adjustsFontSizeToFitWidth = true
-                    labelAppearance.minimumScaleFactor = 0.5
-                    labelAppearance.numberOfLines = 0
-                }
-            }
+            let labelAppearance = UILabel.glyuck_appearanceWhenContainedIn(self)
+            labelAppearance.font = UIFont.systemFontOfSize(14, weight: UIFontWeightRegular)
+            labelAppearance.textAlignment = .Center
+            labelAppearance.adjustsFontSizeToFitWidth = true
+            labelAppearance.minimumScaleFactor = 0.5
+            labelAppearance.numberOfLines = 0
         }
     }
 }

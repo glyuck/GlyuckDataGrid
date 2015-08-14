@@ -1,0 +1,17 @@
+//
+//  UIView+Appearance_Swift.m
+//  Pods
+//
+//  Created by Vladimir Lyukov on 14/08/15.
+//
+//
+
+#import "UIView+Appearance_Swift.h"
+
+@implementation UIView (Appearance_Swift)
+
++ (instancetype)glyuck_appearanceWhenContainedIn:(Class<UIAppearanceContainer>)containerClass {
+    return [self appearanceWhenContainedIn:containerClass, nil];
+}
+
+@end

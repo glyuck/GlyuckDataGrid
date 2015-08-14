@@ -17,14 +17,10 @@ public class DataGridViewContentCell: DataGridViewCell {
             let appearance = self.appearance()
             appearance.textLabelInsets = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
 
-            if UILabel.respondsToSelector("appearanceWhenContainedInInstancesOfClasses:") {
-                if #available(iOS 9.0, *) {
-                    let labelAppearance = UILabel.appearanceWhenContainedInInstancesOfClasses([self])
-                    labelAppearance.font = UIFont.systemFontOfSize(14, weight: UIFontWeightLight)
-                    labelAppearance.minimumScaleFactor = 0.5
-                    labelAppearance.numberOfLines = 0
-                }
-            }
+            let labelAppearance = UILabel.glyuck_appearanceWhenContainedIn(self)
+            labelAppearance.font = UIFont.systemFontOfSize(14, weight: UIFontWeightLight)
+            labelAppearance.minimumScaleFactor = 0.5
+            labelAppearance.numberOfLines = 0
         }
     }
 }
