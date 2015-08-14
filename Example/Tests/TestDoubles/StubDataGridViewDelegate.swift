@@ -27,6 +27,6 @@ class StubDataGridViewDelegate: NSObject, DataGridViewDelegate {
     }
 
     func dataGridView(dataGridView: DataGridView, shouldFloatColumn column: Int) -> Bool {
-        return floatingColumns.indexOf(column) != nil
+        return find(floatingColumns, column) != nil
     }
 }

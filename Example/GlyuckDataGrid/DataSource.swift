@@ -7,7 +7,7 @@
 import Foundation
 
 
-var f1stats = [
+let f1stats:[[String:String]] = [
     ["season": "1950", "driver": "Giuseppe Farina", "age": "44", "team": "Alfa Romeo", "engine": "Alfa Romeo", "poles": "2", "wins": "3", "podiums": "3", "fastest_laps": "3", "points": "30", "clinched": "Race 7 of 7", "point_margin": "3"],
     ["season": "1951", "driver": "Juan Manuel Fangio", "age": "40", "team": "Alfa Romeo", "engine": "Alfa Romeo", "poles": "4", "wins": "3", "podiums": "5", "fastest_laps": "5", "points": "31", "clinched": "Race 8 of 8", "point_margin": "6"],
     ["season": "1952", "driver": "Alberto Ascari", "age": "34", "team": "Ferrari", "engine": "Ferrari", "poles": "5", "wins": "6", "podiums": "6", "fastest_laps": "6", "points": "36", "clinched": "Race 6 of 8", "point_margin": "12"],

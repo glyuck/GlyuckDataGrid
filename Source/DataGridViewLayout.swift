@@ -23,7 +23,7 @@ public class DataGridViewLayout: UICollectionViewLayout {
         fatalError("init() has not been implemented")
     }
 
-    public required init?(coder aDecoder: NSCoder) {
+    public required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
@@ -32,14 +32,14 @@ public class DataGridViewLayout: UICollectionViewLayout {
     }
 
     public func widthForColumn(column: Int) -> CGFloat {
-        guard let width = dataGridView?.delegate?.dataGridView?(dataGridView!, widthForColumn: column) else {
-            if let dataGridView = dataGridView, dataSource = dataGridView.dataSource {
-                let exactWidth = dataGridView.frame.width / CGFloat(dataSource.numberOfColumnsInDataGridView(dataGridView))
-                return column == 0 ? ceil(exactWidth) : floor(exactWidth)
-            }
-            return 0
+        if let width = dataGridView?.delegate?.dataGridView?(dataGridView!, widthForColumn: column) {
+            return width
         }
-        return width
+        if let dataGridView = dataGridView, dataSource = dataGridView.dataSource {
+            let exactWidth = dataGridView.frame.width / CGFloat(dataSource.numberOfColumnsInDataGridView(dataGridView))
+            return column == 0 ? ceil(exactWidth) : floor(exactWidth)
+        }
+        return 0
     }
 
     public func heightForSectionHeader() -> CGFloat {
@@ -79,7 +79,7 @@ public class DataGridViewLayout: UICollectionViewLayout {
         return attributes
     }
 
-    public override func layoutAttributesForElementsInRect(rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
+    public override func layoutAttributesForElementsInRect(rect: CGRect) -> [AnyObject]? {
         var items = [Int]()
         var sections = [0]
 

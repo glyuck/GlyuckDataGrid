@@ -208,12 +208,15 @@ class DataGridViewLayoutSpec: QuickSpec {
                     stubDelegate.columnWidth = 100
                 }
 
-                func ensureItems(items: [Int], sections: [Int], inLayoutAttributes attributes: [UICollectionViewLayoutAttributes]) {
+                func ensureItems(items: [Int], #sections: [Int], inLayoutAttributes attributes: [AnyObject]) {
                     expect(attributes.count) == items.count * sections.count
+                    let attributes = attributes as! [UICollectionViewLayoutAttributes]
                     for item in items {
                         for section in sections {
                             let res = attributes.filter { $0.indexPath.item == item && $0.indexPath.section == section }.count == 1
-                            expect(res).to(beTrue(), description: "Expected layout attributes to contain index path IndexPath(forItem: \(item), inSection: \(section)")
+                            // Can't make description work in swift 1.2
+//                            expect(res).to(beTrue(), description: "Expected layout attributes to contain index path IndexPath(forItem: \(item), inSection: \(section)")
+                            expect(res).to(beTrue())
                         }
                     }
                 }
@@ -335,7 +338,7 @@ class DataGridViewLayoutSpec: QuickSpec {
         describe("collectionViewContentSize") {
             it("should return sum width for all columns and sum height for all rows and header") {
                 let size = layout.collectionViewContentSize()
-                expect(size.width) == Array(0..<dataGridView.numberOfColumns()).reduce(0) { $0! + layout.widthForColumn($1) }
+                expect(size.width) == Array(0..<dataGridView.numberOfColumns()).reduce(CGFloat(0)) { $0 + layout.widthForColumn($1) }
                 expect(size.height) == Array(0..<dataGridView.numberOfRows()).reduce(layout.heightForSectionHeader()) { $0 + layout.heightForRow($1) }
             }
         }
