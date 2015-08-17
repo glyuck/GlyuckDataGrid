@@ -40,12 +40,12 @@ class DataGridViewSpec: QuickSpec {
             }
 
             it("should register cell with reuseIdentifier DataGridViewHeaderCell") {
-                let cell = dataGridView.collectionView.dequeueReusableCellWithReuseIdentifier("DataGridViewHeaderCell", forIndexPath: NSIndexPath(forItem: 0, inSection: 0))
+                let cell: AnyObject = dataGridView.collectionView.dequeueReusableCellWithReuseIdentifier("DataGridViewHeaderCell", forIndexPath: NSIndexPath(forItem: 0, inSection: 0))
                 expect(cell).to(beTruthy())
             }
 
             it("should register cell with reuseIdentifier DataGridViewContentCell") {
-                let cell = dataGridView.collectionView.dequeueReusableCellWithReuseIdentifier("DataGridViewContentCell", forIndexPath: NSIndexPath(forItem: 0, inSection: 0))
+                let cell: AnyObject = dataGridView.collectionView.dequeueReusableCellWithReuseIdentifier("DataGridViewContentCell", forIndexPath: NSIndexPath(forItem: 0, inSection: 0))
                 expect(cell).to(beTruthy())
             }
 

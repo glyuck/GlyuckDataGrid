@@ -32,18 +32,22 @@ public class DataGridDataSourceWrapper: NSObject, UICollectionViewDataSource {
     }
 
     public func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        let column = indexPath.row
+        let row = indexPath.section - 1
         if indexPath.section == 0 {
             let cell = collectionView.dequeueReusableCellWithReuseIdentifier("DataGridViewHeaderCell", forIndexPath: indexPath) as! DataGridViewHeaderCell
-            cell.textLabel.text = dataGridDataSource.dataGridView(dataGridView, titleForHeaderForColumn: indexPath.row)
+            cell.textLabel.text = dataGridDataSource.dataGridView(dataGridView, titleForHeaderForColumn: column)
+            dataGridDataSource?.dataGridView?(dataGridView, configureHeaderCell: cell, atColumn: column)
             return cell
         } else {
             let cell = collectionView.dequeueReusableCellWithReuseIdentifier("DataGridViewContentCell", forIndexPath: indexPath) as! DataGridViewContentCell
-            cell.textLabel.text = dataGridDataSource.dataGridView(dataGridView, textForColumn: indexPath.row, atRow: indexPath.section - 1)
-            if indexPath.section % 2 == 1 {
+            cell.textLabel.text = dataGridDataSource.dataGridView(dataGridView, textForColumn: column, atRow: row)
+            if row % 2 == 0 {
                 cell.backgroundColor = dataGridView.row1BackgroundColor
             } else {
                 cell.backgroundColor = dataGridView.row2BackgroundColor
             }
+            dataGridDataSource?.dataGridView?(dataGridView, configureContentCell: cell, atColumn: column, row: row)
             return cell
         }
     }

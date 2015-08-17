@@ -58,6 +58,13 @@ class DataGridDataSourceWrapperSpec: QuickSpec {
                     let cell = dataSourceWrapper.collectionView(dataGridView.collectionView, cellForItemAtIndexPath: NSIndexPath(forItem: 1, inSection: 0)) as! DataGridViewHeaderCell
                     expect(cell.textLabel.text) == "Title for column 1"
                 }
+
+                it("should call dataSource.dataGridView:configureHeaderCell:atColumn:") {
+                    stubDataSource.configureHeaderCellBlock = { (cell, column) in cell.tag = 100 + column }
+
+                    let cell = dataSourceWrapper.collectionView(dataGridView.collectionView, cellForItemAtIndexPath: NSIndexPath(forItem: 1, inSection: 0)) as! DataGridViewHeaderCell
+                    expect(cell.tag) == 101
+                }
             }
 
             context("for content cells") {
@@ -74,6 +81,13 @@ class DataGridDataSourceWrapperSpec: QuickSpec {
                 it("should configure cell 1,2 with corresponding text") {
                     let cell = dataSourceWrapper.collectionView(dataGridView.collectionView, cellForItemAtIndexPath: NSIndexPath(forItem: 1, inSection: 3)) as! DataGridViewContentCell
                     expect(cell.textLabel.text) == "Text for cell 1x2"
+                }
+
+                it("should call dataSource.dataGridView:configureContentCell:atColumn:") {
+                    stubDataSource.configureContentCellBlock = { (cell, column, row) in cell.tag = column * 100 + row }
+
+                    let cell = dataSourceWrapper.collectionView(dataGridView.collectionView, cellForItemAtIndexPath: NSIndexPath(forItem: 2, inSection: 2)) as! DataGridViewContentCell
+                    expect(cell.tag) == 201
                 }
 
                 context("zebra-striped tables") {

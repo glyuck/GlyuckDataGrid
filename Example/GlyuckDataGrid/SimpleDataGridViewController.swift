@@ -11,7 +11,7 @@ import GlyuckDataGrid
 class SimpleDataGridViewController: UIViewController, DataGridViewDataSource, DataGridViewDelegate {
     var columnsTitles = ["Year", "Driver", "Age", "Team", "Engine", "Poles", "Wins", "Podiums", "Fastest\nlaps", "Points", "Clinched", "Points\nmargin"]
     var columns = ["season", "driver", "age", "team", "engine", "poles", "wins", "podiums", "fastest_laps", "points", "clinched", "point_margin"]
-    var columnsWidths: [CGFloat] = [60, 200, 50, 120, 100, 50, 50, 65, 50, 50, 120, 50]
+    var columnsWidths: [CGFloat] = [60, 200, 50, 120, 110, 50, 50, 65, 50, 50, 130, 60]
 
     @IBOutlet weak var dataGridView: DataGridView!
     override func viewDidLoad() {
@@ -38,6 +38,30 @@ class SimpleDataGridViewController: UIViewController, DataGridViewDataSource, Da
     func dataGridView(dataGridView: DataGridView, textForColumn column: Int, atRow row: Int) -> String {
         let fieldName = columns[column]
         return f1stats[row][fieldName]!
+    }
+
+    func dataGridView(dataGridView: DataGridView, configureHeaderCell cell: DataGridViewHeaderCell, atColumn column: Int) {
+        if column == 1 {
+            cell.border.rightWidth = 1 / UIScreen.mainScreen().scale
+            cell.border.rightColor = UIColor(white: 0.72, alpha: 1)
+        } else {
+            cell.border.rightWidth = 0
+        }
+    }
+
+    func dataGridView(dataGridView: DataGridView, configureContentCell cell: DataGridViewContentCell, atColumn column: Int, row: Int) {
+        switch column {
+        case 0,2,5,6,7,8,9,11:
+            cell.textLabel.textAlignment = .Right
+        default:
+            cell.textLabel.textAlignment = .Left
+        }
+        if column == 1 {
+            cell.border.rightWidth = 1 / UIScreen.mainScreen().scale
+            cell.border.rightColor = UIColor(white: 0.72, alpha: 1)
+        } else {
+            cell.border.rightWidth = 0
+        }
     }
 
     // MARK: DataGridViewDelegate
