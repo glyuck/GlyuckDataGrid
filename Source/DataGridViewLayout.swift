@@ -79,7 +79,7 @@ public class DataGridViewLayout: UICollectionViewLayout {
         return attributes
     }
 
-    public override func layoutAttributesForElementsInRect(rect: CGRect) -> [AnyObject]? {
+    public override func layoutAttributesForElementsInRect(rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
         var items = [Int]()
         var sections = [0]
 

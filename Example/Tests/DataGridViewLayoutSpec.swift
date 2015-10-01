@@ -208,7 +208,7 @@ class DataGridViewLayoutSpec: QuickSpec {
                     stubDelegate.columnWidth = 100
                 }
 
-                func ensureItems(items: [Int], #sections: [Int], inLayoutAttributes attributes: [AnyObject]) {
+                func ensureItems(items: [Int], sections: [Int], inLayoutAttributes attributes: [AnyObject]) {
                     expect(attributes.count) == items.count * sections.count
                     let attributes = attributes as! [UICollectionViewLayoutAttributes]
                     for item in items {
