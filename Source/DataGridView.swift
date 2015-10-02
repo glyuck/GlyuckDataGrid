@@ -27,6 +27,8 @@ private var setupAppearanceDispatchTocken = dispatch_once_t()
     optional func dataGridView(dataGridView: DataGridView, widthForColumn column: Int) -> CGFloat
     optional func dataGridView(dataGridView: DataGridView, heightForRow row: Int) -> CGFloat
     optional func dataGridView(dataGridView: DataGridView, shouldFloatColumn column: Int) -> Bool
+    optional func dataGridView(dataGridView: DataGridView, shouldSortByColumn column: Int) -> Bool
+    optional func dataGridView(dataGridView: DataGridView, didSortByColumn column: Int, ascending: Bool)
 }
 
 
@@ -78,6 +80,16 @@ public class DataGridView: UIView {
     public dynamic var row1BackgroundColor: UIColor?
     public dynamic var row2BackgroundColor: UIColor?
 
+    private(set) public var sortColumn: Int?
+    private(set) public var sortAscending = true
+
+    public func setSortColumn(column: Int, ascending: Bool) {
+        sortColumn = column
+        sortAscending = ascending
+        delegate?.dataGridView?(self, didSortByColumn: column, ascending: ascending)
+        reloadData()
+    }
+
     public func numberOfColumns() -> Int {
         return dataSource?.numberOfColumnsInDataGridView(self) ?? 0
     }
@@ -94,6 +106,11 @@ public class DataGridView: UIView {
             appearance.row2BackgroundColor = UIColor.whiteColor()
         }
     }
+
+    public func reloadData() {
+        collectionView.reloadData()
+    }
+
     // UIScrollView
 
     public var contentOffset: CGPoint {

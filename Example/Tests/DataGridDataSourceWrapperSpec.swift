@@ -11,11 +11,13 @@ import GlyuckDataGrid
 
 class DataGridDataSourceWrapperSpec: QuickSpec {
     override func spec() {
-        let dataGridView = DataGridView()
-        let stubDataSource = StubDataGridViewDataSource()
+        var dataGridView: DataGridView!
+        var stubDataSource: StubDataGridViewDataSource!
         var dataSourceWrapper: DataGridDataSourceWrapper!
 
         beforeEach {
+            dataGridView = DataGridView(frame: CGRect(x: 0, y: 0, width: 400, height: 400))
+            stubDataSource = StubDataGridViewDataSource()
             dataGridView.dataSource = stubDataSource
             dataSourceWrapper = dataGridView.dataSourceWrapper
         }
@@ -64,6 +66,20 @@ class DataGridDataSourceWrapperSpec: QuickSpec {
 
                     let cell = dataSourceWrapper.collectionView(dataGridView.collectionView, cellForItemAtIndexPath: NSIndexPath(forItem: 1, inSection: 0)) as! DataGridViewHeaderCell
                     expect(cell.tag) == 101
+                }
+
+                it("should add sorting symbol when dataGridView is sorted by this column ascending") {
+                    dataGridView.setSortColumn(0, ascending: true)
+
+                    let cell = dataSourceWrapper.collectionView(dataGridView.collectionView, cellForItemAtIndexPath: NSIndexPath(forItem: 0, inSection: 0)) as! DataGridViewHeaderCell
+                    expect(cell.textLabel.text) == "Title for column 0 ↑"
+                }
+
+                it("should add sorting symbol when dataGridView is sorted by this column descending") {
+                    dataGridView.setSortColumn(0, ascending: false)
+
+                    let cell = dataSourceWrapper.collectionView(dataGridView.collectionView, cellForItemAtIndexPath: NSIndexPath(forItem: 0, inSection: 0)) as! DataGridViewHeaderCell
+                    expect(cell.textLabel.text) == "Title for column 0 ↓"
                 }
             }
 

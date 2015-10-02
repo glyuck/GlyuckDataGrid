@@ -13,6 +13,8 @@ class StubDataGridViewDelegate: NSObject, DataGridViewDelegate {
     var rowHeight: CGFloat = 70
     var columnWidth: CGFloat = 100
     var floatingColumns = [Int]()
+    var shouldSortByColumnBlock: ((column: Int) -> Bool)?
+    var didSortByColumnBlock: ((column: Int) -> Bool)?
 
     func sectionHeaderHeightForDataGridView(dataGridView: DataGridView) -> CGFloat {
         return sectionHeaderHeight
@@ -29,4 +31,16 @@ class StubDataGridViewDelegate: NSObject, DataGridViewDelegate {
     func dataGridView(dataGridView: DataGridView, shouldFloatColumn column: Int) -> Bool {
         return floatingColumns.indexOf(column) != nil
     }
+
+    func dataGridView(dataGridView: DataGridView, shouldSortByColumn column: Int) -> Bool {
+        return shouldSortByColumnBlock?(column: column) ?? true
+    }
+
+    func dataGridView(dataGridView: DataGridView, didSortByColumn column: Int) {
+        didSortByColumnBlock?(column: column)
+    }
+}
+
+
+class StubMinimumDataGridViewDelegate: DataGridViewDelegate {
 }

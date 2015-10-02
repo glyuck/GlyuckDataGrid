@@ -36,7 +36,11 @@ public class DataGridDataSourceWrapper: NSObject, UICollectionViewDataSource {
         let row = indexPath.section - 1
         if indexPath.section == 0 {
             let cell = collectionView.dequeueReusableCellWithReuseIdentifier("DataGridViewHeaderCell", forIndexPath: indexPath) as! DataGridViewHeaderCell
-            cell.textLabel.text = dataGridDataSource.dataGridView(dataGridView, titleForHeaderForColumn: column)
+            var text = dataGridDataSource.dataGridView(dataGridView, titleForHeaderForColumn: column)
+            if dataGridView.sortColumn == column {
+                text += dataGridView.sortAscending ? " ↑" : " ↓"
+            }
+            cell.textLabel.text = text
             dataGridDataSource?.dataGridView?(dataGridView, configureHeaderCell: cell, atColumn: column)
             return cell
         } else {
