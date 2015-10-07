@@ -18,7 +18,11 @@ public class DataGridViewContentCell: DataGridViewCell {
             appearance.textLabelInsets = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
 
             let labelAppearance = UILabel.glyuck_appearanceWhenContainedIn(self)
-            labelAppearance.font = UIFont.systemFontOfSize(14, weight: UIFontWeightLight)
+            if #available(iOS 8.2, *) {
+                labelAppearance.font = UIFont.systemFontOfSize(14, weight: UIFontWeightLight)
+            } else {
+                labelAppearance.font = UIFont(name: "HelveticaNeue-Light", size: 14)
+            }
             labelAppearance.minimumScaleFactor = 0.5
             labelAppearance.numberOfLines = 0
         }

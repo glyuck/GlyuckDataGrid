@@ -21,7 +21,11 @@ public class DataGridViewHeaderCell: DataGridViewCell {
             appearance.borderBottomWidth = 1 / UIScreen.mainScreen().scale
 
             let labelAppearance = UILabel.glyuck_appearanceWhenContainedIn(self)
-            labelAppearance.font = UIFont.systemFontOfSize(14, weight: UIFontWeightRegular)
+            if #available(iOS 8.2, *) {
+                labelAppearance.font = UIFont.systemFontOfSize(14, weight: UIFontWeightRegular)
+            } else {
+                labelAppearance.font = UIFont(name: "HelveticaNeue", size: 14)
+            }
             labelAppearance.textAlignment = .Center
             labelAppearance.adjustsFontSizeToFitWidth = true
             labelAppearance.minimumScaleFactor = 0.5
