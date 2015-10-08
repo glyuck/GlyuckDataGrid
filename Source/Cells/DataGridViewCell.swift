@@ -19,8 +19,7 @@ public class DataGridViewCell: UICollectionViewCell {
     }()
 
     private(set) public lazy var textLabel: UILabel = {
-        let label = UILabel(frame: self.frame)
-        label.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+        let label = UILabel(frame: self.bounds)
         self.contentView.addSubview(label)
         return label
         }()

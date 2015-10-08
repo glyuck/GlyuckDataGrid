@@ -34,7 +34,7 @@ private var setupAppearanceDispatchTocken = dispatch_once_t()
 
 public class DataGridView: UIView {
     private(set) public lazy var collectionView: UICollectionView = {
-        let collectionView = UICollectionView(frame: self.frame, collectionViewLayout: self.layout)
+        let collectionView = UICollectionView(frame: self.bounds, collectionViewLayout: self.layout)
         collectionView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
         collectionView.registerClass(DataGridViewHeaderCell.classForCoder(), forCellWithReuseIdentifier: "DataGridViewHeaderCell")
         collectionView.registerClass(DataGridViewContentCell.classForCoder(), forCellWithReuseIdentifier: "DataGridViewContentCell")
