@@ -39,6 +39,9 @@ public class DataGridDataSourceWrapper: NSObject, UICollectionViewDataSource {
             var text = dataGridDataSource.dataGridView(dataGridView, titleForHeaderForColumn: column)
             if dataGridView.sortColumn == column {
                 text += dataGridView.sortAscending ? " ↑" : " ↓"
+                cell.isSorted = true
+            } else {
+                cell.isSorted = false
             }
             cell.textLabel.text = text
             dataGridDataSource?.dataGridView?(dataGridView, configureHeaderCell: cell, atColumn: column)

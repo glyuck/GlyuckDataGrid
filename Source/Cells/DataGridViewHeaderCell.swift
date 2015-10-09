@@ -11,12 +11,22 @@ private var setupAppearanceDispatchTocken = dispatch_once_t()
 
 
 public class DataGridViewHeaderCell: DataGridViewCell {
+    public dynamic var normalBackgroundColor: UIColor?
+    public dynamic var sortedBackgroundColor: UIColor?
+    public var isSorted: Bool = false {
+        didSet {
+            backgroundColor = isSorted ? sortedBackgroundColor : normalBackgroundColor
+        }
+    }
+
     public override static func initialize() {
         super.initialize()
         dispatch_once(&setupAppearanceDispatchTocken) {
             let appearance = self.appearance()
             appearance.backgroundColor = UIColor.whiteColor()
-            appearance.textLabelInsets = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
+            appearance.normalBackgroundColor = UIColor.whiteColor()
+            appearance.sortedBackgroundColor = UIColor(white: 220.0/255.0, alpha: 1)
+            appearance.textLabelInsets = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
             appearance.borderBottomColor = UIColor(white: 0.73, alpha: 1)
             appearance.borderBottomWidth = 1 / UIScreen.mainScreen().scale
 

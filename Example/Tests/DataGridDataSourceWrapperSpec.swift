@@ -81,6 +81,21 @@ class DataGridDataSourceWrapperSpec: QuickSpec {
                     let cell = dataSourceWrapper.collectionView(dataGridView.collectionView, cellForItemAtIndexPath: NSIndexPath(forItem: 0, inSection: 0)) as! DataGridViewHeaderCell
                     expect(cell.textLabel.text) == "Title for column 0 ↓"
                 }
+
+                it("should set cell.isSorted when sorted by this column") {
+                    dataGridView.setSortColumn(0, ascending: false)
+
+                    let cell = dataSourceWrapper.collectionView(dataGridView.collectionView, cellForItemAtIndexPath: NSIndexPath(forItem: 0, inSection: 0)) as! DataGridViewHeaderCell
+                    expect(cell.isSorted).to(beTrue())
+                }
+
+                it("should not set cell.isSoretd unless sorted by this column") {
+                    dataGridView.setSortColumn(0, ascending: false)
+
+                    let cell = dataSourceWrapper.collectionView(dataGridView.collectionView, cellForItemAtIndexPath: NSIndexPath(forItem: 1, inSection: 0)) as! DataGridViewHeaderCell
+                    expect(cell.isSorted).to(beFalse())
+
+                }
             }
 
             context("for content cells") {
