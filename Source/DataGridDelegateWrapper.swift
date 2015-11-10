@@ -34,7 +34,27 @@ public class DataGridDelegateWrapper:  NSObject, UICollectionViewDelegate {
             } else {
                 dataGridView.setSortColumn(column, ascending: true)
             }
-            collectionView.deselectItemAtIndexPath(indexPath, animated: true)
+        } else {
+            dataGridView.selectRow(indexPath.section - 1, animated: false)
+            dataGridDelegate.dataGridView?(dataGridView, didSelectRow: indexPath.section - 1)
+        }
+    }
+
+    public func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath) {
+        if indexPath.section > 0 {
+            dataGridView.deselectRow(indexPath.section - 1, animated: false)
+        }
+    }
+
+    public func collectionView(collectionView: UICollectionView, didHighlightItemAtIndexPath indexPath: NSIndexPath) {
+        if indexPath.section > 0 {
+            dataGridView.highlightRow(indexPath.section-1)
+        }
+    }
+
+    public func collectionView(collectionView: UICollectionView, didUnhighlightItemAtIndexPath indexPath: NSIndexPath) {
+        if indexPath.section > 0 {
+            dataGridView.unhighlightRow(indexPath.section-1)
         }
     }
 }

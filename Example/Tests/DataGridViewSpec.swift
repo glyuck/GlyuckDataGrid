@@ -16,13 +16,10 @@ class DataGridViewSpec: QuickSpec {
 
         beforeEach {
             dataGridView = DataGridView(frame: CGRect(x: 0, y: 0, width: 320, height: 480))
+            dataGridView.dataSource = stubDataSource
         }
 
         describe("collectionView") {
-            beforeEach {
-                dataGridView.dataSource = stubDataSource
-            }
-
             it("should not be nil") {
                 expect(dataGridView.collectionView).to(beTruthy())
             }
@@ -116,6 +113,40 @@ class DataGridViewSpec: QuickSpec {
             it("should return 0 if dataSource is nil") {
                 dataGridView.dataSource = nil
                 expect(dataGridView.numberOfRows()) == 0
+            }
+        }
+
+        describe("selectRow:animated:") {
+            it("should select all items in corresponding section") {
+                let row = 1
+                dataGridView.selectRow(row, animated: false)
+
+                expect(dataGridView.collectionView.indexPathsForSelectedItems()?.count) == dataGridView.numberOfColumns()
+                for i in 0..<dataGridView.numberOfColumns() {
+                    let indexPath = NSIndexPath(forItem: i, inSection: row + 1)
+                    expect(dataGridView.collectionView.indexPathsForSelectedItems()).to(contain(indexPath))
+                }
+            }
+            it("should deselect previously selected row") {
+                let row = 1
+                dataGridView.selectRow(0, animated: false)
+                dataGridView.selectRow(row, animated: false)
+
+                expect(dataGridView.collectionView.indexPathsForSelectedItems()?.count) == dataGridView.numberOfColumns()
+                for i in 0..<dataGridView.numberOfColumns() {
+                    let indexPath = NSIndexPath(forItem: i, inSection: row + 1)
+                    expect(dataGridView.collectionView.indexPathsForSelectedItems()).to(contain(indexPath))
+                }
+            }
+        }
+
+        describe("deselectRow:animated:") {
+            it("should deselect all items in corresponding section") {
+                let row = 1
+                dataGridView.selectRow(row, animated: false)
+                dataGridView.deselectRow(row, animated: false)
+
+                expect(dataGridView.collectionView.indexPathsForSelectedItems()?.count) == 0
             }
         }
     }

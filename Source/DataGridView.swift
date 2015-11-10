@@ -29,6 +29,7 @@ private var setupAppearanceDispatchTocken = dispatch_once_t()
     optional func dataGridView(dataGridView: DataGridView, shouldFloatColumn column: Int) -> Bool
     optional func dataGridView(dataGridView: DataGridView, shouldSortByColumn column: Int) -> Bool
     optional func dataGridView(dataGridView: DataGridView, didSortByColumn column: Int, ascending: Bool)
+    optional func dataGridView(dataGridView: DataGridView, didSelectRow row: Int)
 }
 
 
@@ -39,6 +40,7 @@ public class DataGridView: UIView {
         collectionView.registerClass(DataGridViewHeaderCell.classForCoder(), forCellWithReuseIdentifier: "DataGridViewHeaderCell")
         collectionView.registerClass(DataGridViewContentCell.classForCoder(), forCellWithReuseIdentifier: "DataGridViewContentCell")
         collectionView.backgroundColor = UIColor.clearColor()
+        collectionView.allowsMultipleSelection = true
         self.addSubview(collectionView)
         return collectionView
     }()
@@ -109,6 +111,39 @@ public class DataGridView: UIView {
 
     public func reloadData() {
         collectionView.reloadData()
+    }
+
+    public func highlightRow(row: Int) {
+        for column in 0..<numberOfColumns() {
+            let indexPath = NSIndexPath(forItem: column, inSection: row+1)
+            if let cell = collectionView.cellForItemAtIndexPath(indexPath) {
+                cell.highlighted = true
+            }
+        }
+    }
+
+    public func unhighlightRow(row: Int) {
+        for column in 0..<numberOfColumns() {
+            let indexPath = NSIndexPath(forItem: column, inSection: row+1)
+            if let cell = collectionView.cellForItemAtIndexPath(indexPath) {
+                cell.highlighted = false
+            }
+        }
+    }
+
+    public func selectRow(row: Int, animated: Bool) {
+        collectionView.indexPathsForSelectedItems()?.forEach { collectionView.deselectItemAtIndexPath($0, animated: animated) }
+        for column in 0..<numberOfColumns() {
+            let indexPath = NSIndexPath(forItem: column, inSection: row+1)
+            collectionView.selectItemAtIndexPath(indexPath, animated: animated, scrollPosition: .None)
+        }
+    }
+
+    public func deselectRow(row: Int, animated: Bool) {
+        for column in 0..<numberOfColumns() {
+            let indexPath = NSIndexPath(forItem: column, inSection: row+1)
+            collectionView.deselectItemAtIndexPath(indexPath, animated: animated)
+        }
     }
 
     // UIScrollView
