@@ -51,18 +51,15 @@ public class DataGridViewLayout: UICollectionViewLayout {
     public override func layoutAttributesForItemAtIndexPath(indexPath: NSIndexPath) -> UICollectionViewLayoutAttributes? {
         let attributes = UICollectionViewLayoutAttributes(forCellWithIndexPath: indexPath)
         let x = Array(0..<indexPath.row).reduce(0) { $0 + widthForColumn($1)}
-        let y = indexPath.section == 0 ? dataGridView.collectionView.contentOffset.y + collectionView!.contentInset.top : Array(0..<indexPath.section-1).reduce(heightForSectionHeader()) { $0 + heightForRow($1)}
+        let y = Array(0..<indexPath.section).reduce(heightForSectionHeader()) { $0 + heightForRow($1)}
         let width = widthForColumn(indexPath.row)
-        let height = indexPath.section == 0 ? heightForSectionHeader() : heightForRow(indexPath.section - 1)
+        let height = heightForRow(indexPath.section)
         attributes.frame = CGRect(
             x: max(0, x),
             y: max(0, y),
             width: width,
             height: height
         )
-        if indexPath.section == 0 {
-            attributes.zIndex = 2
-        }
         if dataGridView?.delegate?.dataGridView?(dataGridView!, shouldFloatColumn: indexPath.row) == true {
             let scrollOffsetX = dataGridView.collectionView.contentOffset.x + collectionView!.contentInset.left
             let floatWidths = Array(0..<indexPath.row).reduce(CGFloat(0)) {
@@ -79,9 +76,40 @@ public class DataGridViewLayout: UICollectionViewLayout {
         return attributes
     }
 
+    public override func layoutAttributesForSupplementaryViewOfKind(elementKind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionViewLayoutAttributes? {
+        guard indexPath.section == 0 && elementKind == DataGridView.SupplementaryViewKind.Header.rawValue else {
+            return nil
+        }
+        let attributes = UICollectionViewLayoutAttributes(forSupplementaryViewOfKind: elementKind, withIndexPath: indexPath)
+        let x = Array(0..<indexPath.row).reduce(0) { $0 + widthForColumn($1)}
+        let y = dataGridView.collectionView.contentOffset.y + collectionView!.contentInset.top
+        let width = widthForColumn(indexPath.row)
+        let height = heightForSectionHeader()
+        attributes.frame = CGRect(
+                x: max(0, x),
+                y: max(0, y),
+                width: width,
+                height: height
+            )
+        attributes.zIndex = 2
+        if dataGridView?.delegate?.dataGridView?(dataGridView!, shouldFloatColumn: indexPath.row) == true {
+            let scrollOffsetX = dataGridView.collectionView.contentOffset.x + collectionView!.contentInset.left
+            let floatWidths = Array(0..<indexPath.row).reduce(CGFloat(0)) {
+                if dataGridView?.delegate?.dataGridView?(dataGridView!, shouldFloatColumn: $1) == true {
+                    return $0 + widthForColumn($1)
+                } else {
+                    return $0
+                }
+            }
+            attributes.frame.origin.x = max(scrollOffsetX + floatWidths, attributes.frame.origin.x)
+            attributes.zIndex += 1
+        }
+        return attributes
+    }
+
     public override func layoutAttributesForElementsInRect(rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
         var items = [Int]()
-        var sections = [0]
+        var sections = [Int]()
 
         var x:CGFloat = 0
         for i in (0..<dataGridView.numberOfColumns()) {
@@ -105,15 +133,20 @@ public class DataGridViewLayout: UICollectionViewLayout {
 
             let nextY = y + heightForRow(0)
             if y - headerHeight >= rect.minY || nextY - headerHeight > rect.minY {
-                sections.append(i+1)
+                sections.append(i)
             }
             y = nextY
         }
 
         var result = [UICollectionViewLayoutAttributes]()
         for item in items {
+            let headerIndexPath = NSIndexPath(forItem: item, inSection: 0)
+            if let headerAttributes = layoutAttributesForSupplementaryViewOfKind(DataGridView.SupplementaryViewKind.Header.rawValue, atIndexPath: headerIndexPath) {
+                result.append(headerAttributes)
+            }
             for section in sections {
-                result.append(layoutAttributesForItemAtIndexPath(NSIndexPath(forItem: item, inSection: section))!)
+                let indexPath = NSIndexPath(forItem: item, inSection: section)
+                result.append(layoutAttributesForItemAtIndexPath(indexPath)!)
             }
         }
 

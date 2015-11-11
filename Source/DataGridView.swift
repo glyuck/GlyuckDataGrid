@@ -34,10 +34,14 @@ private var setupAppearanceDispatchTocken = dispatch_once_t()
 
 
 public class DataGridView: UIView {
+    public enum SupplementaryViewKind: String {
+        case Header = "Header"
+    }
+
     private(set) public lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: self.bounds, collectionViewLayout: self.layout)
         collectionView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
-        collectionView.registerClass(DataGridViewHeaderCell.classForCoder(), forCellWithReuseIdentifier: "DataGridViewHeaderCell")
+        collectionView.registerClass(DataGridViewHeaderCell.classForCoder(), forSupplementaryViewOfKind: SupplementaryViewKind.Header.rawValue, withReuseIdentifier:"DataGridViewHeaderCell")
         collectionView.registerClass(DataGridViewContentCell.classForCoder(), forCellWithReuseIdentifier: "DataGridViewContentCell")
         collectionView.backgroundColor = UIColor.clearColor()
         collectionView.allowsMultipleSelection = true
@@ -115,7 +119,7 @@ public class DataGridView: UIView {
 
     public func highlightRow(row: Int) {
         for column in 0..<numberOfColumns() {
-            let indexPath = NSIndexPath(forItem: column, inSection: row+1)
+            let indexPath = NSIndexPath(forItem: column, inSection: row)
             if let cell = collectionView.cellForItemAtIndexPath(indexPath) {
                 cell.highlighted = true
             }
@@ -124,7 +128,7 @@ public class DataGridView: UIView {
 
     public func unhighlightRow(row: Int) {
         for column in 0..<numberOfColumns() {
-            let indexPath = NSIndexPath(forItem: column, inSection: row+1)
+            let indexPath = NSIndexPath(forItem: column, inSection: row)
             if let cell = collectionView.cellForItemAtIndexPath(indexPath) {
                 cell.highlighted = false
             }
@@ -134,14 +138,14 @@ public class DataGridView: UIView {
     public func selectRow(row: Int, animated: Bool) {
         collectionView.indexPathsForSelectedItems()?.forEach { collectionView.deselectItemAtIndexPath($0, animated: animated) }
         for column in 0..<numberOfColumns() {
-            let indexPath = NSIndexPath(forItem: column, inSection: row+1)
+            let indexPath = NSIndexPath(forItem: column, inSection: row)
             collectionView.selectItemAtIndexPath(indexPath, animated: animated, scrollPosition: .None)
         }
     }
 
     public func deselectRow(row: Int, animated: Bool) {
         for column in 0..<numberOfColumns() {
-            let indexPath = NSIndexPath(forItem: column, inSection: row+1)
+            let indexPath = NSIndexPath(forItem: column, inSection: row)
             collectionView.deselectItemAtIndexPath(indexPath, animated: animated)
         }
     }

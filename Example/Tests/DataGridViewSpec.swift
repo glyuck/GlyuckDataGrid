@@ -12,11 +12,13 @@ import GlyuckDataGrid
 class DataGridViewSpec: QuickSpec {
     override func spec() {
         var dataGridView: DataGridView!
-        let stubDataSource = StubDataGridViewDataSource()
+        var stubDataSource: StubDataGridViewDataSource!
 
         beforeEach {
+            stubDataSource = StubDataGridViewDataSource()
             dataGridView = DataGridView(frame: CGRect(x: 0, y: 0, width: 320, height: 480))
             dataGridView.dataSource = stubDataSource
+            dataGridView.collectionView.layoutIfNeeded()
         }
 
         describe("collectionView") {
@@ -36,8 +38,8 @@ class DataGridViewSpec: QuickSpec {
                 expect(dataGridView.collectionView.frame) == dataGridView.frame
             }
 
-            it("should register cell with reuseIdentifier DataGridViewHeaderCell") {
-                let cell: AnyObject = dataGridView.collectionView.dequeueReusableCellWithReuseIdentifier("DataGridViewHeaderCell", forIndexPath: NSIndexPath(forItem: 0, inSection: 0))
+            it("should register supplementary view with reuseIdentifier DataGridViewHeaderCell") {
+                let cell: AnyObject = dataGridView.collectionView.dequeueReusableSupplementaryViewOfKind(DataGridView.SupplementaryViewKind.Header.rawValue, withReuseIdentifier: "DataGridViewHeaderCell", forIndexPath: NSIndexPath(forItem: 0, inSection: 0))
                 expect(cell).to(beTruthy())
             }
 
@@ -123,7 +125,7 @@ class DataGridViewSpec: QuickSpec {
 
                 expect(dataGridView.collectionView.indexPathsForSelectedItems()?.count) == dataGridView.numberOfColumns()
                 for i in 0..<dataGridView.numberOfColumns() {
-                    let indexPath = NSIndexPath(forItem: i, inSection: row + 1)
+                    let indexPath = NSIndexPath(forItem: i, inSection: row)
                     expect(dataGridView.collectionView.indexPathsForSelectedItems()).to(contain(indexPath))
                 }
             }
@@ -134,7 +136,7 @@ class DataGridViewSpec: QuickSpec {
 
                 expect(dataGridView.collectionView.indexPathsForSelectedItems()?.count) == dataGridView.numberOfColumns()
                 for i in 0..<dataGridView.numberOfColumns() {
-                    let indexPath = NSIndexPath(forItem: i, inSection: row + 1)
+                    let indexPath = NSIndexPath(forItem: i, inSection: row)
                     expect(dataGridView.collectionView.indexPathsForSelectedItems()).to(contain(indexPath))
                 }
             }
