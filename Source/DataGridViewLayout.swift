@@ -118,7 +118,8 @@ public class DataGridViewLayout: UICollectionViewLayout {
             }
 
             let nextX = x + widthForColumn(i)
-            if x >= rect.minX || nextX > rect.minX {
+            if x >= rect.minX || nextX > rect.minX ||
+                    dataGridView?.delegate?.dataGridView?(dataGridView!, shouldFloatColumn: i) == true {
                 items.append(i)
             }
             x = nextX

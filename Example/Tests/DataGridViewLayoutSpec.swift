@@ -277,6 +277,15 @@ class DataGridViewLayoutSpec: QuickSpec {
 
                     ensureItems([0, 1], sections: [1], inLayoutAttributes: attributes!)
                 }
+
+                it("should return floating columns") {
+                    stubDelegate.floatingColumns = [0, 2]
+                    let rect = CGRect(x: 4*stubDelegate.columnWidth, y: 0, width: 3*stubDelegate.columnWidth, height: stubDelegate.rowHeight + stubDelegate.sectionHeaderHeight)
+
+                    let attributes = layout.layoutAttributesForElementsInRect(rect)
+
+                    ensureItems([0, 2, 4, 5, 6], sections: [0], inLayoutAttributes: attributes!)
+                }
             }
         }
 
