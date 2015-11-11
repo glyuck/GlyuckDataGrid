@@ -34,4 +34,18 @@ public class DataGridDelegateWrapper:  NSObject, UICollectionViewDelegate {
     public func collectionView(collectionView: UICollectionView, didUnhighlightItemAtIndexPath indexPath: NSIndexPath) {
         dataGridView.unhighlightRow(indexPath.section)
     }
+
+    // MARK: - Custom delegate methods
+
+    public func collectionView(collectionView: UICollectionView, shouldHighlightHeaderForColumn column: Int) -> Bool {
+        return dataGridDelegate.dataGridView?(dataGridView, shouldSortByColumn: column) ?? false
+    }
+
+    public func collectionView(collectionView: UICollectionView, didTapHeaderForColumn column: Int) {
+        if dataGridView.sortColumn == column {
+            dataGridView.setSortColumn(column, ascending: !dataGridView.sortAscending)
+        } else {
+            dataGridView.setSortColumn(column, ascending: true)
+        }
+    }
 }

@@ -48,6 +48,7 @@ public class DataGridDataSourceWrapper: NSObject, UICollectionViewDataSource {
     public func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
         let column = indexPath.row
         let cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: "DataGridViewHeaderCell", forIndexPath: indexPath) as! DataGridViewHeaderCell
+        cell.configureForDataGridView(dataGridView, indexPath: indexPath)
         var text = dataGridDataSource.dataGridView(dataGridView, titleForHeaderForColumn: column)
         if dataGridView.sortColumn == column {
             text += dataGridView.sortAscending ? " ↑" : " ↓"

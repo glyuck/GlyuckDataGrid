@@ -13,12 +13,15 @@ private var setupAppearanceDispatchTocken = dispatch_once_t()
 public class DataGridViewHeaderCell: DataGridViewCell {
     public dynamic var normalBackgroundColor: UIColor?
     public dynamic var sortedBackgroundColor: UIColor?
+    public var dataGridView: DataGridView!
+    public var indexPath: NSIndexPath!
     public var isSorted: Bool = false {
         didSet {
             backgroundColor = isSorted ? sortedBackgroundColor : normalBackgroundColor
         }
     }
 
+    // MARK: - UIView
     public override static func initialize() {
         super.initialize()
         dispatch_once(&setupAppearanceDispatchTocken) {
@@ -41,5 +44,31 @@ public class DataGridViewHeaderCell: DataGridViewCell {
             labelAppearance.minimumScaleFactor = 0.5
             labelAppearance.numberOfLines = 0
         }
+    }
+
+    public override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupDataGridViewHeaderCell()
+    }
+
+    public required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        setupDataGridViewHeaderCell()
+    }
+
+    // MARK: - Custom methods
+
+    public func setupDataGridViewHeaderCell() {
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: "didTap:")
+        contentView.addGestureRecognizer(tapGestureRecognizer)
+    }
+
+    func configureForDataGridView(dataGridView: DataGridView, indexPath: NSIndexPath) {
+        self.dataGridView = dataGridView
+        self.indexPath = indexPath
+    }
+
+    public func didTap(gesture: UITapGestureRecognizer) {
+        dataGridView.delegateWrapper?.collectionView(dataGridView.collectionView, didTapHeaderForColumn: indexPath.row)
     }
 }

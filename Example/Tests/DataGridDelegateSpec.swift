@@ -29,6 +29,31 @@ class DataGridDataDelegateWrapperSpec: QuickSpec {
             sut = dataGridView.delegateWrapper
         }
 
+        describe("collectionView:didTapHeaderForColumn:") {
+            it("should change dataGridView.sortColumn and sortAscending") {
+                stubDelegate.shouldSortByColumnBlock = { (column) in return true }
+                expect(dataGridView.sortColumn).to(beNil())
+
+                // when
+                sut.collectionView(dataGridView.collectionView, didTapHeaderForColumn: 0)
+                // then
+                expect(dataGridView.sortColumn) == 0
+                expect(dataGridView.sortAscending).to(beTrue())
+
+                // when
+                sut.collectionView(dataGridView.collectionView, didTapHeaderForColumn: 1)
+                // then
+                expect(dataGridView.sortColumn) == 1
+                expect(dataGridView.sortAscending).to(beTrue())
+
+                // when
+                sut.collectionView(dataGridView.collectionView, didTapHeaderForColumn: 1)
+                // then
+                expect(dataGridView.sortColumn) == 1
+                expect(dataGridView.sortAscending).to(beFalse())
+            }
+        }
+
         describe("collectionView:didHighlightItemAtIndexPath:") {
             it("should highlight whole row") {
                 let row = 1
