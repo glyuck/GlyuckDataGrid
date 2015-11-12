@@ -11,60 +11,60 @@ import GlyuckDataGrid
 
 class DataGridViewSpec: QuickSpec {
     override func spec() {
-        var dataGridView: DataGridView!
+        var sut: DataGridView!
         var stubDataSource: StubDataGridViewDataSource!
 
         beforeEach {
             stubDataSource = StubDataGridViewDataSource()
-            dataGridView = DataGridView(frame: CGRect(x: 0, y: 0, width: 320, height: 480))
-            dataGridView.dataSource = stubDataSource
-            dataGridView.collectionView.layoutIfNeeded()
+            sut = DataGridView(frame: CGRect(x: 0, y: 0, width: 320, height: 480))
+            sut.dataSource = stubDataSource
+            sut.collectionView.layoutIfNeeded()
         }
 
         describe("collectionView") {
             it("should not be nil") {
-                expect(dataGridView.collectionView).to(beTruthy())
+                expect(sut.collectionView).to(beTruthy())
             }
 
             it("should be subview of dataGridView") {
-                expect(dataGridView.collectionView.superview) === dataGridView
+                expect(sut.collectionView.superview) === sut
             }
 
             it("should resize along with dataGridView") {
-                dataGridView.collectionView.layoutIfNeeded()  // Ensure text label is initialized when tests are started
+                sut.collectionView.layoutIfNeeded()  // Ensure text label is initialized when tests are started
 
-                dataGridView.frame = CGRectMake(0, 0, dataGridView.frame.width * 2, dataGridView.frame.height / 2)
-                dataGridView.layoutIfNeeded()
-                expect(dataGridView.collectionView.frame) == dataGridView.frame
+                sut.frame = CGRectMake(0, 0, sut.frame.width * 2, sut.frame.height / 2)
+                sut.layoutIfNeeded()
+                expect(sut.collectionView.frame) == sut.frame
             }
 
             it("should register supplementary view with reuseIdentifier DataGridViewHeaderCell") {
-                let cell: AnyObject = dataGridView.collectionView.dequeueReusableSupplementaryViewOfKind(DataGridView.SupplementaryViewKind.Header.rawValue, withReuseIdentifier: "DataGridViewHeaderCell", forIndexPath: NSIndexPath(forItem: 0, inSection: 0))
+                let cell: AnyObject = sut.collectionView.dequeueReusableSupplementaryViewOfKind(DataGridView.SupplementaryViewKind.Header.rawValue, withReuseIdentifier: "DataGridViewHeaderCell", forIndexPath: NSIndexPath(forItem: 0, inSection: 0))
                 expect(cell).to(beTruthy())
             }
 
             it("should register cell with reuseIdentifier DataGridViewContentCell") {
-                let cell: AnyObject = dataGridView.collectionView.dequeueReusableCellWithReuseIdentifier("DataGridViewContentCell", forIndexPath: NSIndexPath(forItem: 0, inSection: 0))
+                let cell: AnyObject = sut.collectionView.dequeueReusableCellWithReuseIdentifier("DataGridViewContentCell", forIndexPath: NSIndexPath(forItem: 0, inSection: 0))
                 expect(cell).to(beTruthy())
             }
 
             it("should have transparent background") {
-                expect(dataGridView.collectionView.backgroundColor) == UIColor.clearColor()
+                expect(sut.collectionView.backgroundColor) == UIColor.clearColor()
             }
 
             describe("layout") {
                 it("should be instance of DataGridViewLayout") {
-                    expect(dataGridView.collectionView.collectionViewLayout).to(beAKindOf(DataGridViewLayout.self))
+                    expect(sut.collectionView.collectionViewLayout).to(beAKindOf(DataGridViewLayout.self))
                 }
                 it("should have dataGridView set") {
-                    expect(dataGridView.layout.dataGridView) === dataGridView
+                    expect(sut.layout.dataGridView) === sut
                 }
                 it("should have collectionView and dataGridView properties set") {
-                    let layout = dataGridView.collectionView.collectionViewLayout as? DataGridViewLayout
+                    let layout = sut.collectionView.collectionViewLayout as? DataGridViewLayout
                     expect(layout).to(beTruthy())
                     if let layout = layout {
-                        expect(layout.dataGridView) === dataGridView
-                        expect(layout.collectionView) === dataGridView.collectionView
+                        expect(layout.dataGridView) === sut
+                        expect(layout.collectionView) === sut.collectionView
                     }
                 }
             }
@@ -73,10 +73,10 @@ class DataGridViewSpec: QuickSpec {
         describe("dataGridDataSource") {
             it("should assign dataSource to DataGridDataSourceWrapper") {
                 let dataSource = StubDataGridViewDataSource()
-                dataGridView.dataSource = dataSource
-                expect(dataGridView.dataSource).to(beTruthy())
-                if let dataSourceWrapper = dataGridView.dataSourceWrapper {
-                    expect(dataSourceWrapper.dataGridView) === dataGridView
+                sut.dataSource = dataSource
+                expect(sut.dataSource).to(beTruthy())
+                if let dataSourceWrapper = sut.dataSourceWrapper {
+                    expect(dataSourceWrapper.dataGridView) === sut
                     expect(dataSourceWrapper.dataGridDataSource) === dataSource
                 }
             }
@@ -85,10 +85,10 @@ class DataGridViewSpec: QuickSpec {
         describe("dataGridDelegate") {
             it("should assign delegate to DataGridDelegateWrapper") {
                 let delegate = StubDataGridViewDelegate()
-                dataGridView.delegate = delegate
-                expect(dataGridView.delegate).to(beTruthy())
-                if let delegateWrapper = dataGridView.delegateWrapper {
-                    expect(delegateWrapper.dataGridView) === dataGridView
+                sut.delegate = delegate
+                expect(sut.delegate).to(beTruthy())
+                if let delegateWrapper = sut.delegateWrapper {
+                    expect(delegateWrapper.dataGridView) === sut
                     expect(delegateWrapper.dataGridDelegate) === delegate
                 }
             }
@@ -97,47 +97,47 @@ class DataGridViewSpec: QuickSpec {
         describe("numberOfColumns") {
             it("should return value provided by dataSource") {
                 stubDataSource.numberOfColumns = 7
-                dataGridView.dataSource = stubDataSource
-                expect(dataGridView.numberOfColumns()) == stubDataSource.numberOfColumns
+                sut.dataSource = stubDataSource
+                expect(sut.numberOfColumns()) == stubDataSource.numberOfColumns
             }
             it("should return 0 if dataSource is nil") {
-                dataGridView.dataSource = nil
-                expect(dataGridView.numberOfColumns()) == 0
+                sut.dataSource = nil
+                expect(sut.numberOfColumns()) == 0
             }
         }
 
         describe("numberOfRows") {
             it("should return value provided by dataSource") {
                 stubDataSource.numberOfRows = 7
-                dataGridView.dataSource = stubDataSource
-                expect(dataGridView.numberOfRows()) == stubDataSource.numberOfRows
+                sut.dataSource = stubDataSource
+                expect(sut.numberOfRows()) == stubDataSource.numberOfRows
             }
             it("should return 0 if dataSource is nil") {
-                dataGridView.dataSource = nil
-                expect(dataGridView.numberOfRows()) == 0
+                sut.dataSource = nil
+                expect(sut.numberOfRows()) == 0
             }
         }
 
         describe("selectRow:animated:") {
             it("should select all items in corresponding section") {
                 let row = 1
-                dataGridView.selectRow(row, animated: false)
+                sut.selectRow(row, animated: false)
 
-                expect(dataGridView.collectionView.indexPathsForSelectedItems()?.count) == dataGridView.numberOfColumns()
-                for i in 0..<dataGridView.numberOfColumns() {
+                expect(sut.collectionView.indexPathsForSelectedItems()?.count) == sut.numberOfColumns()
+                for i in 0..<sut.numberOfColumns() {
                     let indexPath = NSIndexPath(forItem: i, inSection: row)
-                    expect(dataGridView.collectionView.indexPathsForSelectedItems()).to(contain(indexPath))
+                    expect(sut.collectionView.indexPathsForSelectedItems()).to(contain(indexPath))
                 }
             }
             it("should deselect previously selected row") {
                 let row = 1
-                dataGridView.selectRow(0, animated: false)
-                dataGridView.selectRow(row, animated: false)
+                sut.selectRow(0, animated: false)
+                sut.selectRow(row, animated: false)
 
-                expect(dataGridView.collectionView.indexPathsForSelectedItems()?.count) == dataGridView.numberOfColumns()
-                for i in 0..<dataGridView.numberOfColumns() {
+                expect(sut.collectionView.indexPathsForSelectedItems()?.count) == sut.numberOfColumns()
+                for i in 0..<sut.numberOfColumns() {
                     let indexPath = NSIndexPath(forItem: i, inSection: row)
-                    expect(dataGridView.collectionView.indexPathsForSelectedItems()).to(contain(indexPath))
+                    expect(sut.collectionView.indexPathsForSelectedItems()).to(contain(indexPath))
                 }
             }
         }
@@ -145,10 +145,10 @@ class DataGridViewSpec: QuickSpec {
         describe("deselectRow:animated:") {
             it("should deselect all items in corresponding section") {
                 let row = 1
-                dataGridView.selectRow(row, animated: false)
-                dataGridView.deselectRow(row, animated: false)
+                sut.selectRow(row, animated: false)
+                sut.deselectRow(row, animated: false)
 
-                expect(dataGridView.collectionView.indexPathsForSelectedItems()?.count) == 0
+                expect(sut.collectionView.indexPathsForSelectedItems()?.count) == 0
             }
         }
     }

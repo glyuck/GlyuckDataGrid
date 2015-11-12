@@ -13,36 +13,36 @@ class DataGridDataSourceWrapperSpec: QuickSpec {
     override func spec() {
         var dataGridView: DataGridView!
         var stubDataSource: StubDataGridViewDataSource!
-        var dataSourceWrapper: DataGridDataSourceWrapper!
+        var sut: DataGridDataSourceWrapper!
 
         beforeEach {
             dataGridView = DataGridView(frame: CGRect(x: 0, y: 0, width: 400, height: 400))
             stubDataSource = StubDataGridViewDataSource()
             dataGridView.dataSource = stubDataSource
-            dataSourceWrapper = dataGridView.dataSourceWrapper
+            sut = dataGridView.dataSourceWrapper
 
             dataGridView.collectionView.layoutIfNeeded()
         }
 
         describe("numberOfSectionsInCollectionView:") {
             it("should return 0 if there is no dataSource") {
-                dataSourceWrapper.dataGridDataSource = nil
-                expect(dataSourceWrapper.numberOfSectionsInCollectionView(dataGridView.collectionView)) == 0
+                sut.dataGridDataSource = nil
+                expect(sut.numberOfSectionsInCollectionView(dataGridView.collectionView)) == 0
             }
             it("should return dataSource.numberOfRowsInDataGridView") {
                 stubDataSource.numberOfRows = 10
-                expect(dataSourceWrapper.numberOfSectionsInCollectionView(dataGridView.collectionView)) == 10
+                expect(sut.numberOfSectionsInCollectionView(dataGridView.collectionView)) == 10
             }
         }
 
         describe("collectionView:numberOfItemsInSection:") {
             it("should return 0 if there is no dataSource") {
-                dataSourceWrapper.dataGridDataSource = nil
-                expect(dataSourceWrapper.collectionView(dataGridView.collectionView, numberOfItemsInSection: 0)) == 0
+                sut.dataGridDataSource = nil
+                expect(sut.collectionView(dataGridView.collectionView, numberOfItemsInSection: 0)) == 0
             }
             it("should return dataSource.numberOfColumnsInDataGrid") {
                 stubDataSource.numberOfColumns = 10
-                expect(dataSourceWrapper.collectionView(dataGridView.collectionView, numberOfItemsInSection: 0)) == 10
+                expect(sut.collectionView(dataGridView.collectionView, numberOfItemsInSection: 0)) == 10
             }
         }
 
@@ -50,7 +50,7 @@ class DataGridDataSourceWrapperSpec: QuickSpec {
             context("for headers") {
                 func headerCellForColumn(column: Int) -> DataGridViewHeaderCell? {
                     let indexPath = NSIndexPath(forItem: column, inSection: 0)
-                    let view = dataSourceWrapper.collectionView(dataGridView.collectionView, viewForSupplementaryElementOfKind: DataGridView.SupplementaryViewKind.Header.rawValue, atIndexPath: indexPath)
+                    let view = sut.collectionView(dataGridView.collectionView, viewForSupplementaryElementOfKind: DataGridView.SupplementaryViewKind.Header.rawValue, atIndexPath: indexPath)
                     return view as? DataGridViewHeaderCell
                 }
 
@@ -109,31 +109,31 @@ class DataGridDataSourceWrapperSpec: QuickSpec {
         describe("collectionView:cellForItemAtIndexPath:") {
             context("for content cells") {
                 it("should return DataGridViewContentCell for 1 section") {
-                    let cell = dataSourceWrapper.collectionView(dataGridView.collectionView, cellForItemAtIndexPath: NSIndexPath(forItem: 0, inSection: 1))
+                    let cell = sut.collectionView(dataGridView.collectionView, cellForItemAtIndexPath: NSIndexPath(forItem: 0, inSection: 1))
                     expect(cell).to(beAKindOf(DataGridViewContentCell.self))
                 }
 
                 it("should configure cell 0,0 with corresponding text") {
-                    let cell = dataSourceWrapper.collectionView(dataGridView.collectionView, cellForItemAtIndexPath: NSIndexPath(forItem: 0, inSection: 0)) as! DataGridViewContentCell
+                    let cell = sut.collectionView(dataGridView.collectionView, cellForItemAtIndexPath: NSIndexPath(forItem: 0, inSection: 0)) as! DataGridViewContentCell
                     expect(cell.textLabel.text) == "Text for cell 0x0"
                 }
 
                 it("should configure cell 1,2 with corresponding text") {
-                    let cell = dataSourceWrapper.collectionView(dataGridView.collectionView, cellForItemAtIndexPath: NSIndexPath(forItem: 1, inSection: 2)) as! DataGridViewContentCell
+                    let cell = sut.collectionView(dataGridView.collectionView, cellForItemAtIndexPath: NSIndexPath(forItem: 1, inSection: 2)) as! DataGridViewContentCell
                     expect(cell.textLabel.text) == "Text for cell 1x2"
                 }
 
                 it("should call dataSource.dataGridView:configureContentCell:atColumn:") {
                     stubDataSource.configureContentCellBlock = { (cell, column, row) in cell.tag = column * 100 + row }
 
-                    let cell = dataSourceWrapper.collectionView(dataGridView.collectionView, cellForItemAtIndexPath: NSIndexPath(forItem: 2, inSection: 1)) as! DataGridViewContentCell
+                    let cell = sut.collectionView(dataGridView.collectionView, cellForItemAtIndexPath: NSIndexPath(forItem: 2, inSection: 1)) as! DataGridViewContentCell
                     expect(cell.tag) == 201
                 }
 
                 context("zebra-striped tables") {
                     it("should return transparent cells when row1BackgroundColor and row2BackgroundColor are nil") {
-                        let cell1 = dataSourceWrapper.collectionView(dataGridView.collectionView, cellForItemAtIndexPath: NSIndexPath(forItem: 1, inSection: 0)) as! DataGridViewContentCell
-                        let cell2 = dataSourceWrapper.collectionView(dataGridView.collectionView, cellForItemAtIndexPath: NSIndexPath(forItem: 1, inSection: 1)) as! DataGridViewContentCell
+                        let cell1 = sut.collectionView(dataGridView.collectionView, cellForItemAtIndexPath: NSIndexPath(forItem: 1, inSection: 0)) as! DataGridViewContentCell
+                        let cell2 = sut.collectionView(dataGridView.collectionView, cellForItemAtIndexPath: NSIndexPath(forItem: 1, inSection: 1)) as! DataGridViewContentCell
                         expect(cell1.backgroundColor).to(beNil())
                         expect(cell2.backgroundColor).to(beNil())
                     }
@@ -141,8 +141,8 @@ class DataGridDataSourceWrapperSpec: QuickSpec {
                     it("should return row1BackgroundColor for odd rows and row2BackgroundColor for even rows") {
                         dataGridView.row1BackgroundColor = UIColor.redColor()
                         dataGridView.row2BackgroundColor = UIColor.greenColor()
-                        let cell1 = dataSourceWrapper.collectionView(dataGridView.collectionView, cellForItemAtIndexPath: NSIndexPath(forItem: 1, inSection: 0)) as! DataGridViewContentCell
-                        let cell2 = dataSourceWrapper.collectionView(dataGridView.collectionView, cellForItemAtIndexPath: NSIndexPath(forItem: 1, inSection: 1)) as! DataGridViewContentCell
+                        let cell1 = sut.collectionView(dataGridView.collectionView, cellForItemAtIndexPath: NSIndexPath(forItem: 1, inSection: 0)) as! DataGridViewContentCell
+                        let cell2 = sut.collectionView(dataGridView.collectionView, cellForItemAtIndexPath: NSIndexPath(forItem: 1, inSection: 1)) as! DataGridViewContentCell
                         expect(cell1.backgroundColor) == dataGridView.row1BackgroundColor
                         expect(cell2.backgroundColor) == dataGridView.row2BackgroundColor
                     }

@@ -12,52 +12,52 @@ import GlyuckDataGrid
 class BorderHelperSpec: QuickSpec {
     override func spec() {
         var view: UIView!
-        var borderHelper: BorderHelper!
+        var sut: BorderHelper!
 
         beforeEach {
             view = UIView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
-            borderHelper = BorderHelper(view: view)
+            sut = BorderHelper(view: view)
         }
 
         describe("BorderHelper") {
             describe(".topBorder") {
                 describe("Layer") {
                     it("should be nil if width == 0") {
-                        borderHelper.topWidth = 0
-                        expect(borderHelper.topLayer).to(beNil())
+                        sut.topWidth = 0
+                        expect(sut.topLayer).to(beNil())
                     }
                     it("should not be nil if width != 0") {
-                        borderHelper.topWidth = 1
-                        expect(borderHelper.topLayer).to(beTruthy())
+                        sut.topWidth = 1
+                        expect(sut.topLayer).to(beTruthy())
                     }
                     it("should be sublayer of view.layer") {
-                        borderHelper.topWidth = 1
-                        expect(borderHelper.topLayer?.superlayer) === view.layer
+                        sut.topWidth = 1
+                        expect(sut.topLayer?.superlayer) === view.layer
                     }
                     it("should have correct background color after it's created") {
-                        borderHelper.topColor = UIColor.redColor() // Assign border color before border is created
-                        borderHelper.topWidth = 1
+                        sut.topColor = UIColor.redColor() // Assign border color before border is created
+                        sut.topWidth = 1
 
-                        let isEqual = CGColorEqualToColor(borderHelper.topLayer!.backgroundColor, UIColor.redColor().CGColor)
+                        let isEqual = CGColorEqualToColor(sut.topLayer!.backgroundColor, UIColor.redColor().CGColor)
                         expect(isEqual).to(beTrue())
                     }
                     it("should be removed from superlayer and deallocated if width became 0") {
-                        borderHelper.topWidth = 1
-                        expect(borderHelper.topLayer).to(beTruthy())
+                        sut.topWidth = 1
+                        expect(sut.topLayer).to(beTruthy())
                         expect(view.layer.sublayers?.count) == 1
 
-                        borderHelper.topWidth = 0
-                        expect(borderHelper.topLayer).to(beNil())
+                        sut.topWidth = 0
+                        expect(sut.topLayer).to(beNil())
                         expect(view.layer.sublayers).to(beNil())
                     }
                 }
                 describe("Color") {
                     it("should be assigned to corresponding layer.backgroundColor") {
-                        borderHelper.topWidth = 1 // Ensure layer already created
+                        sut.topWidth = 1 // Ensure layer already created
 
-                        borderHelper.topColor = UIColor.greenColor()
+                        sut.topColor = UIColor.greenColor()
 
-                        let isEqual = CGColorEqualToColor(borderHelper.topColor.CGColor, borderHelper?.topLayer?.backgroundColor)
+                        let isEqual = CGColorEqualToColor(sut.topColor.CGColor, sut?.topLayer?.backgroundColor)
                         expect(isEqual).to(beTrue())
                     }
                 }
