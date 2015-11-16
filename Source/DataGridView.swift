@@ -48,6 +48,7 @@ public class DataGridView: UIView {
         collectionView.backgroundColor = UIColor.clearColor()
         collectionView.allowsMultipleSelection = true
         collectionView.dataSource = self.collectionViewDataSource
+        collectionView.delegate = self.collectionViewDelegate
         self.addSubview(collectionView)
         return collectionView
     }()
@@ -59,22 +60,12 @@ public class DataGridView: UIView {
     public lazy var collectionViewDataSource: CollectionViewDataSource = {
         return CollectionViewDataSource(dataGridView: self)
     }()
-    public weak var dataSource: DataGridViewDataSource?
+    public lazy var collectionViewDelegate: CollectionViewDelegate = {
+        return CollectionViewDelegate(dataGridView: self)
+    }()
 
-    private(set) public var delegateWrapper: DataGridDelegateWrapper?
-    public weak var delegate: DataGridViewDelegate? {
-        set {
-            if let newValue = newValue {
-                delegateWrapper = DataGridDelegateWrapper(dataGridView: self, dataGridDelegate: newValue)
-            } else {
-                delegateWrapper = nil
-            }
-            collectionView.delegate = delegateWrapper
-        }
-        get {
-            return delegateWrapper?.dataGridDelegate
-        }
-    }
+    public weak var dataSource: DataGridViewDataSource?
+    public weak var delegate: DataGridViewDelegate?
 
     public dynamic var row1BackgroundColor: UIColor?
     public dynamic var row2BackgroundColor: UIColor?

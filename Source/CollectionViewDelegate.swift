@@ -1,5 +1,5 @@
 //
-//  DataGridDelegateWrapper.swift
+//  CollectionViewDelegate.swift
 //  Pods
 //
 //  Created by Vladimir Lyukov on 31/07/15.
@@ -8,19 +8,17 @@
 
 import UIKit
 
-public class DataGridDelegateWrapper:  NSObject, UICollectionViewDelegate {
+public class CollectionViewDelegate:  NSObject, UICollectionViewDelegate {
     private(set) public weak var dataGridView: DataGridView!
-    private(set) public weak var dataGridDelegate: DataGridViewDelegate!
 
-    init(dataGridView: DataGridView, dataGridDelegate: DataGridViewDelegate) {
+    init(dataGridView: DataGridView) {
         self.dataGridView = dataGridView
-        self.dataGridDelegate = dataGridDelegate
         super.init()
     }
 
     public func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         dataGridView.selectRow(indexPath.section, animated: false)
-        dataGridDelegate.dataGridView?(dataGridView, didSelectRow: indexPath.section)
+        dataGridView.delegate?.dataGridView?(dataGridView, didSelectRow: indexPath.section)
     }
 
     public func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath) {
@@ -38,7 +36,7 @@ public class DataGridDelegateWrapper:  NSObject, UICollectionViewDelegate {
     // MARK: - Custom delegate methods
 
     public func collectionView(collectionView: UICollectionView, shouldHighlightHeaderForColumn column: Int) -> Bool {
-        return dataGridDelegate.dataGridView?(dataGridView, shouldSortByColumn: column) ?? false
+        return dataGridView.delegate?.dataGridView?(dataGridView, shouldSortByColumn: column) ?? false
     }
 
     public func collectionView(collectionView: UICollectionView, didTapHeaderForColumn column: Int) {

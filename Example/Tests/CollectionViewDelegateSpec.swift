@@ -1,5 +1,5 @@
 //
-//  DataGridViewDelegateSpec.swift
+//  CollectionViewDelegateSpec.swift
 //
 //  Created by Vladimir Lyukov on 17/08/15.
 //
@@ -11,13 +11,13 @@ import Nimble
 import GlyuckDataGrid
 
 
-class DataGridDataDelegateWrapperSpec: QuickSpec {
+class CollectionViewDelegateSpec: QuickSpec {
     override func spec() {
         var dataGridView: DataGridView!
         var stubDataSource: StubDataGridViewDataSource!
         var stubDelegate: StubDataGridViewDelegate!
 
-        var sut: DataGridDelegateWrapper!
+        var sut: CollectionViewDelegate!
 
         beforeEach {
             dataGridView = DataGridView(frame: CGRect(x: 0, y: 0, width: 400, height: 400))
@@ -26,7 +26,7 @@ class DataGridDataDelegateWrapperSpec: QuickSpec {
             dataGridView.dataSource = stubDataSource
             dataGridView.delegate = stubDelegate
 
-            sut = dataGridView.delegateWrapper
+            sut = dataGridView.collectionViewDelegate
         }
 
         describe("collectionView:didTapHeaderForColumn:") {

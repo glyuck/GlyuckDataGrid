@@ -73,6 +73,13 @@ class DataGridViewSpec: QuickSpec {
                 expect(dataSource?.dataGridView) == sut
             }
 
+            it("should have CollectionViewDelegate as delegate") {
+                let delegate = sut.collectionView.delegate as? CollectionViewDelegate
+                expect(delegate).to(beTruthy())
+                expect(delegate) == sut.collectionViewDelegate
+                expect(delegate?.dataGridView) == sut
+            }
+
             it("should have transparent background") {
                 expect(sut.collectionView.backgroundColor) == UIColor.clearColor()
             }
@@ -91,18 +98,6 @@ class DataGridViewSpec: QuickSpec {
                         expect(layout.dataGridView) === sut
                         expect(layout.collectionView) === sut.collectionView
                     }
-                }
-            }
-        }
-
-        describe("dataGridDelegate") {
-            it("should assign delegate to DataGridDelegateWrapper") {
-                let delegate = StubDataGridViewDelegate()
-                sut.delegate = delegate
-                expect(sut.delegate).to(beTruthy())
-                if let delegateWrapper = sut.delegateWrapper {
-                    expect(delegateWrapper.dataGridView) === sut
-                    expect(delegateWrapper.dataGridDelegate) === delegate
                 }
             }
         }
