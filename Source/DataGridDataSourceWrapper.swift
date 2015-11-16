@@ -34,7 +34,7 @@ public class DataGridDataSourceWrapper: NSObject, UICollectionViewDataSource {
     public func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let column = indexPath.row
         let row = indexPath.section
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("DataGridViewContentCell", forIndexPath: indexPath) as! DataGridViewContentCell
+        let cell = dataGridView.dequeueReusableCellWithReuseIdentifier(DataGridView.ReuseIdentifiers.defaultCell, forIndexPath: indexPath) as! DataGridViewContentCell
         cell.textLabel.text = dataGridDataSource.dataGridView(dataGridView, textForColumn: column, atRow: row)
         if row % 2 == 0 {
             cell.backgroundColor = dataGridView.row1BackgroundColor
@@ -47,7 +47,7 @@ public class DataGridDataSourceWrapper: NSObject, UICollectionViewDataSource {
 
     public func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
         let column = indexPath.row
-        let cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: "DataGridViewHeaderCell", forIndexPath: indexPath) as! DataGridViewHeaderCell
+        let cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: DataGridView.ReuseIdentifiers.defaultHeader, forIndexPath: indexPath) as! DataGridViewHeaderCell
         cell.configureForDataGridView(dataGridView, indexPath: indexPath)
         var text = dataGridDataSource.dataGridView(dataGridView, titleForHeaderForColumn: column)
         if dataGridView.sortColumn == column {

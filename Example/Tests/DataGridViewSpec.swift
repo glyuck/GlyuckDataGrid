@@ -21,6 +21,24 @@ class DataGridViewSpec: QuickSpec {
             sut.collectionView.layoutIfNeeded()
         }
 
+        describe("Registering/dequeuing cells") {
+            it("should register and dequeue cells") {
+                sut.registerClass(DataGridViewContentCell.self, forCellWithReuseIdentifier: "MyIdentifier")
+
+                let cell = sut.dequeueReusableCellWithReuseIdentifier("MyIdentifier", forIndexPath: NSIndexPath(forItem: 0, inSection: 0))
+
+                expect(cell).to(beTruthy())
+            }
+
+            it("should register and dequeue headers") {
+                sut.registerClass(DataGridViewHeaderCell.self, forHeaderWithReuseIdentifier: "MyIdentifier")
+
+                let cell = sut.dequeueReusableHeaderViewWithReuseIdentifier("MyIdentifier", forColumn: 0)
+
+                expect(cell).to(beTruthy())
+            }
+        }
+
         describe("collectionView") {
             it("should not be nil") {
                 expect(sut.collectionView).to(beTruthy())
@@ -38,14 +56,14 @@ class DataGridViewSpec: QuickSpec {
                 expect(sut.collectionView.frame) == sut.frame
             }
 
-            it("should register supplementary view with reuseIdentifier DataGridViewHeaderCell") {
-                let cell: AnyObject = sut.collectionView.dequeueReusableSupplementaryViewOfKind(DataGridView.SupplementaryViewKind.Header.rawValue, withReuseIdentifier: "DataGridViewHeaderCell", forIndexPath: NSIndexPath(forItem: 0, inSection: 0))
+            it("should register DataGridViewContentCell as default cell") {
+                let cell = sut.dequeueReusableCellWithReuseIdentifier(DataGridView.ReuseIdentifiers.defaultCell, forIndexPath: NSIndexPath(forItem: 0, inSection: 0)) as? DataGridViewContentCell
                 expect(cell).to(beTruthy())
             }
 
-            it("should register cell with reuseIdentifier DataGridViewContentCell") {
-                let cell: AnyObject = sut.collectionView.dequeueReusableCellWithReuseIdentifier("DataGridViewContentCell", forIndexPath: NSIndexPath(forItem: 0, inSection: 0))
-                expect(cell).to(beTruthy())
+            it("should register DataGridViewHeaderCell as default header") {
+                let header = sut.dequeueReusableHeaderViewWithReuseIdentifier(DataGridView.ReuseIdentifiers.defaultHeader, forColumn: 0)
+                expect(header).to(beTruthy())
             }
 
             it("should have transparent background") {

@@ -34,6 +34,10 @@ private var setupAppearanceDispatchTocken = dispatch_once_t()
 
 
 public class DataGridView: UIView {
+    public enum ReuseIdentifiers {
+        public static let defaultHeader = "DataGridViewHeaderCell"
+        public static let defaultCell = "DataGridViewHeaderCell"
+    }
     public enum SupplementaryViewKind: String {
         case Header = "Header"
     }
@@ -41,8 +45,6 @@ public class DataGridView: UIView {
     private(set) public lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: self.bounds, collectionViewLayout: self.layout)
         collectionView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
-        collectionView.registerClass(DataGridViewHeaderCell.classForCoder(), forSupplementaryViewOfKind: SupplementaryViewKind.Header.rawValue, withReuseIdentifier:"DataGridViewHeaderCell")
-        collectionView.registerClass(DataGridViewContentCell.classForCoder(), forCellWithReuseIdentifier: "DataGridViewContentCell")
         collectionView.backgroundColor = UIColor.clearColor()
         collectionView.allowsMultipleSelection = true
         self.addSubview(collectionView)
@@ -113,6 +115,11 @@ public class DataGridView: UIView {
         }
     }
 
+    public func setupDataGridView() {
+        registerClass(DataGridViewContentCell.self, forCellWithReuseIdentifier: ReuseIdentifiers.defaultCell)
+        registerClass(DataGridViewHeaderCell.self, forHeaderWithReuseIdentifier: ReuseIdentifiers.defaultHeader)
+    }
+
     public func reloadData() {
         collectionView.reloadData()
     }
@@ -148,6 +155,47 @@ public class DataGridView: UIView {
             let indexPath = NSIndexPath(forItem: column, inSection: row)
             collectionView.deselectItemAtIndexPath(indexPath, animated: animated)
         }
+    }
+
+    public func registerNib(nib: UINib, forCellWithReuseIdentifier identifier: String) {
+        collectionView.registerNib(nib, forCellWithReuseIdentifier: identifier)
+    }
+
+    public func registerClass(cellClass: DataGridViewContentCell.Type, forCellWithReuseIdentifier identifier: String) {
+        collectionView.registerClass(cellClass, forCellWithReuseIdentifier: identifier)
+    }
+
+    public func dequeueReusableCellWithReuseIdentifier(identifier: String, forIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        return collectionView.dequeueReusableCellWithReuseIdentifier(identifier, forIndexPath: indexPath)
+    }
+
+    public func registerNib(nib: UINib, forHeaderWithReuseIdentifier identifier: String) {
+        collectionView.registerNib(nib, forSupplementaryViewOfKind: SupplementaryViewKind.Header.rawValue, withReuseIdentifier: identifier)
+    }
+
+    public func registerClass(cellClass: DataGridViewHeaderCell.Type, forHeaderWithReuseIdentifier identifier: String) {
+        collectionView.registerClass(cellClass, forSupplementaryViewOfKind: SupplementaryViewKind.Header.rawValue, withReuseIdentifier: identifier)
+    }
+
+    public func dequeueReusableHeaderViewWithReuseIdentifier(identifier: String, forColumn column: NSInteger) -> DataGridViewHeaderCell {
+        let indexPath = NSIndexPath(forItem: column, inSection: 0)
+        let cell = collectionView.dequeueReusableSupplementaryViewOfKind(SupplementaryViewKind.Header.rawValue, withReuseIdentifier: identifier, forIndexPath: indexPath)
+        guard let headerCell = cell as? DataGridViewHeaderCell else {
+            fatalError("Error in dequeueReusableHeaderViewWithReuseIdentifier(\(identifier), forColumn:\(column)): expected to receive object of DataGridViewHeaderCell class, got \(_stdlib_getDemangledTypeName(cell)) instead")
+        }
+        return headerCell
+    }
+
+    // UIView
+
+    public override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupDataGridView()
+    }
+
+    public required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        setupDataGridView()
     }
 
     // UIScrollView
