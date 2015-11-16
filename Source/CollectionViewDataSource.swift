@@ -33,17 +33,21 @@ public class CollectionViewDataSource: NSObject, UICollectionViewDataSource {
         guard let dataGridDataSource = dataGridView.dataSource else {
             fatalError("dataGridView.dataSource unexpectedly nil")
         }
-        let column = indexPath.row
-        let row = indexPath.section
-        let cell = dataGridView.dequeueReusableCellWithReuseIdentifier(DataGridView.ReuseIdentifiers.defaultCell, forIndexPath: indexPath) as! DataGridViewContentCell
-        cell.textLabel.text = dataGridDataSource.dataGridView(dataGridView, textForColumn: column, atRow: row)
-        if row % 2 == 0 {
-            cell.backgroundColor = dataGridView.row1BackgroundColor
+        if let cell = dataGridDataSource.dataGridView?(dataGridView, cellForItemAtColumn: indexPath.row, row: indexPath.section) {
+            return cell
         } else {
-            cell.backgroundColor = dataGridView.row2BackgroundColor
+            let column = indexPath.row
+            let row = indexPath.section
+            let cell = dataGridView.dequeueReusableCellWithReuseIdentifier(DataGridView.ReuseIdentifiers.defaultCell, forIndexPath: indexPath) as! DataGridViewContentCell
+            cell.textLabel.text = dataGridDataSource.dataGridView?(dataGridView, textForColumn: column, atRow: row) ?? ""
+            if row % 2 == 0 {
+                cell.backgroundColor = dataGridView.row1BackgroundColor
+            } else {
+                cell.backgroundColor = dataGridView.row2BackgroundColor
+            }
+            dataGridDataSource.dataGridView?(dataGridView, configureContentCell: cell, atColumn: column, row: row)
+            return cell
         }
-        dataGridDataSource.dataGridView?(dataGridView, configureContentCell: cell, atColumn: column, row: row)
-        return cell
     }
 
     public func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {

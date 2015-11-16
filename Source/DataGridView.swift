@@ -16,7 +16,8 @@ private var setupAppearanceDispatchTocken = dispatch_once_t()
     func numberOfColumnsInDataGridView(dataGridView: DataGridView) -> Int
     func numberOfRowsInDataGridView(dataGridView: DataGridView) -> Int
     func dataGridView(dataGridView: DataGridView, titleForHeaderForColumn column: Int) -> String
-    func dataGridView(dataGridView: DataGridView, textForColumn column: Int, atRow row: Int) -> String
+    optional func dataGridView(dataGridView: DataGridView, cellForItemAtColumn column: Int, row: Int) -> UICollectionViewCell
+    optional func dataGridView(dataGridView: DataGridView, textForColumn column: Int, atRow row: Int) -> String
     optional func dataGridView(dataGridView: DataGridView, configureHeaderCell cell:DataGridViewHeaderCell, atColumn column: Int)
     optional func dataGridView(dataGridView: DataGridView, configureContentCell cell:DataGridViewContentCell, atColumn column:Int, row: Int)
 }

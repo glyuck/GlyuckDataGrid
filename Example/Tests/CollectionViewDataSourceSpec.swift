@@ -4,6 +4,7 @@
 //  Created by Vladimir Lyukov on 03/08/15.
 //
 
+import UIKit
 import Quick
 import Nimble
 import GlyuckDataGrid
@@ -107,7 +108,31 @@ class CollectionViewDataSourceSpec: QuickSpec {
         }
 
         describe("collectionView:cellForItemAtIndexPath:") {
-            context("for content cells") {
+            context("when dataGridView:cellForItemAtColumn:row: is implemented") {
+                var stubDataSourceCustomCell: StubDataGridViewDataSourceCustomCell!
+                beforeEach {
+                    stubDataSourceCustomCell = StubDataGridViewDataSourceCustomCell()
+                    dataGridView.dataSource = stubDataSourceCustomCell
+                    dataGridView.reloadData()
+                    dataGridView.layoutIfNeeded()
+                }
+
+                it("should return view created by delegate") {
+                    // given
+                    let expectedCell = dataGridView.dequeueReusableCellWithReuseIdentifier(DataGridView.ReuseIdentifiers.defaultCell, forIndexPath: NSIndexPath(forItem: 0, inSection: 0))
+                    stubDataSourceCustomCell.cellForItemBlock = { dataGridView, column, row in
+                        expectedCell.tag = column * 100 + row
+                        return expectedCell
+                    }
+                    // when
+                    let cell = sut.collectionView(dataGridView.collectionView, cellForItemAtIndexPath: NSIndexPath(forItem: 2, inSection: 1))
+                    // then
+                    expect(cell) == expectedCell
+                    expect(cell.tag) == 201
+                }
+            }
+
+            context("when dataGridView:cellForItemAtColumn:row: is not implemented") {
                 it("should return DataGridViewContentCell for 1 section") {
                     let cell = sut.collectionView(dataGridView.collectionView, cellForItemAtIndexPath: NSIndexPath(forItem: 0, inSection: 1))
                     expect(cell).to(beAKindOf(DataGridViewContentCell.self))

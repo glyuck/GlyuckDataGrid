@@ -4,7 +4,7 @@
 //  Created by Vladimir Lyukov on 03/08/15.
 //
 
-import Foundation
+import UIKit
 import GlyuckDataGrid
 
 
@@ -36,5 +36,19 @@ class StubDataGridViewDataSource: NSObject, DataGridViewDataSource {
 
     func dataGridView(dataGridView: DataGridView, configureContentCell cell:DataGridViewContentCell, atColumn column:Int, row: Int) {
         configureContentCellBlock?(cell: cell, column: column, row: row)
+    }
+}
+
+
+class StubDataGridViewDataSourceCustomCell: StubDataGridViewDataSource {
+    var cellForItemBlock: ((dataGridView: DataGridView, column: Int, row: Int) -> UICollectionViewCell) = { dataGridView, column, row in
+        let indexPath = NSIndexPath(forItem: column, inSection: row)
+        let cell = dataGridView.dequeueReusableCellWithReuseIdentifier(DataGridView.ReuseIdentifiers.defaultCell, forIndexPath: indexPath)
+        cell.tag = column * 100 + row
+        return cell
+    }
+
+    func dataGridView(dataGridView: DataGridView, cellForItemAtColumn column: Int, row: Int) -> UICollectionViewCell {
+        return cellForItemBlock(dataGridView: dataGridView, column: column, row: row)
     }
 }
