@@ -30,7 +30,7 @@ class CollectionViewDelegateSpec: QuickSpec {
         }
 
         describe("collectionView:didTapHeaderForColumn:") {
-            it("should change dataGridView.sortColumn and sortAscending") {
+            it("should change dataGridView.sortColumn and sortAscending when sorting enabled") {
                 stubDelegate.shouldSortByColumnBlock = { (column) in return true }
                 expect(dataGridView.sortColumn).to(beNil())
 
@@ -51,6 +51,26 @@ class CollectionViewDelegateSpec: QuickSpec {
                 // then
                 expect(dataGridView.sortColumn) == 1
                 expect(dataGridView.sortAscending).to(beFalse())
+            }
+
+            it("should do nothing when sorting is disabled") {
+                expect(dataGridView.sortColumn).to(beNil())
+
+                // given
+                stubDelegate.shouldSortByColumnBlock = { (column) in return false }
+                // when
+                sut.collectionView(dataGridView.collectionView, didTapHeaderForColumn: 0)
+                // then
+                expect(dataGridView.sortColumn).to(beNil())
+            }
+
+            it("should do nothing when delegate doesnt implement shouldSortByColumn:") {
+                // given
+                dataGridView.delegate = nil
+                // when
+                sut.collectionView(dataGridView.collectionView, didTapHeaderForColumn: 0)
+                // then
+                expect(dataGridView.sortColumn).to(beNil())
             }
         }
 

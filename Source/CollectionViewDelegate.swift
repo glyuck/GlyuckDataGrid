@@ -40,10 +40,12 @@ public class CollectionViewDelegate:  NSObject, UICollectionViewDelegate {
     }
 
     public func collectionView(collectionView: UICollectionView, didTapHeaderForColumn column: Int) {
-        if dataGridView.sortColumn == column {
-            dataGridView.setSortColumn(column, ascending: !dataGridView.sortAscending)
-        } else {
-            dataGridView.setSortColumn(column, ascending: true)
+        if dataGridView.delegate?.dataGridView?(dataGridView, shouldSortByColumn: column) == true {
+            if dataGridView.sortColumn == column {
+                dataGridView.setSortColumn(column, ascending: !dataGridView.sortAscending)
+            } else {
+                dataGridView.setSortColumn(column, ascending: true)
+            }
         }
     }
 }
