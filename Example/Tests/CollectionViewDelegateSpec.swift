@@ -115,6 +115,26 @@ class CollectionViewDelegateSpec: QuickSpec {
             }
         }
 
+        describe("collectionView:shouldSelectItemAtIndexPath:") {
+            it("should return delegate's dataGridView:shouldSelectRowAtIndexPath:") {
+                // when
+                stubDelegate.shouldSelectRowBlock = { indexPath in indexPath.dataGridRow % 2 == 0 }
+
+                // then
+                expect(sut.collectionView(dataGridView.collectionView, shouldSelectItemAtIndexPath: NSIndexPath(forItem: 0, inSection: 0))).to(beTrue())
+                expect(sut.collectionView(dataGridView.collectionView, shouldSelectItemAtIndexPath: NSIndexPath(forItem: 0, inSection: 1))).to(beFalse())
+            }
+
+            it("should return true if delegate doesn't implement dataGridView:shouldSelectRowAtIndexPath:") {
+                // when
+                dataGridView.delegate = StubMinimumDataGridViewDelegate()
+
+                // then
+                expect(sut.collectionView(dataGridView.collectionView, shouldSelectItemAtIndexPath: NSIndexPath(forItem: 0, inSection: 0))).to(beTrue())
+                expect(sut.collectionView(dataGridView.collectionView, shouldSelectItemAtIndexPath: NSIndexPath(forItem: 0, inSection: 1))).to(beTrue())
+            }
+        }
+        
         describe("collectionView:didSelectItemAtIndexPath:") {
             it("should select whole row") {
                 let row = 1
