@@ -12,11 +12,10 @@ import GlyuckDataGrid
 class NSIndexPathDataGridSpec: QuickSpec {
     override func spec() {
         describe("NSIndexPath") {
-            it("can be initialized with column, row, section") {
-                let indexPath = NSIndexPath(forColumn: 1, inRow: 2, inSection: 3)
+            it("can be initialized with column, row") {
+                let indexPath = NSIndexPath(forColumn: 1, row: 2)
                 expect(indexPath.dataGridColumn) == 1
                 expect(indexPath.dataGridRow) == 2
-                expect(indexPath.dataGridSection) == 3
             }
         }
     }

@@ -120,8 +120,8 @@ class CollectionViewDataSourceSpec: QuickSpec {
                 it("should return view created by delegate") {
                     // given
                     let expectedCell = dataGridView.dequeueReusableCellWithReuseIdentifier(DataGridView.ReuseIdentifiers.defaultCell, forIndexPath: NSIndexPath(forItem: 0, inSection: 0))
-                    stubDataSourceCustomCell.cellForItemBlock = { dataGridView, column, row in
-                        expectedCell.tag = column * 100 + row
+                    stubDataSourceCustomCell.cellForItemBlock = { dataGridView, indexPath in
+                        expectedCell.tag = indexPath.dataGridColumn * 100 + indexPath.dataGridRow
                         return expectedCell
                     }
                     // when
@@ -149,7 +149,7 @@ class CollectionViewDataSourceSpec: QuickSpec {
                 }
 
                 it("should call dataSource.dataGridView:configureContentCell:atColumn:") {
-                    stubDataSource.configureContentCellBlock = { (cell, column, row) in cell.tag = column * 100 + row }
+                    stubDataSource.configureContentCellBlock = { (cell, indexPath) in cell.tag = indexPath.dataGridColumn * 100 + indexPath.dataGridRow }
 
                     let cell = sut.collectionView(dataGridView.collectionView, cellForItemAtIndexPath: NSIndexPath(forItem: 2, inSection: 1)) as! DataGridViewContentCell
                     expect(cell.tag) == 201

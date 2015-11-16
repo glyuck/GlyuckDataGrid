@@ -33,19 +33,17 @@ public class CollectionViewDataSource: NSObject, UICollectionViewDataSource {
         guard let dataGridDataSource = dataGridView.dataSource else {
             fatalError("dataGridView.dataSource unexpectedly nil")
         }
-        if let cell = dataGridDataSource.dataGridView?(dataGridView, cellForItemAtColumn: indexPath.row, row: indexPath.section) {
+        if let cell = dataGridDataSource.dataGridView?(dataGridView, cellForItemAtIndexPath: indexPath) {
             return cell
         } else {
-            let column = indexPath.row
-            let row = indexPath.section
             let cell = dataGridView.dequeueReusableCellWithReuseIdentifier(DataGridView.ReuseIdentifiers.defaultCell, forIndexPath: indexPath) as! DataGridViewContentCell
-            cell.textLabel.text = dataGridDataSource.dataGridView?(dataGridView, textForColumn: column, atRow: row) ?? ""
-            if row % 2 == 0 {
+            cell.textLabel.text = dataGridDataSource.dataGridView?(dataGridView, textForCellAtIndexPath: indexPath) ?? ""
+            if indexPath.dataGridRow % 2 == 0 {
                 cell.backgroundColor = dataGridView.row1BackgroundColor
             } else {
                 cell.backgroundColor = dataGridView.row2BackgroundColor
             }
-            dataGridDataSource.dataGridView?(dataGridView, configureContentCell: cell, atColumn: column, row: row)
+            dataGridDataSource.dataGridView?(dataGridView, configureContentCell: cell, atIndexPath: indexPath)
             return cell
         }
     }

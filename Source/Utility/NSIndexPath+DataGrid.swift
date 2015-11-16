@@ -8,20 +8,15 @@ import Foundation
 
 
 public extension NSIndexPath {
-    convenience init(forColumn column: Int, inRow row: Int, inSection section: Int) {
-        let indexes = [column, row, section]
-        self.init(indexes: indexes, length: 3)
+    convenience init(forColumn column: Int, row: Int) {
+        self.init(forItem: column, inSection: row)
     }
 
     var dataGridColumn: Int {
-        return indexAtPosition(0)
-    }
-
-    var dataGridRow: Int {
         return indexAtPosition(1)
     }
 
-    var dataGridSection: Int {
-        return indexAtPosition(2)
+    var dataGridRow: Int {
+        return indexAtPosition(0)
     }
 }

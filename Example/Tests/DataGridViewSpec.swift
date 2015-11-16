@@ -25,7 +25,7 @@ class DataGridViewSpec: QuickSpec {
             it("should register and dequeue cells") {
                 sut.registerClass(DataGridViewContentCell.self, forCellWithReuseIdentifier: "MyIdentifier")
 
-                let cell = sut.dequeueReusableCellWithReuseIdentifier("MyIdentifier", forIndexPath: NSIndexPath(forItem: 0, inSection: 0))
+                let cell = sut.dequeueReusableCellWithReuseIdentifier("MyIdentifier", forIndexPath: NSIndexPath(forColumn: 0, row: 0))
 
                 expect(cell).to(beTruthy())
             }
@@ -57,7 +57,7 @@ class DataGridViewSpec: QuickSpec {
             }
 
             it("should register DataGridViewContentCell as default cell") {
-                let cell = sut.dequeueReusableCellWithReuseIdentifier(DataGridView.ReuseIdentifiers.defaultCell, forIndexPath: NSIndexPath(forItem: 0, inSection: 0)) as? DataGridViewContentCell
+                let cell = sut.dequeueReusableCellWithReuseIdentifier(DataGridView.ReuseIdentifiers.defaultCell, forIndexPath: NSIndexPath(forColumn: 0, row: 0)) as? DataGridViewContentCell
                 expect(cell).to(beTruthy())
             }
 

@@ -36,9 +36,9 @@ class SimpleDataGridViewController: UIViewController, DataGridViewDataSource, Da
         return columnsTitles[column]
     }
 
-    func dataGridView(dataGridView: DataGridView, textForColumn column: Int, atRow row: Int) -> String {
-        let fieldName = columns[column]
-        return dataSource[row][fieldName]!
+    func dataGridView(dataGridView: DataGridView, textForCellAtIndexPath indexPath: NSIndexPath) -> String {
+        let fieldName = columns[indexPath.dataGridColumn]
+        return dataSource[indexPath.dataGridRow][fieldName]!
     }
 
     func dataGridView(dataGridView: DataGridView, configureHeaderCell cell: DataGridViewHeaderCell, atColumn column: Int) {
@@ -50,14 +50,14 @@ class SimpleDataGridViewController: UIViewController, DataGridViewDataSource, Da
         }
     }
 
-    func dataGridView(dataGridView: DataGridView, configureContentCell cell: DataGridViewContentCell, atColumn column: Int, row: Int) {
-        switch column {
+    func dataGridView(dataGridView: DataGridView, configureContentCell cell: DataGridViewContentCell, atIndexPath indexPath: NSIndexPath) {
+        switch indexPath.dataGridColumn {
         case 0,2,5,6,7,8,9,11:
             cell.textLabel.textAlignment = .Right
         default:
             cell.textLabel.textAlignment = .Left
         }
-        if column == 1 {
+        if indexPath.dataGridColumn == 1 {
             cell.border.rightWidth = 1 / UIScreen.mainScreen().scale
             cell.border.rightColor = UIColor(white: 0.72, alpha: 1)
         } else {
