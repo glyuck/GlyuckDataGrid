@@ -1,5 +1,5 @@
 //
-//  DataGridDataSourceWrapper.swift
+//  CollectionViewDataSource.swift
 //  Pods
 //
 //  Created by Vladimir Lyukov on 30/07/15.
@@ -8,30 +8,31 @@
 
 import UIKit
 
-public class DataGridDataSourceWrapper: NSObject, UICollectionViewDataSource {
+public class CollectionViewDataSource: NSObject, UICollectionViewDataSource {
     public weak var dataGridView: DataGridView!
-    public weak var dataGridDataSource: DataGridViewDataSource!
 
-    public init(dataGridView: DataGridView, dataGridDataSource: DataGridViewDataSource) {
+    public init(dataGridView: DataGridView) {
         self.dataGridView = dataGridView
-        self.dataGridDataSource = dataGridDataSource
         super.init()
     }
 
     // MARK: - UICollectionViewDataSource
 
     public func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
-        if let numberOfRows = dataGridDataSource?.numberOfRowsInDataGridView(dataGridView) {
+        if let numberOfRows = dataGridView?.dataSource?.numberOfRowsInDataGridView(dataGridView) {
             return numberOfRows
         }
         return 0
     }
 
     public func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return dataGridDataSource?.numberOfColumnsInDataGridView(dataGridView) ?? 0
+        return dataGridView.dataSource?.numberOfColumnsInDataGridView(dataGridView) ?? 0
     }
 
     public func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        guard let dataGridDataSource = dataGridView.dataSource else {
+            fatalError("dataGridView.dataSource unexpectedly nil")
+        }
         let column = indexPath.row
         let row = indexPath.section
         let cell = dataGridView.dequeueReusableCellWithReuseIdentifier(DataGridView.ReuseIdentifiers.defaultCell, forIndexPath: indexPath) as! DataGridViewContentCell
@@ -41,11 +42,14 @@ public class DataGridDataSourceWrapper: NSObject, UICollectionViewDataSource {
         } else {
             cell.backgroundColor = dataGridView.row2BackgroundColor
         }
-        dataGridDataSource?.dataGridView?(dataGridView, configureContentCell: cell, atColumn: column, row: row)
+        dataGridDataSource.dataGridView?(dataGridView, configureContentCell: cell, atColumn: column, row: row)
         return cell
     }
 
     public func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
+        guard let dataGridDataSource = dataGridView.dataSource else {
+            fatalError("dataGridView.dataSource unexpectedly nil")
+        }
         let column = indexPath.row
         let cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: DataGridView.ReuseIdentifiers.defaultHeader, forIndexPath: indexPath) as! DataGridViewHeaderCell
         cell.configureForDataGridView(dataGridView, indexPath: indexPath)
@@ -57,7 +61,7 @@ public class DataGridDataSourceWrapper: NSObject, UICollectionViewDataSource {
             cell.isSorted = false
         }
         cell.textLabel.text = text
-        dataGridDataSource?.dataGridView?(dataGridView, configureHeaderCell: cell, atColumn: column)
+        dataGridDataSource.dataGridView?(dataGridView, configureHeaderCell: cell, atColumn: column)
         return cell
     }
 }

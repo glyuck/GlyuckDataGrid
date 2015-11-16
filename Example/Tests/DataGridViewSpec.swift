@@ -66,6 +66,13 @@ class DataGridViewSpec: QuickSpec {
                 expect(header).to(beTruthy())
             }
 
+            it("should have CollectionViewDataSource as dataSource") {
+                let dataSource = sut.collectionView.dataSource as? CollectionViewDataSource
+                expect(dataSource).to(beTruthy())
+                expect(dataSource) == sut.collectionViewDataSource
+                expect(dataSource?.dataGridView) == sut
+            }
+
             it("should have transparent background") {
                 expect(sut.collectionView.backgroundColor) == UIColor.clearColor()
             }
@@ -84,18 +91,6 @@ class DataGridViewSpec: QuickSpec {
                         expect(layout.dataGridView) === sut
                         expect(layout.collectionView) === sut.collectionView
                     }
-                }
-            }
-        }
-
-        describe("dataGridDataSource") {
-            it("should assign dataSource to DataGridDataSourceWrapper") {
-                let dataSource = StubDataGridViewDataSource()
-                sut.dataSource = dataSource
-                expect(sut.dataSource).to(beTruthy())
-                if let dataSourceWrapper = sut.dataSourceWrapper {
-                    expect(dataSourceWrapper.dataGridView) === sut
-                    expect(dataSourceWrapper.dataGridDataSource) === dataSource
                 }
             }
         }

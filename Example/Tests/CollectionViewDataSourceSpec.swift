@@ -1,5 +1,5 @@
 //
-//  DataGridDataSourceWrapperSpec.swift
+//  CollectionViewDataSourceSpec.swift
 //
 //  Created by Vladimir Lyukov on 03/08/15.
 //
@@ -9,24 +9,24 @@ import Nimble
 import GlyuckDataGrid
 
 
-class DataGridDataSourceWrapperSpec: QuickSpec {
+class CollectionViewDataSourceSpec: QuickSpec {
     override func spec() {
         var dataGridView: DataGridView!
         var stubDataSource: StubDataGridViewDataSource!
-        var sut: DataGridDataSourceWrapper!
+        var sut: CollectionViewDataSource!
 
         beforeEach {
             dataGridView = DataGridView(frame: CGRect(x: 0, y: 0, width: 400, height: 400))
             stubDataSource = StubDataGridViewDataSource()
             dataGridView.dataSource = stubDataSource
-            sut = dataGridView.dataSourceWrapper
+            sut = dataGridView.collectionViewDataSource
 
             dataGridView.collectionView.layoutIfNeeded()
         }
 
         describe("numberOfSectionsInCollectionView:") {
-            it("should return 0 if there is no dataSource") {
-                sut.dataGridDataSource = nil
+            it("should return 0 if there is no collectionView.dataSource") {
+                dataGridView.dataSource = nil
                 expect(sut.numberOfSectionsInCollectionView(dataGridView.collectionView)) == 0
             }
             it("should return dataSource.numberOfRowsInDataGridView") {
@@ -37,7 +37,7 @@ class DataGridDataSourceWrapperSpec: QuickSpec {
 
         describe("collectionView:numberOfItemsInSection:") {
             it("should return 0 if there is no dataSource") {
-                sut.dataGridDataSource = nil
+                dataGridView.dataSource = nil
                 expect(sut.collectionView(dataGridView.collectionView, numberOfItemsInSection: 0)) == 0
             }
             it("should return dataSource.numberOfColumnsInDataGrid") {

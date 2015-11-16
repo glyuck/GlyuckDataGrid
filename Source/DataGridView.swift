@@ -47,6 +47,7 @@ public class DataGridView: UIView {
         collectionView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
         collectionView.backgroundColor = UIColor.clearColor()
         collectionView.allowsMultipleSelection = true
+        collectionView.dataSource = self.collectionViewDataSource
         self.addSubview(collectionView)
         return collectionView
     }()
@@ -55,20 +56,10 @@ public class DataGridView: UIView {
         return DataGridViewLayout(dataGridView: self)
     }()
 
-    private(set) public var dataSourceWrapper: DataGridDataSourceWrapper?
-    public weak var dataSource: DataGridViewDataSource? {
-        set {
-            if let newValue = newValue {
-                dataSourceWrapper = DataGridDataSourceWrapper(dataGridView: self, dataGridDataSource: newValue)
-            } else {
-                dataSourceWrapper = nil
-            }
-            collectionView.dataSource = dataSourceWrapper
-        }
-        get {
-            return dataSourceWrapper?.dataGridDataSource
-        }
-    }
+    public lazy var collectionViewDataSource: CollectionViewDataSource = {
+        return CollectionViewDataSource(dataGridView: self)
+    }()
+    public weak var dataSource: DataGridViewDataSource?
 
     private(set) public var delegateWrapper: DataGridDelegateWrapper?
     public weak var delegate: DataGridViewDelegate? {
