@@ -8,6 +8,10 @@
 
 import UIKit
 
+
+/**
+ Custom UICollectionViewLayout implementing data grid view layout. Implements layout for single-section table with floating header and columns. You should not use this class directly.
+*/
 public class DataGridViewLayout: UICollectionViewLayout {
     private(set) public var dataGridView: DataGridView!
 

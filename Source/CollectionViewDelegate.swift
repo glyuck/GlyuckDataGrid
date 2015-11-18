@@ -9,6 +9,9 @@
 import UIKit
 
 
+/**
+    This class incapsulates logic for delegate of UICollectionView used internally by DataGridView. You should not use this class directly.
+ */
 public class CollectionViewDelegate:  NSObject, UICollectionViewDelegate {
     private(set) public weak var dataGridView: DataGridView!
 

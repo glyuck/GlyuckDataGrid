@@ -8,21 +8,30 @@
 
 import UIKit
 
-public class DataGridViewCell: UICollectionViewCell {
-    public dynamic var textLabelInsets = UIEdgeInsetsZero
-    public dynamic var highlightedBackgroundColor = UIColor(white: 0.9, alpha: 1)
-    public dynamic var selectedBackgroundColor = UIColor(white: 0.8, alpha: 1)
 
-    // borders
+/**
+ Base class for data grid view cells.
+*/
+public class DataGridViewCell: UICollectionViewCell {
+    /// The inset or outset margins for the rectangle around the cell’s text label.
+    public dynamic var textLabelInsets = UIEdgeInsetsZero
+    /// Background color for highlighted state.
+    public dynamic var highlightedBackgroundColor = UIColor(white: 0.9, alpha: 1)
+    /// Background color for selected state.
+    public dynamic var selectedBackgroundColor = UIColor(white: 0.8, alpha: 1)
+    /// Helper object for configuring cell borders.
     public lazy var border: BorderHelper = {
         BorderHelper(view: self)
     }()
 
+    /// Returns the label used for the main textual content of the table cell. (read-only)
     private(set) public lazy var textLabel: UILabel = {
         let label = UILabel(frame: self.bounds)
         self.contentView.addSubview(label)
         return label
-        }()
+    }()
+
+    // MARK: - UICollectionViewCell
 
     public override var highlighted: Bool {
         didSet {

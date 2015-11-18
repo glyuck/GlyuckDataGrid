@@ -10,6 +10,9 @@ import UIKit
 private var setupAppearanceDispatchTocken = dispatch_once_t()
 
 
+/**
+ Class for default data grid view cell.
+*/
 public class DataGridViewContentCell: DataGridViewCell {
     public override static func initialize() {
         super.initialize()

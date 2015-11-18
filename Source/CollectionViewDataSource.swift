@@ -8,6 +8,10 @@
 
 import UIKit
 
+
+/**
+    This class incapsulates logic for data source of UICollectionView used internally by DataGridView. You should not use this class directly.
+*/
 public class CollectionViewDataSource: NSObject, UICollectionViewDataSource {
     public weak var dataGridView: DataGridView!
 
@@ -52,7 +56,7 @@ public class CollectionViewDataSource: NSObject, UICollectionViewDataSource {
         }
         let cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: DataGridView.ReuseIdentifiers.defaultHeader, forIndexPath: indexPath) as! DataGridViewHeaderCell
         cell.configureForDataGridView(dataGridView, indexPath: indexPath)
-        var text = dataGridDataSource.dataGridView(dataGridView, titleForHeaderForColumn: column)
+        var text = dataGridDataSource.dataGridView?(dataGridView, titleForHeaderForColumn: column) ?? ""
         if dataGridView.sortColumn == column {
             text += dataGridView.sortAscending ? " ↑" : " ↓"
             cell.isSorted = true
