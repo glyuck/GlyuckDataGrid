@@ -38,12 +38,6 @@ public class CollectionViewDataSource: NSObject, UICollectionViewDataSource {
         } else {
             let cell = dataGridView.dequeueReusableCellWithReuseIdentifier(DataGridView.ReuseIdentifiers.defaultCell, forIndexPath: indexPath) as! DataGridViewContentCell
             cell.textLabel.text = dataGridDataSource.dataGridView?(dataGridView, textForCellAtIndexPath: indexPath) ?? ""
-            if indexPath.dataGridRow % 2 == 0 {
-                cell.backgroundColor = dataGridView.row1BackgroundColor
-            } else {
-                cell.backgroundColor = dataGridView.row2BackgroundColor
-            }
-            dataGridDataSource.dataGridView?(dataGridView, configureContentCell: cell, atIndexPath: indexPath)
             return cell
         }
     }
@@ -53,6 +47,9 @@ public class CollectionViewDataSource: NSObject, UICollectionViewDataSource {
             fatalError("dataGridView.dataSource unexpectedly nil")
         }
         let column = indexPath.row
+        if let view = dataGridDataSource.dataGridView?(dataGridView, viewForHeaderForColumn: column) {
+            return view
+        }
         let cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: DataGridView.ReuseIdentifiers.defaultHeader, forIndexPath: indexPath) as! DataGridViewHeaderCell
         cell.configureForDataGridView(dataGridView, indexPath: indexPath)
         var text = dataGridDataSource.dataGridView(dataGridView, titleForHeaderForColumn: column)
@@ -63,7 +60,6 @@ public class CollectionViewDataSource: NSObject, UICollectionViewDataSource {
             cell.isSorted = false
         }
         cell.textLabel.text = text
-        dataGridDataSource.dataGridView?(dataGridView, configureHeaderCell: cell, atColumn: column)
         return cell
     }
 }

@@ -16,10 +16,9 @@ private var setupAppearanceDispatchTocken = dispatch_once_t()
     func numberOfColumnsInDataGridView(dataGridView: DataGridView) -> Int
     func numberOfRowsInDataGridView(dataGridView: DataGridView) -> Int
     func dataGridView(dataGridView: DataGridView, titleForHeaderForColumn column: Int) -> String
+    optional func dataGridView(dataGridView: DataGridView, viewForHeaderForColumn column: Int) -> DataGridViewHeaderCell
     optional func dataGridView(dataGridView: DataGridView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell
     optional func dataGridView(dataGridView: DataGridView, textForCellAtIndexPath indexPath: NSIndexPath) -> String
-    optional func dataGridView(dataGridView: DataGridView, configureHeaderCell cell:DataGridViewHeaderCell, atColumn column: Int)
-    optional func dataGridView(dataGridView: DataGridView, configureContentCell cell:DataGridViewContentCell, atIndexPath indexPath: NSIndexPath)
 }
 
 
@@ -150,7 +149,13 @@ public class DataGridView: UIView {
     }
 
     public func dequeueReusableCellWithReuseIdentifier(identifier: String, forIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        return collectionView.dequeueReusableCellWithReuseIdentifier(identifier, forIndexPath: indexPath)
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(identifier, forIndexPath: indexPath)
+        if indexPath.dataGridRow % 2 == 0 {
+            cell.backgroundColor = row1BackgroundColor
+        } else {
+            cell.backgroundColor = row2BackgroundColor
+        }
+        return cell
     }
 
     public func registerNib(nib: UINib, forHeaderWithReuseIdentifier identifier: String) {
@@ -167,6 +172,7 @@ public class DataGridView: UIView {
         guard let headerCell = cell as? DataGridViewHeaderCell else {
             fatalError("Error in dequeueReusableHeaderViewWithReuseIdentifier(\(identifier), forColumn:\(column)): expected to receive object of DataGridViewHeaderCell class, got \(_stdlib_getDemangledTypeName(cell)) instead")
         }
+        headerCell.configureForDataGridView(self, indexPath: indexPath)
         return headerCell
     }
 

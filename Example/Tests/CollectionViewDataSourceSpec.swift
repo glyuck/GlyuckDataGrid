@@ -55,6 +55,30 @@ class CollectionViewDataSourceSpec: QuickSpec {
                     return view as? DataGridViewHeaderCell
                 }
 
+                context("when dataGridView:viewForHeaderForColumn: is implemented") {
+                    var stubDataSourceCustomCell: StubDataGridViewDataSourceCustomCell!
+                    beforeEach {
+                        stubDataSourceCustomCell = StubDataGridViewDataSourceCustomCell()
+                        dataGridView.dataSource = stubDataSourceCustomCell
+                        dataGridView.reloadData()
+                        dataGridView.layoutIfNeeded()
+                    }
+
+                    it("should return view created by delegate") {
+                        // given
+                        let expectedView = dataGridView.dequeueReusableHeaderViewWithReuseIdentifier(DataGridView.ReuseIdentifiers.defaultHeader, forColumn: 1)
+                        stubDataSourceCustomCell.viewForHeaderBlock = { dataGridView, column in
+                            expectedView.tag = column
+                            return expectedView
+                        }
+                        // when
+                        let view = headerCellForColumn(1)
+                        // then
+                        expect(view) == expectedView
+                        expect(view?.tag) == 1
+                    }
+                }
+
                 it("should return DataGridViewHeaderCell for 0 section") {
                     let cell = headerCellForColumn(0)
                     expect(cell).to(beAKindOf(DataGridViewHeaderCell.self))
@@ -68,13 +92,6 @@ class CollectionViewDataSourceSpec: QuickSpec {
                 it("should return nil when kind != header") {
                     let cell = headerCellForColumn(1)
                     expect(cell?.textLabel.text) == "Title for column 1"
-                }
-
-                it("should call dataSource.dataGridView:configureHeaderCell:atColumn:") {
-                    stubDataSource.configureHeaderCellBlock = { (cell, column) in cell.tag = 100 + column }
-
-                    let cell = headerCellForColumn(1)
-                    expect(cell?.tag) == 101
                 }
 
                 it("should add sorting symbol when dataGridView is sorted by this column ascending") {
@@ -146,31 +163,6 @@ class CollectionViewDataSourceSpec: QuickSpec {
                 it("should configure cell 1,2 with corresponding text") {
                     let cell = sut.collectionView(dataGridView.collectionView, cellForItemAtIndexPath: NSIndexPath(forItem: 1, inSection: 2)) as! DataGridViewContentCell
                     expect(cell.textLabel.text) == "Text for cell 1x2"
-                }
-
-                it("should call dataSource.dataGridView:configureContentCell:atColumn:") {
-                    stubDataSource.configureContentCellBlock = { (cell, indexPath) in cell.tag = indexPath.dataGridColumn * 100 + indexPath.dataGridRow }
-
-                    let cell = sut.collectionView(dataGridView.collectionView, cellForItemAtIndexPath: NSIndexPath(forItem: 2, inSection: 1)) as! DataGridViewContentCell
-                    expect(cell.tag) == 201
-                }
-
-                context("zebra-striped tables") {
-                    it("should return transparent cells when row1BackgroundColor and row2BackgroundColor are nil") {
-                        let cell1 = sut.collectionView(dataGridView.collectionView, cellForItemAtIndexPath: NSIndexPath(forItem: 1, inSection: 0)) as! DataGridViewContentCell
-                        let cell2 = sut.collectionView(dataGridView.collectionView, cellForItemAtIndexPath: NSIndexPath(forItem: 1, inSection: 1)) as! DataGridViewContentCell
-                        expect(cell1.backgroundColor).to(beNil())
-                        expect(cell2.backgroundColor).to(beNil())
-                    }
-
-                    it("should return row1BackgroundColor for odd rows and row2BackgroundColor for even rows") {
-                        dataGridView.row1BackgroundColor = UIColor.redColor()
-                        dataGridView.row2BackgroundColor = UIColor.greenColor()
-                        let cell1 = sut.collectionView(dataGridView.collectionView, cellForItemAtIndexPath: NSIndexPath(forItem: 1, inSection: 0)) as! DataGridViewContentCell
-                        let cell2 = sut.collectionView(dataGridView.collectionView, cellForItemAtIndexPath: NSIndexPath(forItem: 1, inSection: 1)) as! DataGridViewContentCell
-                        expect(cell1.backgroundColor) == dataGridView.row1BackgroundColor
-                        expect(cell2.backgroundColor) == dataGridView.row2BackgroundColor
-                    }
                 }
             }
         }

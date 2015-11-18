@@ -11,8 +11,6 @@ import GlyuckDataGrid
 class StubDataGridViewDataSource: NSObject, DataGridViewDataSource {
     var numberOfColumns = 7
     var numberOfRows = 20
-    var configureContentCellBlock: ((cell: DataGridViewContentCell, indexPath: NSIndexPath) -> Void)?
-    var configureHeaderCellBlock: ((cell: DataGridViewHeaderCell, column: Int) -> Void)?
 
     func numberOfColumnsInDataGridView(dataGridView: DataGridView) -> Int {
         return numberOfColumns
@@ -29,14 +27,6 @@ class StubDataGridViewDataSource: NSObject, DataGridViewDataSource {
     func dataGridView(dataGridView: DataGridView, textForCellAtIndexPath indexPath: NSIndexPath) -> String {
         return "Text for cell \(indexPath.dataGridColumn)x\(indexPath.dataGridRow)"
     }
-
-    func dataGridView(dataGridView: DataGridView, configureHeaderCell cell: DataGridViewHeaderCell, atColumn column: Int) {
-        configureHeaderCellBlock?(cell: cell, column: column)
-    }
-
-    func dataGridView(dataGridView: DataGridView, configureContentCell cell: DataGridViewContentCell, atIndexPath indexPath: NSIndexPath) {
-        configureContentCellBlock?(cell: cell, indexPath: indexPath)
-    }
 }
 
 
@@ -45,6 +35,16 @@ class StubDataGridViewDataSourceCustomCell: StubDataGridViewDataSource {
         let cell = dataGridView.dequeueReusableCellWithReuseIdentifier(DataGridView.ReuseIdentifiers.defaultCell, forIndexPath: indexPath)
         cell.tag = indexPath.dataGridColumn * 100 + indexPath.dataGridRow
         return cell
+    }
+
+    var viewForHeaderBlock: ((dataGridView: DataGridView, column: Int) -> DataGridViewHeaderCell) = { dataGridView, column in
+        let view = dataGridView.dequeueReusableHeaderViewWithReuseIdentifier(DataGridView.ReuseIdentifiers.defaultHeader, forColumn: column)
+        view.tag = column
+        return view
+    }
+
+    func dataGridView(dataGridView: DataGridView, viewForHeaderForColumn column: Int) -> DataGridViewHeaderCell {
+        return viewForHeaderBlock(dataGridView: dataGridView, column: column)
     }
 
     func dataGridView(dataGridView: DataGridView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {

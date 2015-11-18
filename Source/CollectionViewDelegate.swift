@@ -8,6 +8,7 @@
 
 import UIKit
 
+
 public class CollectionViewDelegate:  NSObject, UICollectionViewDelegate {
     private(set) public weak var dataGridView: DataGridView!
 

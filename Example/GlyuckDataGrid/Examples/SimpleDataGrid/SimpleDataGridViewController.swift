@@ -41,16 +41,21 @@ class SimpleDataGridViewController: UIViewController, DataGridViewDataSource, Da
         return dataSource[indexPath.dataGridRow][fieldName]!
     }
 
-    func dataGridView(dataGridView: DataGridView, configureHeaderCell cell: DataGridViewHeaderCell, atColumn column: Int) {
+    func dataGridView(dataGridView: DataGridView, viewForHeaderForColumn column: Int) -> DataGridViewHeaderCell {
+        let cell = dataGridView.dequeueReusableHeaderViewWithReuseIdentifier(DataGridView.ReuseIdentifiers.defaultHeader, forColumn: column)
+        cell.textLabel.text = self.dataGridView(dataGridView, titleForHeaderForColumn: column)
         if column == 1 {
             cell.border.rightWidth = 1 / UIScreen.mainScreen().scale
             cell.border.rightColor = UIColor(white: 0.72, alpha: 1)
         } else {
             cell.border.rightWidth = 0
         }
+        return cell
     }
 
-    func dataGridView(dataGridView: DataGridView, configureContentCell cell: DataGridViewContentCell, atIndexPath indexPath: NSIndexPath) {
+    func dataGridView(dataGridView: DataGridView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        let cell = dataGridView.dequeueReusableCellWithReuseIdentifier(DataGridView.ReuseIdentifiers.defaultCell, forIndexPath: indexPath) as! DataGridViewContentCell
+        cell.textLabel.text = self.dataGridView(dataGridView, textForCellAtIndexPath: indexPath)
         switch indexPath.dataGridColumn {
         case 0,2,5,6,7,8,9,11:
             cell.textLabel.textAlignment = .Right
@@ -63,6 +68,7 @@ class SimpleDataGridViewController: UIViewController, DataGridViewDataSource, Da
         } else {
             cell.border.rightWidth = 0
         }
+        return cell
     }
 
     // MARK: DataGridViewDelegate

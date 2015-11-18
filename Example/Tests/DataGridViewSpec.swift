@@ -22,6 +22,24 @@ class DataGridViewSpec: QuickSpec {
         }
 
         describe("Registering/dequeuing cells") {
+            context("zebra-striped tables") {
+                it("should return transparent cells when row1BackgroundColor and row2BackgroundColor are nil") {
+                    let cell1 = sut.dequeueReusableCellWithReuseIdentifier(DataGridView.ReuseIdentifiers.defaultCell, forIndexPath: NSIndexPath(forColumn: 1, row: 0))
+                    let cell2 = sut.dequeueReusableCellWithReuseIdentifier(DataGridView.ReuseIdentifiers.defaultCell, forIndexPath: NSIndexPath(forColumn: 1, row: 1))
+                    expect(cell1.backgroundColor).to(beNil())
+                    expect(cell2.backgroundColor).to(beNil())
+                }
+
+                it("should return row1BackgroundColor for odd rows and row2BackgroundColor for even rows") {
+                    sut.row1BackgroundColor = UIColor.redColor()
+                    sut.row2BackgroundColor = UIColor.greenColor()
+                    let cell1 = sut.dequeueReusableCellWithReuseIdentifier(DataGridView.ReuseIdentifiers.defaultCell, forIndexPath: NSIndexPath(forColumn: 1, row: 0))
+                    let cell2 = sut.dequeueReusableCellWithReuseIdentifier(DataGridView.ReuseIdentifiers.defaultCell, forIndexPath: NSIndexPath(forColumn: 1, row: 1))
+                    expect(cell1.backgroundColor) == sut.row1BackgroundColor
+                    expect(cell2.backgroundColor) == sut.row2BackgroundColor
+                }
+            }
+
             it("should register and dequeue cells") {
                 sut.registerClass(DataGridViewContentCell.self, forCellWithReuseIdentifier: "MyIdentifier")
 
@@ -33,9 +51,11 @@ class DataGridViewSpec: QuickSpec {
             it("should register and dequeue headers") {
                 sut.registerClass(DataGridViewHeaderCell.self, forHeaderWithReuseIdentifier: "MyIdentifier")
 
-                let cell = sut.dequeueReusableHeaderViewWithReuseIdentifier("MyIdentifier", forColumn: 0)
+                let cell = sut.dequeueReusableHeaderViewWithReuseIdentifier("MyIdentifier", forColumn: 1)
 
                 expect(cell).to(beTruthy())
+                expect(cell.dataGridView) == sut
+                expect(cell.indexPath) == NSIndexPath(forColumn: 1, row: 0)
             }
         }
 
