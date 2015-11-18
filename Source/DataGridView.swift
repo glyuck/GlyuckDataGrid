@@ -44,7 +44,8 @@ public class DataGridView: UIView {
     }
 
     private(set) public lazy var collectionView: UICollectionView = {
-        let collectionView = UICollectionView(frame: self.bounds, collectionViewLayout: self.layout)
+        let layout = DataGridViewLayout(dataGridView: self)
+        let collectionView = UICollectionView(frame: self.bounds, collectionViewLayout: layout)
         collectionView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
         collectionView.backgroundColor = UIColor.clearColor()
         collectionView.allowsMultipleSelection = true
@@ -52,10 +53,6 @@ public class DataGridView: UIView {
         collectionView.delegate = self.collectionViewDelegate
         self.addSubview(collectionView)
         return collectionView
-    }()
-
-    private(set) public lazy var layout: DataGridViewLayout = {
-        return DataGridViewLayout(dataGridView: self)
     }()
 
     public lazy var collectionViewDataSource: CollectionViewDataSource = {

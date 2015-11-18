@@ -23,7 +23,7 @@ class DataGridViewLayoutSpec: QuickSpec {
             dataGridView = DataGridView(frame: frame)
             dataGridView.dataSource = stubDataSource
             dataGridView.delegate = stubDelegate
-            sut = dataGridView.layout
+            sut = dataGridView.collectionView.collectionViewLayout as! DataGridViewLayout
         }
 
         describe("layoutAttributesForSupplementaryViewOfKind:atIndexPath:") {

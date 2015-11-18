@@ -109,7 +109,8 @@ class DataGridViewSpec: QuickSpec {
                     expect(sut.collectionView.collectionViewLayout).to(beAKindOf(DataGridViewLayout.self))
                 }
                 it("should have dataGridView set") {
-                    expect(sut.layout.dataGridView) === sut
+                    let layout = sut.collectionView.collectionViewLayout as? DataGridViewLayout
+                    expect(layout?.dataGridView) === sut
                 }
                 it("should have collectionView and dataGridView properties set") {
                     let layout = sut.collectionView.collectionViewLayout as? DataGridViewLayout
