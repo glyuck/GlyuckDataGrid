@@ -1,6 +1,6 @@
 # GlyuckDataGrid
 
-[![CI Status](http://img.shields.io/travis/Vladimir Lyukov/GlyuckDataGrid.svg?style=flat)](https://travis-ci.org/Vladimir Lyukov/GlyuckDataGrid)
+[![CI Status](http://img.shields.io/travis/Glyuck/GlyuckDataGrid.svg?style=flat)](https://travis-ci.org/Glyuck/GlyuckDataGrid)
 [![Version](https://img.shields.io/cocoapods/v/GlyuckDataGrid.svg?style=flat)](http://cocoapods.org/pods/GlyuckDataGrid)
 [![License](https://img.shields.io/cocoapods/l/GlyuckDataGrid.svg?style=flat)](http://cocoapods.org/pods/GlyuckDataGrid)
 [![Platform](https://img.shields.io/cocoapods/p/GlyuckDataGrid.svg?style=flat)](http://cocoapods.org/pods/GlyuckDataGrid)

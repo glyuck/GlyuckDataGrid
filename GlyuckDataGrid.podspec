@@ -1,35 +1,18 @@
-#
-# Be sure to run `pod lib lint GlyuckDataGrid.podspec' to ensure this is a
-# valid spec and remove all comments before submitting the spec.
-#
-# Any lines starting with a # are optional, but encouraged
-#
-# To learn more about a Podspec see http://guides.cocoapods.org/syntax/podspec.html
-#
-
 Pod::Spec.new do |s|
   s.name             = "GlyuckDataGrid"
   s.version          = "0.1.0"
-  s.summary          = "A short description of GlyuckDataGrid."
-  s.description      = <<-DESC
-                       An optional longer description of GlyuckDataGrid
-
-                       * Markdown format.
-                       * Don't worry about the indent, we strip it!
-                       DESC
-  s.homepage         = "https://github.com/<GITHUB_USERNAME>/GlyuckDataGrid"
-  # s.screenshots     = "www.example.com/screenshots_1", "www.example.com/screenshots_2"
-  s.license          = 'MIT'
+  s.summary          = "An UICollectionView subclass specialized on displaying multicolumn tables or spreadsheets."
+  s.homepage         = "https://github.com/glyuck/GlyuckDataGrid"
+  s.screenshots      = "https://raw.githubusercontent.com/glyuck/GlyuckDataGrid/master/Example/screenshot_01.png", "https://raw.githubusercontent.com/glyuck/GlyuckDataGrid/master/Example/screenshot_02.png"
+  s.license          = "MIT"
   s.author           = { "Vladimir Lyukov" => "v.lyukov@gmail.com" }
-  s.source           = { :git => "https://github.com/<GITHUB_USERNAME>/GlyuckDataGrid.git", :tag => s.version.to_s }
-  # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
+  s.source           = { :git => "https://github.com/Glyuck/GlyuckDataGrid.git", :tag => s.version.to_s }
 
-  s.platform     = :ios, '8.0'
+  s.platform     = :ios, "8.0"
   s.requires_arc = true
 
-  s.source_files = 'Source/**/*'
+  s.source_files = "Source/**/*"
 
-  s.public_header_files = 'Source/**/*.h'
-  # s.frameworks = 'UIKit', 'MapKit'
-  # s.dependency 'AFNetworking', '~> 2.3'
+  s.public_header_files = "Source/**/*.h"
+  s.frameworks = "UIKit"
 end
