@@ -116,16 +116,16 @@ class CollectionViewDelegateSpec: QuickSpec {
         }
 
         describe("collectionView:shouldSelectItemAtIndexPath:") {
-            it("should return delegate's dataGridView:shouldSelectRowAtIndexPath:") {
+            it("should return delegate's dataGridView:shouldSelectRow:") {
                 // when
-                stubDelegate.shouldSelectRowBlock = { indexPath in indexPath.dataGridRow % 2 == 0 }
+                stubDelegate.shouldSelectRowBlock = { row in row % 2 == 0 }
 
                 // then
                 expect(sut.collectionView(dataGridView.collectionView, shouldSelectItemAtIndexPath: NSIndexPath(forItem: 0, inSection: 0))).to(beTrue())
                 expect(sut.collectionView(dataGridView.collectionView, shouldSelectItemAtIndexPath: NSIndexPath(forItem: 0, inSection: 1))).to(beFalse())
             }
 
-            it("should return true if delegate doesn't implement dataGridView:shouldSelectRowAtIndexPath:") {
+            it("should return true if delegate doesn't implement dataGridView:shouldSelectRow:") {
                 // when
                 dataGridView.delegate = StubMinimumDataGridViewDelegate()
 

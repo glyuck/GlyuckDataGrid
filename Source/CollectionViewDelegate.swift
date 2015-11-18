@@ -18,7 +18,7 @@ public class CollectionViewDelegate:  NSObject, UICollectionViewDelegate {
     }
 
     public func collectionView(collectionView: UICollectionView, shouldSelectItemAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return dataGridView.delegate?.dataGridView?(dataGridView, shouldSelectRowAtIndexPath: indexPath) ?? true
+        return dataGridView.delegate?.dataGridView?(dataGridView, shouldSelectRow: indexPath.section) ?? true
     }
     
     public func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {

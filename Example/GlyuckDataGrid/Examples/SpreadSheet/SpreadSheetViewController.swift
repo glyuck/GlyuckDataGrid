@@ -107,7 +107,7 @@ class SpreadSheetViewController: UIViewController, DataGridViewDataSource, DataG
         return column == 0
     }
 
-    func dataGridView(dataGridView: DataGridView, shouldSelectRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+    func dataGridView(dataGridView: DataGridView, shouldSelectRow row: Int) -> Bool {
         return false
     }
 

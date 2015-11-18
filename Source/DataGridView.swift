@@ -29,7 +29,7 @@ private var setupAppearanceDispatchTocken = dispatch_once_t()
     optional func dataGridView(dataGridView: DataGridView, shouldFloatColumn column: Int) -> Bool
     optional func dataGridView(dataGridView: DataGridView, shouldSortByColumn column: Int) -> Bool
     optional func dataGridView(dataGridView: DataGridView, didSortByColumn column: Int, ascending: Bool)
-    optional func dataGridView(dataGridView: DataGridView, shouldSelectRowAtIndexPath indexPath: NSIndexPath) -> Bool
+    optional func dataGridView(dataGridView: DataGridView, shouldSelectRow row: Int) -> Bool
     optional func dataGridView(dataGridView: DataGridView, didSelectRow row: Int)
 }
 
