@@ -28,6 +28,9 @@ class SpreadSheetViewController: UIViewController, DataGridViewDataSource, DataG
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        dataGridView.columnHeaderHeight = 40
+        dataGridView.rowHeight = 44
+
         dataGridView.dataSource = self
         dataGridView.delegate = self
 
@@ -95,10 +98,6 @@ class SpreadSheetViewController: UIViewController, DataGridViewDataSource, DataG
 
     // MARK: DataGridViewDelegate
 
-    func columnHeaderHeightForDataGridView(dataGridView: DataGridView) -> CGFloat {
-        return 40
-    }
-    
     func dataGridView(dataGridView: DataGridView, widthForColumn column: Int) -> CGFloat {
         return column == 0 ? 40 : 60
     }

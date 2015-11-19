@@ -44,7 +44,7 @@ public class DataGridViewLayout: UICollectionViewLayout {
     }
 
     public func heightForSectionHeader() -> CGFloat {
-        return dataGridView?.delegate?.columnHeaderHeightForDataGridView?(dataGridView!) ?? dataGridView.columnHeaderHeight
+        return dataGridView.columnHeaderHeight
     }
 
     // MARK: UICollectionViewLayout
