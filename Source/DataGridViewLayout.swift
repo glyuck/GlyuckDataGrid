@@ -15,9 +15,6 @@ import UIKit
 public class DataGridViewLayout: UICollectionViewLayout {
     private(set) public var dataGridView: DataGridView!
 
-    public var rowHeight: CGFloat = 44
-    public var sectionHeaderHeight: CGFloat = 44
-
     public init(dataGridView: DataGridView) {
         self.dataGridView = dataGridView
         super.init()
@@ -32,7 +29,7 @@ public class DataGridViewLayout: UICollectionViewLayout {
     }
 
     public func heightForRow(row: Int) -> CGFloat {
-        return dataGridView?.delegate?.dataGridView?(dataGridView!, heightForRow: row) ?? rowHeight
+        return dataGridView?.delegate?.dataGridView?(dataGridView!, heightForRow: row) ?? dataGridView.rowHeight
     }
 
     public func widthForColumn(column: Int) -> CGFloat {
@@ -47,7 +44,7 @@ public class DataGridViewLayout: UICollectionViewLayout {
     }
 
     public func heightForSectionHeader() -> CGFloat {
-        return dataGridView?.delegate?.columnHeaderHeightForDataGridView?(dataGridView!) ?? sectionHeaderHeight
+        return dataGridView?.delegate?.columnHeaderHeightForDataGridView?(dataGridView!) ?? dataGridView.columnHeaderHeight
     }
 
     // MARK: UICollectionViewLayout

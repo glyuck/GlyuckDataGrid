@@ -205,7 +205,7 @@ class DataGridViewLayoutSpec: QuickSpec {
             describe("layoutAttributesForElementsInRect") {
                 beforeEach {
                     stubDelegate.rowHeight = 25
-                    stubDelegate.sectionHeaderHeight = 50
+                    stubDelegate.columnHeaderHeight = 50
                     stubDelegate.columnWidth = 100
                 }
 
@@ -229,7 +229,7 @@ class DataGridViewLayoutSpec: QuickSpec {
                         x: 0,
                         y: 0,
                         width: 2 * stubDelegate.columnWidth,
-                        height: stubDelegate.sectionHeaderHeight + 2 * stubDelegate.rowHeight
+                        height: stubDelegate.columnHeaderHeight + 2 * stubDelegate.rowHeight
                     )
                     let attributes = sut.layoutAttributesForElementsInRect(rect)
 
@@ -241,7 +241,7 @@ class DataGridViewLayoutSpec: QuickSpec {
                         x: stubDelegate.columnWidth,
                         y: stubDelegate.rowHeight,
                         width: 2 * stubDelegate.columnWidth,
-                        height: stubDelegate.sectionHeaderHeight + 2 * stubDelegate.rowHeight
+                        height: stubDelegate.columnHeaderHeight + 2 * stubDelegate.rowHeight
                     )
                     let attributes = sut.layoutAttributesForElementsInRect(rect)
 
@@ -253,7 +253,7 @@ class DataGridViewLayoutSpec: QuickSpec {
                         x: stubDelegate.columnWidth / 2,
                         y: stubDelegate.rowHeight / 2,
                         width: 2 * stubDelegate.columnWidth,
-                        height: stubDelegate.sectionHeaderHeight + 2 * stubDelegate.rowHeight
+                        height: stubDelegate.columnHeaderHeight + 2 * stubDelegate.rowHeight
                     )
                     let attributes = sut.layoutAttributesForElementsInRect(rect)
 
@@ -262,7 +262,7 @@ class DataGridViewLayoutSpec: QuickSpec {
 
                 it("should return veeery wide rows") {
                     stubDelegate.columnWidth = 300
-                    let rect = CGRect(x: 350, y: 0, width: 100, height: stubDelegate.sectionHeaderHeight + 2 * stubDelegate.rowHeight)
+                    let rect = CGRect(x: 350, y: 0, width: 100, height: stubDelegate.columnHeaderHeight + 2 * stubDelegate.rowHeight)
 
                     let attributes = sut.layoutAttributesForElementsInRect(rect)
 
@@ -280,7 +280,7 @@ class DataGridViewLayoutSpec: QuickSpec {
 
                 it("should return floating columns") {
                     stubDelegate.floatingColumns = [0, 2]
-                    let rect = CGRect(x: 4*stubDelegate.columnWidth, y: 0, width: 3*stubDelegate.columnWidth, height: stubDelegate.rowHeight + stubDelegate.sectionHeaderHeight)
+                    let rect = CGRect(x: 4*stubDelegate.columnWidth, y: 0, width: 3*stubDelegate.columnWidth, height: stubDelegate.rowHeight + stubDelegate.columnHeaderHeight)
 
                     let attributes = sut.layoutAttributesForElementsInRect(rect)
 
@@ -295,9 +295,9 @@ class DataGridViewLayoutSpec: QuickSpec {
                     expect(sut.heightForRow(0)) == stubDelegate.rowHeight
                 }
 
-                it("should return it's rowHeight if delegate missing/not implements method") {
+                it("should return dataGridView.rowHeight if delegate missing/not implements method") {
                     dataGridView.delegate = nil
-                    sut.rowHeight = 120
+                    dataGridView.rowHeight = 120
                     expect(sut.heightForRow(0)) == 120
                 }
             }
@@ -328,12 +328,12 @@ class DataGridViewLayoutSpec: QuickSpec {
 
             describe("heightForHeaderInSection") {
                 it("should return delegate's dataGrid:heightForRowAtIndexPath if present") {
-                    expect(sut.heightForSectionHeader()) == stubDelegate.sectionHeaderHeight
+                    expect(sut.heightForSectionHeader()) == stubDelegate.columnHeaderHeight
                 }
 
                 it("should return it's rowHeight if delegate missing/not implements method") {
                     dataGridView.delegate = nil
-                    sut.sectionHeaderHeight = 120
+                    dataGridView.columnHeaderHeight = 120
                     expect(sut.heightForSectionHeader()) == 120
                 }
             }

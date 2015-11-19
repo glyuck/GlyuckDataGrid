@@ -210,6 +210,10 @@ public class DataGridView: UIView {
     /// The object that acts as the delegate of the data grid view.
     public weak var delegate: DataGridViewDelegate?
 
+    /// Height for every row in data grid view
+    public var rowHeight: CGFloat = 44
+    /// Height for header row
+    public var columnHeaderHeight: CGFloat = 44
     /// Background color for even rows of zebra-striped tables.
     public dynamic var row1BackgroundColor: UIColor?
     /// Background color for odd rows of zebra-striped tables.
