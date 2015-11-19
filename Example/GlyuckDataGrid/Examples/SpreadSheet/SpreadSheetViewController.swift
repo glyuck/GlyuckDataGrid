@@ -95,7 +95,7 @@ class SpreadSheetViewController: UIViewController, DataGridViewDataSource, DataG
 
     // MARK: DataGridViewDelegate
 
-    func sectionHeaderHeightForDataGridView(dataGridView: DataGridView) -> CGFloat {
+    func columnHeaderHeightForDataGridView(dataGridView: DataGridView) -> CGFloat {
         return 40
     }
     

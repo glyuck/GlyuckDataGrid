@@ -96,7 +96,7 @@ private var setupAppearanceDispatchTocken = dispatch_once_t()
 
      - returns: A nonnegative floating-point value that specifies the height (in points) of the header for data grid view.
      */
-    optional func sectionHeaderHeightForDataGridView(dataGridView: DataGridView) -> CGFloat
+    optional func columnHeaderHeightForDataGridView(dataGridView: DataGridView) -> CGFloat
 
     /**
      Asks the delegate for the width to use for the specified column of data grid view.

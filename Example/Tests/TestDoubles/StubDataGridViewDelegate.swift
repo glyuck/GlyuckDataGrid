@@ -9,7 +9,7 @@ import GlyuckDataGrid
 
 
 class StubDataGridViewDelegate: NSObject, DataGridViewDelegate {
-    var sectionHeaderHeight: CGFloat = 60
+    var columnHeaderHeight: CGFloat = 60
     var rowHeight: CGFloat = 70
     var columnWidth: CGFloat = 100
     var floatingColumns = [Int]()
@@ -18,8 +18,8 @@ class StubDataGridViewDelegate: NSObject, DataGridViewDelegate {
     var shouldSelectRowBlock: ((row: Int) -> Bool)?
     var didSelectRowBlock: ((row: Int) -> Void)?
 
-    func sectionHeaderHeightForDataGridView(dataGridView: DataGridView) -> CGFloat {
-        return sectionHeaderHeight
+    func columnHeaderHeightForDataGridView(dataGridView: DataGridView) -> CGFloat {
+        return columnHeaderHeight
     }
 
     func dataGridView(dataGridView: DataGridView, widthForColumn column: Int) -> CGFloat {
