@@ -43,6 +43,10 @@ public class DataGridViewLayout: UICollectionViewLayout {
         return 0
     }
 
+    public func widthForRowHeader() -> CGFloat {
+        return dataGridView.rowHeaderWidth
+    }
+
     public func heightForSectionHeader() -> CGFloat {
         return dataGridView.columnHeaderHeight
     }
@@ -78,41 +82,17 @@ public class DataGridViewLayout: UICollectionViewLayout {
     }
 
     public override func layoutAttributesForSupplementaryViewOfKind(elementKind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionViewLayoutAttributes? {
-        guard indexPath.section == 0 && elementKind == DataGridView.SupplementaryViewKind.Header.rawValue else {
+        guard let elementKind = DataGridView.SupplementaryViewKind(rawValue: elementKind) else {
             return nil
         }
-        let attributes = UICollectionViewLayoutAttributes(forSupplementaryViewOfKind: elementKind, withIndexPath: indexPath)
-        let x = Array(0..<indexPath.row).reduce(0) { $0 + widthForColumn($1)}
-        let y = dataGridView.collectionView.contentOffset.y + collectionView!.contentInset.top
-        let width = widthForColumn(indexPath.row)
-        let height = heightForSectionHeader()
-        attributes.frame = CGRect(
-                x: max(0, x),
-                y: max(0, y),
-                width: width,
-                height: height
-            )
-        attributes.zIndex = 2
-        if dataGridView?.delegate?.dataGridView?(dataGridView!, shouldFloatColumn: indexPath.row) == true {
-            let scrollOffsetX = dataGridView.collectionView.contentOffset.x + collectionView!.contentInset.left
-            let floatWidths = Array(0..<indexPath.row).reduce(CGFloat(0)) {
-                if dataGridView?.delegate?.dataGridView?(dataGridView!, shouldFloatColumn: $1) == true {
-                    return $0 + widthForColumn($1)
-                } else {
-                    return $0
-                }
-            }
-            attributes.frame.origin.x = max(scrollOffsetX + floatWidths, attributes.frame.origin.x)
-            attributes.zIndex += 1
-        }
-        return attributes
+        return layoutAttributesForSupplementaryViewOfKind(elementKind, atIndexPath: indexPath)
     }
 
     public override func layoutAttributesForElementsInRect(rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
         var items = [Int]()
         var sections = [Int]()
 
-        var x:CGFloat = 0
+        var x:CGFloat = widthForRowHeader()
         for i in (0..<dataGridView.numberOfColumns()) {
             if x >= rect.maxX {
                 break
@@ -141,14 +121,27 @@ public class DataGridViewLayout: UICollectionViewLayout {
         }
 
         var result = [UICollectionViewLayoutAttributes]()
+        // Cells
         for item in items {
-            let headerIndexPath = NSIndexPath(forItem: item, inSection: 0)
-            if let headerAttributes = layoutAttributesForSupplementaryViewOfKind(DataGridView.SupplementaryViewKind.Header.rawValue, atIndexPath: headerIndexPath) {
-                result.append(headerAttributes)
-            }
             for section in sections {
                 let indexPath = NSIndexPath(forItem: item, inSection: section)
                 result.append(layoutAttributesForItemAtIndexPath(indexPath)!)
+            }
+        }
+        // Column headers
+        for item in items {
+            let headerIndexPath = NSIndexPath(forItem: item, inSection: 0)
+            if let headerAttributes = layoutAttributesForSupplementaryViewOfKind(DataGridView.SupplementaryViewKind.ColumnHeader.rawValue, atIndexPath: headerIndexPath) {
+                result.append(headerAttributes)
+            }
+        }
+        // Row headers
+        if widthForRowHeader() > 0 {
+            for section in sections {
+                let rowHeaderIndexPath = NSIndexPath(forItem: 0, inSection: section)
+                if let rowHeaderAttributes = layoutAttributesForSupplementaryViewOfKind(DataGridView.SupplementaryViewKind.RowHeader.rawValue, atIndexPath: rowHeaderIndexPath) {
+                    result.append(rowHeaderAttributes)
+                }
             }
         }
 
@@ -164,4 +157,63 @@ public class DataGridViewLayout: UICollectionViewLayout {
         let height = Array(0..<dataGridView.numberOfRows()).reduce(heightForSectionHeader()) { $0 + heightForRow($1) }
         return CGSize(width: width, height: height)
     }
+
+    // MARK: - Functions for providing supplementary views (row headers / columns headers / etc)
+    func layoutAttributesForSupplementaryViewOfKind(elementKind: DataGridView.SupplementaryViewKind, atIndexPath indexPath: NSIndexPath) -> UICollectionViewLayoutAttributes? {
+        switch elementKind {
+        case .ColumnHeader: return layoutAttributesForColumnHeaderViewAtIndexPath(indexPath)
+        case .RowHeader: return layoutAttributesForRowHeaderViewAtIndexPath(indexPath)
+        }
+    }
+
+    public func layoutAttributesForColumnHeaderViewAtIndexPath(indexPath: NSIndexPath) -> UICollectionViewLayoutAttributes? {
+        guard indexPath.section == 0 else {
+            return nil
+        }
+        let attributes = UICollectionViewLayoutAttributes(forSupplementaryViewOfKind: DataGridView.SupplementaryViewKind.ColumnHeader.rawValue, withIndexPath: indexPath)
+        let x = Array(0..<indexPath.row).reduce(0) { $0 + widthForColumn($1)}
+        let y = dataGridView.collectionView.contentOffset.y + collectionView!.contentInset.top
+        let width = widthForColumn(indexPath.row)
+        let height = heightForSectionHeader()
+        attributes.frame = CGRect(
+            x: max(0, x),
+            y: max(0, y),
+            width: width,
+            height: height
+        )
+        attributes.zIndex = 2
+        if dataGridView?.delegate?.dataGridView?(dataGridView!, shouldFloatColumn: indexPath.row) == true {
+            let scrollOffsetX = dataGridView.collectionView.contentOffset.x + collectionView!.contentInset.left
+            let floatWidths = Array(0..<indexPath.row).reduce(CGFloat(0)) {
+                if dataGridView?.delegate?.dataGridView?(dataGridView!, shouldFloatColumn: $1) == true {
+                    return $0 + widthForColumn($1)
+                } else {
+                    return $0
+                }
+            }
+            attributes.frame.origin.x = max(scrollOffsetX + floatWidths, attributes.frame.origin.x)
+            attributes.zIndex += 1
+        }
+        return attributes
+    }
+
+    public func layoutAttributesForRowHeaderViewAtIndexPath(indexPath: NSIndexPath) -> UICollectionViewLayoutAttributes? {
+        guard indexPath.item == 0 else {
+            return nil
+        }
+        let attributes = UICollectionViewLayoutAttributes(forSupplementaryViewOfKind: DataGridView.SupplementaryViewKind.RowHeader.rawValue, withIndexPath: indexPath)
+        let x = collectionView!.contentInset.left + dataGridView.collectionView.contentOffset.x
+        let y = collectionView!.contentInset.top + Array(0..<indexPath.section).reduce(heightForSectionHeader()) { $0 + heightForRow($1)}
+        let width = widthForRowHeader()
+        let height = heightForRow(indexPath.section)
+        attributes.frame = CGRect(
+            x: max(0, x),
+            y: max(0, y),
+            width: width,
+            height: height
+        )
+        attributes.zIndex = 2
+        return attributes
+    }
+
 }

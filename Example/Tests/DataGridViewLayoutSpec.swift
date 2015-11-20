@@ -27,9 +27,9 @@ class DataGridViewLayoutSpec: QuickSpec {
         }
 
         describe("layoutAttributesForSupplementaryViewOfKind:atIndexPath:") {
-            context("layout header") {
+            context("layout column header") {
                 it("should return correct coordinates for first header") {
-                    let attributes = sut.layoutAttributesForSupplementaryViewOfKind(DataGridView.SupplementaryViewKind.Header.rawValue, atIndexPath: NSIndexPath(forItem: 0, inSection: 0))!
+                    let attributes = sut.layoutAttributesForSupplementaryViewOfKind(DataGridView.SupplementaryViewKind.ColumnHeader.rawValue, atIndexPath: NSIndexPath(forItem: 0, inSection: 0))!
 
                     expect(attributes.frame) == CGRect(
                         x: 0,
@@ -39,7 +39,7 @@ class DataGridViewLayoutSpec: QuickSpec {
                     )
                 }
                 it("should return correct coordinates for second header") {
-                    let attributes = sut.layoutAttributesForSupplementaryViewOfKind(DataGridView.SupplementaryViewKind.Header.rawValue, atIndexPath: NSIndexPath(forItem: 1, inSection: 0))!
+                    let attributes = sut.layoutAttributesForSupplementaryViewOfKind(DataGridView.SupplementaryViewKind.ColumnHeader.rawValue, atIndexPath: NSIndexPath(forItem: 1, inSection: 0))!
 
                     expect(attributes.frame) == CGRect(
                         x: sut.widthForColumn(0),
@@ -49,7 +49,7 @@ class DataGridViewLayoutSpec: QuickSpec {
                     )
                 }
                 it("should return greater zIndex then for content cell") {
-                    let headerAttributes = sut.layoutAttributesForSupplementaryViewOfKind(DataGridView.SupplementaryViewKind.Header.rawValue, atIndexPath: NSIndexPath(forItem: 0, inSection: 0))!
+                    let headerAttributes = sut.layoutAttributesForSupplementaryViewOfKind(DataGridView.SupplementaryViewKind.ColumnHeader.rawValue, atIndexPath: NSIndexPath(forItem: 0, inSection: 0))!
                     let contentAttributes = sut.layoutAttributesForItemAtIndexPath(NSIndexPath(forItem: 0, inSection: 0))!
                     expect(headerAttributes.zIndex) > contentAttributes.zIndex
                 }
@@ -60,7 +60,7 @@ class DataGridViewLayoutSpec: QuickSpec {
                     it("should return unscrolled coordinates if offset negative") {
                         dataGridView.contentOffset = CGPointMake(-10, -20)
 
-                        let attributes = sut.layoutAttributesForSupplementaryViewOfKind(DataGridView.SupplementaryViewKind.Header.rawValue, atIndexPath: NSIndexPath(forItem: 0, inSection: 0))!
+                        let attributes = sut.layoutAttributesForSupplementaryViewOfKind(DataGridView.SupplementaryViewKind.ColumnHeader.rawValue, atIndexPath: NSIndexPath(forItem: 0, inSection: 0))!
 
                         expect(attributes.frame) == CGRect(
                             x: 0,
@@ -70,7 +70,7 @@ class DataGridViewLayoutSpec: QuickSpec {
                         )
                     }
                     it("should return correct coordinates for first header") {
-                        let attributes = sut.layoutAttributesForSupplementaryViewOfKind(DataGridView.SupplementaryViewKind.Header.rawValue, atIndexPath: NSIndexPath(forItem: 0, inSection: 0))!
+                        let attributes = sut.layoutAttributesForSupplementaryViewOfKind(DataGridView.SupplementaryViewKind.ColumnHeader.rawValue, atIndexPath: NSIndexPath(forItem: 0, inSection: 0))!
 
                         expect(attributes.frame) == CGRect(
                             x: 0,
@@ -80,7 +80,7 @@ class DataGridViewLayoutSpec: QuickSpec {
                         )
                     }
                     it("should return correct coordinates for second header") {
-                        let attributes = sut.layoutAttributesForSupplementaryViewOfKind(DataGridView.SupplementaryViewKind.Header.rawValue, atIndexPath: NSIndexPath(forItem: 1, inSection: 0))!
+                        let attributes = sut.layoutAttributesForSupplementaryViewOfKind(DataGridView.SupplementaryViewKind.ColumnHeader.rawValue, atIndexPath: NSIndexPath(forItem: 1, inSection: 0))!
 
                         expect(attributes.frame) == CGRect(
                             x: sut.widthForColumn(0),
@@ -96,13 +96,94 @@ class DataGridViewLayoutSpec: QuickSpec {
                     }
 
                     it("should be applied to section header Y position") {
-                        let attributes = sut.layoutAttributesForSupplementaryViewOfKind(DataGridView.SupplementaryViewKind.Header.rawValue, atIndexPath: NSIndexPath(forItem: 0, inSection: 0))!
+                        let attributes = sut.layoutAttributesForSupplementaryViewOfKind(DataGridView.SupplementaryViewKind.ColumnHeader.rawValue, atIndexPath: NSIndexPath(forItem: 0, inSection: 0))!
 
                         expect(attributes.frame) == CGRect(
                             x: 0,
                             y: dataGridView.collectionView.contentInset.top + dataGridView.collectionView.contentOffset.y,
                             width: sut.widthForColumn(0),
                             height: sut.heightForSectionHeader()
+                        )
+                    }
+                }
+            }
+
+            context("layout rows header") {
+                it("should return correct coordinates for first header") {
+                    let attributes = sut.layoutAttributesForRowHeaderViewAtIndexPath(NSIndexPath(forItem: 0, inSection: 0))!
+
+                    expect(attributes.frame) == CGRect(
+                        x: 0,
+                        y: sut.heightForSectionHeader(),
+                        width: sut.widthForRowHeader(),
+                        height: sut.heightForRow(0)
+                    )
+                }
+                it("should return correct coordinates for second header") {
+                    let attributes = sut.layoutAttributesForRowHeaderViewAtIndexPath(NSIndexPath(forItem: 0, inSection: 1))!
+
+                    expect(attributes.frame) == CGRect(
+                        x: 0,
+                        y: sut.heightForSectionHeader() + sut.heightForRow(0),
+                        width: sut.widthForRowHeader(),
+                        height: sut.heightForRow(1)
+                    )
+                }
+                it("should return greater zIndex then for content cell") {
+                    let headerAttributes = sut.layoutAttributesForRowHeaderViewAtIndexPath(NSIndexPath(forItem: 0, inSection: 0))!
+                    let contentAttributes = sut.layoutAttributesForItemAtIndexPath(NSIndexPath(forItem: 0, inSection: 0))!
+                    expect(headerAttributes.zIndex) > contentAttributes.zIndex
+                }
+                context("when content is scrolled") {
+                    beforeEach {
+                        dataGridView.contentOffset = CGPointMake(10, 20)
+                    }
+                    it("should return unscrolled coordinates if offset negative") {
+                        dataGridView.contentOffset = CGPointMake(-10, -20)
+
+                        let attributes = sut.layoutAttributesForRowHeaderViewAtIndexPath(NSIndexPath(forItem: 0, inSection: 0))!
+
+                        expect(attributes.frame) == CGRect(
+                            x: 0,
+                            y: sut.heightForSectionHeader(),
+                            width: sut.widthForRowHeader(),
+                            height: sut.heightForRow(0)
+                        )
+                    }
+                    it("should return correct coordinates for first header") {
+                        let attributes = sut.layoutAttributesForRowHeaderViewAtIndexPath(NSIndexPath(forItem: 0, inSection: 0))!
+
+                        expect(attributes.frame) == CGRect(
+                            x: dataGridView.contentOffset.x,
+                            y: sut.heightForSectionHeader(),
+                            width: sut.widthForRowHeader(),
+                            height: sut.heightForRow(0)
+                        )
+                    }
+                    it("should return correct coordinates for second header") {
+                        let attributes = sut.layoutAttributesForRowHeaderViewAtIndexPath(NSIndexPath(forItem: 0, inSection: 1))!
+
+                        expect(attributes.frame) == CGRect(
+                            x: dataGridView.contentOffset.x,
+                            y: sut.heightForSectionHeader() + sut.heightForRow(0),
+                            width: sut.widthForRowHeader(),
+                            height: sut.heightForRow(1)
+                        )
+                    }
+                }
+                context("when there is contentInset") {
+                    beforeEach {
+                        dataGridView.collectionView.contentInset = UIEdgeInsets(top: 10, left: 5, bottom: 0, right: 0)
+                    }
+
+                    it("should be applied to row header X position") {
+                        let attributes = sut.layoutAttributesForRowHeaderViewAtIndexPath(NSIndexPath(forItem: 0, inSection: 0))!
+
+                        expect(attributes.frame) == CGRect(
+                            x: dataGridView.collectionView.contentInset.left + dataGridView.collectionView.contentOffset.x,
+                            y: dataGridView.collectionView.contentInset.top + sut.heightForSectionHeader(),
+                            width: sut.widthForRowHeader(),
+                            height: sut.heightForRow(0)
                         )
                     }
                 }
@@ -188,8 +269,8 @@ class DataGridViewLayoutSpec: QuickSpec {
                         stubDelegate.floatingColumns = [1]
 
                         // when
-                        let header0Attributes = sut.layoutAttributesForSupplementaryViewOfKind(DataGridView.SupplementaryViewKind.Header.rawValue, atIndexPath: NSIndexPath(forItem: 0, inSection: 0))!
-                        let header1Attributes = sut.layoutAttributesForSupplementaryViewOfKind(DataGridView.SupplementaryViewKind.Header.rawValue, atIndexPath: NSIndexPath(forItem: 1, inSection: 0))!
+                        let header0Attributes = sut.layoutAttributesForSupplementaryViewOfKind(DataGridView.SupplementaryViewKind.ColumnHeader.rawValue, atIndexPath: NSIndexPath(forItem: 0, inSection: 0))!
+                        let header1Attributes = sut.layoutAttributesForSupplementaryViewOfKind(DataGridView.SupplementaryViewKind.ColumnHeader.rawValue, atIndexPath: NSIndexPath(forItem: 1, inSection: 0))!
                         let row0Attributes = sut.layoutAttributesForItemAtIndexPath(NSIndexPath(forItem: 0, inSection: 0))!
                         let row1Attributes = sut.layoutAttributesForItemAtIndexPath(NSIndexPath(forItem: 1, inSection: 0))!
 
@@ -209,18 +290,57 @@ class DataGridViewLayoutSpec: QuickSpec {
                     stubDelegate.columnWidth = 100
                 }
 
-                func ensureItems(items: [Int], sections: [Int], inLayoutAttributes attributes: [AnyObject]) {
-                    expect(attributes.count) == items.count * sections.count + items.count //  cells count + headers count
-                    let attributes = attributes as! [UICollectionViewLayoutAttributes]
+                func isAttribute(attr: UICollectionViewLayoutAttributes, forIndexPath indexPath: NSIndexPath, forSupplementaryViewOfKind kind: DataGridView.SupplementaryViewKind) -> Bool {
+                    return attr.indexPath == indexPath
+                        && attr.representedElementCategory == .SupplementaryView
+                        && attr.representedElementKind == kind.rawValue
+                }
+
+                func ensureItems(items: [Int], sections: [Int], columnHeader: Bool, rowHeader: Bool, inRect rect: CGRect) {
+                    let attributes = sut.layoutAttributesForElementsInRect(rect)!
+                    expect(attributes.count) == items.count * sections.count + (columnHeader ? items.count : 0) + (rowHeader ? sections.count : 0)
                     for item in items {
-                        let headerIndexPath = NSIndexPath(forItem: item, inSection: 0)
-                        let res = attributes.filter { $0.indexPath == headerIndexPath && $0.representedElementCategory == .SupplementaryView }.count == 1
-                        expect(res).to(beTrue(), description: "Expected layout attributes to contain IndexPath(forItem: \(item), inSection: 0) for header")
+                        if columnHeader {
+                            let headerIndexPath = NSIndexPath(forItem: item, inSection: 0)
+                            let res = attributes.filter { isAttribute($0, forIndexPath: headerIndexPath, forSupplementaryViewOfKind: .ColumnHeader) }.count == 1
+                            expect(res).to(beTrue(), description: "Expected layout attributes to contain IndexPath(forItem: \(item), inSection: 0) for column header")
+                        }
                         for section in sections {
+                            if rowHeader {
+                                let headerIndexPath = NSIndexPath(forItem: 0, inSection: section)
+                                let res = attributes.filter { isAttribute($0, forIndexPath: headerIndexPath, forSupplementaryViewOfKind: .RowHeader) }.count == 1
+                                expect(res).to(beTrue(), description: "Expected layout attributes to contain IndexPath(forItem: 0, inSection: \(section)) for row header")
+                            }
                             let indexPath = NSIndexPath(forItem: item, inSection: section)
                             let res = attributes.filter { $0.indexPath == indexPath && $0.representedElementCategory == .Cell }.count == 1
                             expect(res).to(beTrue(), description: "Expected layout attributes to contain IndexPath(forItem: \(item), inSection: \(section)) for cell")
                         }
+                    }
+                }
+
+                context("when rowHeaderWidth != 0") {
+                    beforeEach {
+                        dataGridView.rowHeaderWidth = 60
+                    }
+
+                    it("should return corresponding rows and columns") {
+                        let rect = CGRect(
+                            x: 0,
+                            y: 0,
+                            width: dataGridView.rowHeaderWidth + 2 * stubDelegate.columnWidth,
+                            height: dataGridView.columnHeaderHeight + 2 * stubDelegate.rowHeight
+                        )
+                        ensureItems([0, 1], sections: [0, 1], columnHeader: true, rowHeader: true, inRect: rect)
+                    }
+
+                    it("should return row header even if grid view is horizontally scrolled") {
+                        let rect = CGRect(
+                            x: dataGridView.rowHeaderWidth + 2 * stubDelegate.columnWidth,
+                            y: 0,
+                            width: 2 * stubDelegate.columnWidth,
+                            height: dataGridView.columnHeaderHeight + 2 * stubDelegate.rowHeight
+                        )
+                        ensureItems([2,3], sections: [0, 1], columnHeader: true, rowHeader: true, inRect: rect)
                     }
                 }
 
@@ -231,9 +351,7 @@ class DataGridViewLayoutSpec: QuickSpec {
                         width: 2 * stubDelegate.columnWidth,
                         height: dataGridView.columnHeaderHeight + 2 * stubDelegate.rowHeight
                     )
-                    let attributes = sut.layoutAttributesForElementsInRect(rect)
-
-                    ensureItems([0, 1], sections: [0, 1], inLayoutAttributes: attributes!)
+                    ensureItems([0, 1], sections: [0, 1], columnHeader: true, rowHeader: false, inRect: rect)
                 }
 
                 it("should not return off-screen rows/columns") {
@@ -243,9 +361,7 @@ class DataGridViewLayoutSpec: QuickSpec {
                         width: 2 * stubDelegate.columnWidth,
                         height: dataGridView.columnHeaderHeight + 2 * stubDelegate.rowHeight
                     )
-                    let attributes = sut.layoutAttributesForElementsInRect(rect)
-
-                    ensureItems([1, 2], sections: [1, 2], inLayoutAttributes: attributes!)
+                    ensureItems([1, 2], sections: [1, 2], columnHeader: true, rowHeader: false, inRect: rect)
                 }
 
                 it("should return half-on-screen rows&columns") {
@@ -255,36 +371,41 @@ class DataGridViewLayoutSpec: QuickSpec {
                         width: 2 * stubDelegate.columnWidth,
                         height: dataGridView.columnHeaderHeight + 2 * stubDelegate.rowHeight
                     )
-                    let attributes = sut.layoutAttributesForElementsInRect(rect)
-
-                    ensureItems([0, 1, 2], sections: [0, 1, 2], inLayoutAttributes: attributes!)
+                    ensureItems([0, 1, 2], sections: [0, 1, 2], columnHeader: true, rowHeader: false, inRect: rect)
                 }
 
                 it("should return veeery wide rows") {
                     stubDelegate.columnWidth = 300
-                    let rect = CGRect(x: 350, y: 0, width: 100, height: dataGridView.columnHeaderHeight + 2 * stubDelegate.rowHeight)
+                    let rect = CGRect(
+                        x: 350,
+                        y: 0,
+                        width: 100,
+                        height: dataGridView.columnHeaderHeight + 2 * stubDelegate.rowHeight
+                    )
 
-                    let attributes = sut.layoutAttributesForElementsInRect(rect)
-
-                    ensureItems([1], sections: [0, 1], inLayoutAttributes: attributes!)
+                    ensureItems([1], sections: [0, 1], columnHeader: true, rowHeader: false, inRect: rect)
                 }
 
                 it("should return veeeeery tall columns") {
                     stubDelegate.rowHeight = 300
-                    let rect = CGRect(x: 0, y: 325, width: 2 * stubDelegate.columnWidth, height: 100)
-
-                    let attributes = sut.layoutAttributesForElementsInRect(rect)
-
-                    ensureItems([0, 1], sections: [1], inLayoutAttributes: attributes!)
+                    let rect = CGRect(
+                        x: 0,
+                        y: 325,
+                        width: 2 * stubDelegate.columnWidth,
+                        height: 100
+                    )
+                    ensureItems([0, 1], sections: [1], columnHeader: true, rowHeader: false, inRect: rect)
                 }
 
                 it("should return floating columns") {
                     stubDelegate.floatingColumns = [0, 2]
-                    let rect = CGRect(x: 4*stubDelegate.columnWidth, y: 0, width: 3*stubDelegate.columnWidth, height: stubDelegate.rowHeight + dataGridView.columnHeaderHeight)
-
-                    let attributes = sut.layoutAttributesForElementsInRect(rect)
-
-                    ensureItems([0, 2, 4, 5, 6], sections: [0], inLayoutAttributes: attributes!)
+                    let rect = CGRect(
+                        x: 4*stubDelegate.columnWidth,
+                        y: 0,
+                        width: 3*stubDelegate.columnWidth,
+                        height: stubDelegate.rowHeight + dataGridView.columnHeaderHeight
+                    )
+                    ensureItems([0, 2, 4, 5, 6], sections: [0], columnHeader: true, rowHeader: false, inRect: rect)
                 }
             }
         }

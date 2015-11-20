@@ -170,7 +170,8 @@ public class DataGridView: UIView {
 
     /// Constants for supplementary view kinds of internally-used collection view.
     public enum SupplementaryViewKind: String {
-        case Header = "Header"
+        case ColumnHeader = "ColumnHeader"
+        case RowHeader = "RowHeader"
     }
 
     /// Collection view used internally to build up data grid.
@@ -205,6 +206,8 @@ public class DataGridView: UIView {
     public var rowHeight: CGFloat = 44
     /// Height for header row
     public var columnHeaderHeight: CGFloat = 44
+    /// Width for vertical header displayed on left of each row. If zero, vertical headers are not displayed.
+    public var rowHeaderWidth: CGFloat = 0
     /// Background color for even rows of zebra-striped tables.
     public dynamic var row1BackgroundColor: UIColor?
     /// Background color for odd rows of zebra-striped tables.
@@ -362,7 +365,7 @@ public class DataGridView: UIView {
      - parameter identifier: The reuse identifier for the view. This parameter must not be nil and must not be an empty string.
      */
     public func registerNib(nib: UINib, forHeaderWithReuseIdentifier identifier: String) {
-        collectionView.registerNib(nib, forSupplementaryViewOfKind: SupplementaryViewKind.Header.rawValue, withReuseIdentifier: identifier)
+        collectionView.registerNib(nib, forSupplementaryViewOfKind: SupplementaryViewKind.ColumnHeader.rawValue, withReuseIdentifier: identifier)
     }
 
     /**
@@ -372,7 +375,7 @@ public class DataGridView: UIView {
      - parameter identifier: The reuse identifier for the view. This parameter must not be nil and must not be an empty string.
      */
     public func registerClass(cellClass: DataGridViewHeaderCell.Type, forHeaderWithReuseIdentifier identifier: String) {
-        collectionView.registerClass(cellClass, forSupplementaryViewOfKind: SupplementaryViewKind.Header.rawValue, withReuseIdentifier: identifier)
+        collectionView.registerClass(cellClass, forSupplementaryViewOfKind: SupplementaryViewKind.ColumnHeader.rawValue, withReuseIdentifier: identifier)
     }
 
     /**
@@ -385,7 +388,7 @@ public class DataGridView: UIView {
      */
     public func dequeueReusableHeaderViewWithReuseIdentifier(identifier: String, forColumn column: NSInteger) -> DataGridViewHeaderCell {
         let indexPath = NSIndexPath(forItem: column, inSection: 0)
-        let cell = collectionView.dequeueReusableSupplementaryViewOfKind(SupplementaryViewKind.Header.rawValue, withReuseIdentifier: identifier, forIndexPath: indexPath)
+        let cell = collectionView.dequeueReusableSupplementaryViewOfKind(SupplementaryViewKind.ColumnHeader.rawValue, withReuseIdentifier: identifier, forIndexPath: indexPath)
         guard let headerCell = cell as? DataGridViewHeaderCell else {
             fatalError("Error in dequeueReusableHeaderViewWithReuseIdentifier(\(identifier), forColumn:\(column)): expected to receive object of DataGridViewHeaderCell class, got \(_stdlib_getDemangledTypeName(cell)) instead")
         }
