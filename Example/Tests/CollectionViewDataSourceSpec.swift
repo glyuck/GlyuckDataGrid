@@ -48,11 +48,11 @@ class CollectionViewDataSourceSpec: QuickSpec {
         }
 
         describe("collectionView:viewForSupplementaryElementOfKind:atIndexPath:") {
-            context("for headers") {
-                func headerCellForColumn(column: Int) -> DataGridViewHeaderCell? {
+            context("for column headers") {
+                func headerCellForColumn(column: Int) -> DataGridViewColumnHeaderCell? {
                     let indexPath = NSIndexPath(forItem: column, inSection: 0)
                     let view = sut.collectionView(dataGridView.collectionView, viewForSupplementaryElementOfKind: DataGridView.SupplementaryViewKind.ColumnHeader.rawValue, atIndexPath: indexPath)
-                    return view as? DataGridViewHeaderCell
+                    return view as? DataGridViewColumnHeaderCell
                 }
 
                 context("when dataGridView:viewForHeaderForColumn: is implemented") {
@@ -66,8 +66,8 @@ class CollectionViewDataSourceSpec: QuickSpec {
 
                     it("should return view created by delegate") {
                         // given
-                        let expectedView = dataGridView.dequeueReusableHeaderViewWithReuseIdentifier(DataGridView.ReuseIdentifiers.defaultHeader, forColumn: 1)
-                        stubDataSourceCustomCell.viewForHeaderBlock = { dataGridView, column in
+                        let expectedView = dataGridView.dequeueReusableHeaderViewWithReuseIdentifier(DataGridView.ReuseIdentifiers.defaultColumnHeader, forColumn: 1)
+                        stubDataSourceCustomCell.viewForColumnHeaderBlock = { dataGridView, column in
                             expectedView.tag = column
                             return expectedView
                         }
@@ -79,9 +79,9 @@ class CollectionViewDataSourceSpec: QuickSpec {
                     }
                 }
 
-                it("should return DataGridViewHeaderCell for 0 section") {
+                it("should return DataGridViewColumnHeaderCell for 0 section") {
                     let cell = headerCellForColumn(0)
-                    expect(cell).to(beAKindOf(DataGridViewHeaderCell.self))
+                    expect(cell).to(beAKindOf(DataGridViewColumnHeaderCell.self))
                 }
 
                 it("should configure first header cell with corresponding text") {

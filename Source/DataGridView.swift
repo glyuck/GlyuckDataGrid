@@ -54,7 +54,7 @@ private var setupAppearanceDispatchTocken = dispatch_once_t()
 
      - returns: A view object to be displayed in the header of the column.
      */
-    optional func dataGridView(dataGridView: DataGridView, viewForHeaderForColumn column: Int) -> DataGridViewHeaderCell
+    optional func dataGridView(dataGridView: DataGridView, viewForHeaderForColumn column: Int) -> DataGridViewColumnHeaderCell
 
     /**
      Asks the data source for a cell to insert in a particular location of the data grid view.
@@ -164,8 +164,8 @@ private var setupAppearanceDispatchTocken = dispatch_once_t()
 public class DataGridView: UIView {
     /// Constants for reuse identifiers for default cells.
     public enum ReuseIdentifiers {
-        public static let defaultHeader = "DataGridViewHeaderCell"
-        public static let defaultCell = "DataGridViewHeaderCell"
+        public static let defaultColumnHeader = "DataGridViewColumnHeaderCell"
+        public static let defaultCell = "DataGridViewCell"
     }
 
     /// Constants for supplementary view kinds of internally-used collection view.
@@ -255,7 +255,7 @@ public class DataGridView: UIView {
      */
     public func setupDataGridView() {
         registerClass(DataGridViewContentCell.self, forCellWithReuseIdentifier: ReuseIdentifiers.defaultCell)
-        registerClass(DataGridViewHeaderCell.self, forHeaderWithReuseIdentifier: ReuseIdentifiers.defaultHeader)
+        registerClass(DataGridViewColumnHeaderCell.self, forColumnHeaderWithReuseIdentifier: ReuseIdentifiers.defaultColumnHeader)
     }
 
     /**
@@ -361,10 +361,10 @@ public class DataGridView: UIView {
     /**
      Registers a nib file for use in creating column header views for the data grid view.
 
-     - parameter nib:        The nib object containing the view object. The nib file must contain only one top-level object and that object must be of the type DataGridViewHeaderCell.
+     - parameter nib:        The nib object containing the view object. The nib file must contain only one top-level object and that object must be of the type DataGridViewColumnHeaderCell.
      - parameter identifier: The reuse identifier for the view. This parameter must not be nil and must not be an empty string.
      */
-    public func registerNib(nib: UINib, forHeaderWithReuseIdentifier identifier: String) {
+    public func registerNib(nib: UINib, forColumnHeaderWithReuseIdentifier identifier: String) {
         collectionView.registerNib(nib, forSupplementaryViewOfKind: SupplementaryViewKind.ColumnHeader.rawValue, withReuseIdentifier: identifier)
     }
 
@@ -374,7 +374,7 @@ public class DataGridView: UIView {
      - parameter cellClass:  The class of a column header view that you want to use in the data grid view.
      - parameter identifier: The reuse identifier for the view. This parameter must not be nil and must not be an empty string.
      */
-    public func registerClass(cellClass: DataGridViewHeaderCell.Type, forHeaderWithReuseIdentifier identifier: String) {
+    public func registerClass(cellClass: DataGridViewColumnHeaderCell.Type, forColumnHeaderWithReuseIdentifier identifier: String) {
         collectionView.registerClass(cellClass, forSupplementaryViewOfKind: SupplementaryViewKind.ColumnHeader.rawValue, withReuseIdentifier: identifier)
     }
 
@@ -384,13 +384,13 @@ public class DataGridView: UIView {
      - parameter identifier: The reuse identifier for the specified column header view. This parameter must not be nil.
      - parameter column:     An index number identifying column of data grid view.
 
-     - returns: A DataGridVIewHeaderCell object with the associated reuse identifier. This method always returns a valid view.
+     - returns: A DataGridViewColumnHeaderCell object with the associated reuse identifier. This method always returns a valid view.
      */
-    public func dequeueReusableHeaderViewWithReuseIdentifier(identifier: String, forColumn column: NSInteger) -> DataGridViewHeaderCell {
+    public func dequeueReusableHeaderViewWithReuseIdentifier(identifier: String, forColumn column: NSInteger) -> DataGridViewColumnHeaderCell {
         let indexPath = NSIndexPath(forItem: column, inSection: 0)
         let cell = collectionView.dequeueReusableSupplementaryViewOfKind(SupplementaryViewKind.ColumnHeader.rawValue, withReuseIdentifier: identifier, forIndexPath: indexPath)
-        guard let headerCell = cell as? DataGridViewHeaderCell else {
-            fatalError("Error in dequeueReusableHeaderViewWithReuseIdentifier(\(identifier), forColumn:\(column)): expected to receive object of DataGridViewHeaderCell class, got \(_stdlib_getDemangledTypeName(cell)) instead")
+        guard let headerCell = cell as? DataGridViewColumnHeaderCell else {
+            fatalError("Error in dequeueReusableHeaderViewWithReuseIdentifier(\(identifier), forColumn:\(column)): expected to receive object of DataGridViewColumnHeaderCell class, got \(_stdlib_getDemangledTypeName(cell)) instead")
         }
         headerCell.configureForDataGridView(self, indexPath: indexPath)
         return headerCell

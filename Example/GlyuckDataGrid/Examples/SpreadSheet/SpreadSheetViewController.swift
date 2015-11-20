@@ -55,8 +55,8 @@ class SpreadSheetViewController: UIViewController, DataGridViewDataSource, DataG
         }
     }
 
-    func dataGridView(dataGridView: DataGridView, viewForHeaderForColumn column: Int) -> DataGridViewHeaderCell {
-        let cell = dataGridView.dequeueReusableHeaderViewWithReuseIdentifier(DataGridView.ReuseIdentifiers.defaultHeader, forColumn: column)
+    func dataGridView(dataGridView: DataGridView, viewForHeaderForColumn column: Int) -> DataGridViewColumnHeaderCell {
+        let cell = dataGridView.dequeueReusableHeaderViewWithReuseIdentifier(DataGridView.ReuseIdentifiers.defaultColumnHeader, forColumn: column)
         cell.textLabel.text = self.dataGridView(dataGridView, titleForHeaderForColumn: column)
         cell.backgroundColor = Colors.headerBackground
         cell.border.topWidth = 1 / UIScreen.mainScreen().scale

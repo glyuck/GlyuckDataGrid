@@ -41,8 +41,8 @@ class SimpleDataGridViewController: UIViewController, DataGridViewDataSource, Da
         return dataSource[indexPath.dataGridRow][fieldName]!
     }
 
-    func dataGridView(dataGridView: DataGridView, viewForHeaderForColumn column: Int) -> DataGridViewHeaderCell {
-        let cell = dataGridView.dequeueReusableHeaderViewWithReuseIdentifier(DataGridView.ReuseIdentifiers.defaultHeader, forColumn: column)
+    func dataGridView(dataGridView: DataGridView, viewForHeaderForColumn column: Int) -> DataGridViewColumnHeaderCell {
+        let cell = dataGridView.dequeueReusableHeaderViewWithReuseIdentifier(DataGridView.ReuseIdentifiers.defaultColumnHeader, forColumn: column)
         cell.textLabel.text = self.dataGridView(dataGridView, titleForHeaderForColumn: column)
         if column == 1 {
             cell.border.rightWidth = 1 / UIScreen.mainScreen().scale

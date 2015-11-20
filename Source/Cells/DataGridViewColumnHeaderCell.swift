@@ -1,5 +1,5 @@
 //
-//  DataGridViewHeaderCell.swift
+//  DataGridViewColumnHeaderCell.swift
 //
 //  Created by Vladimir Lyukov on 03/08/15.
 //
@@ -10,7 +10,7 @@ import UIKit
 private var setupAppearanceDispatchTocken = dispatch_once_t()
 
 
-public class DataGridViewHeaderCell: DataGridViewCell {
+public class DataGridViewColumnHeaderCell: DataGridViewCell {
     public dynamic var normalBackgroundColor: UIColor?
     public dynamic var sortedBackgroundColor: UIColor?
     public var dataGridView: DataGridView!
@@ -48,17 +48,17 @@ public class DataGridViewHeaderCell: DataGridViewCell {
 
     public override init(frame: CGRect) {
         super.init(frame: frame)
-        setupDataGridViewHeaderCell()
+        setupDataGridViewColumnHeaderCell()
     }
 
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        setupDataGridViewHeaderCell()
+        setupDataGridViewColumnHeaderCell()
     }
 
     // MARK: - Custom methods
 
-    public func setupDataGridViewHeaderCell() {
+    public func setupDataGridViewColumnHeaderCell() {
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: "didTap:")
         contentView.addGestureRecognizer(tapGestureRecognizer)
     }

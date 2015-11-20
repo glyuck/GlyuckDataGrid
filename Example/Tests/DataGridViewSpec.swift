@@ -49,7 +49,7 @@ class DataGridViewSpec: QuickSpec {
             }
 
             it("should register and dequeue headers") {
-                sut.registerClass(DataGridViewHeaderCell.self, forHeaderWithReuseIdentifier: "MyIdentifier")
+                sut.registerClass(DataGridViewColumnHeaderCell.self, forColumnHeaderWithReuseIdentifier: "MyIdentifier")
 
                 let cell = sut.dequeueReusableHeaderViewWithReuseIdentifier("MyIdentifier", forColumn: 1)
 
@@ -81,8 +81,8 @@ class DataGridViewSpec: QuickSpec {
                 expect(cell).to(beTruthy())
             }
 
-            it("should register DataGridViewHeaderCell as default header") {
-                let header = sut.dequeueReusableHeaderViewWithReuseIdentifier(DataGridView.ReuseIdentifiers.defaultHeader, forColumn: 0)
+            it("should register DataGridViewColumnHeaderCell as default header") {
+                let header = sut.dequeueReusableHeaderViewWithReuseIdentifier(DataGridView.ReuseIdentifiers.defaultColumnHeader, forColumn: 0)
                 expect(header).to(beTruthy())
             }
 

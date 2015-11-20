@@ -54,7 +54,7 @@ public class CollectionViewDataSource: NSObject, UICollectionViewDataSource {
         if let view = dataGridDataSource.dataGridView?(dataGridView, viewForHeaderForColumn: column) {
             return view
         }
-        let cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: DataGridView.ReuseIdentifiers.defaultHeader, forIndexPath: indexPath) as! DataGridViewHeaderCell
+        let cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: DataGridView.ReuseIdentifiers.defaultColumnHeader, forIndexPath: indexPath) as! DataGridViewColumnHeaderCell
         cell.configureForDataGridView(dataGridView, indexPath: indexPath)
         var text = dataGridDataSource.dataGridView?(dataGridView, titleForHeaderForColumn: column) ?? ""
         if dataGridView.sortColumn == column {

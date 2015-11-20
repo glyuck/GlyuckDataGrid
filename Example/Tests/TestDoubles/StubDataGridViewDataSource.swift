@@ -37,14 +37,14 @@ class StubDataGridViewDataSourceCustomCell: StubDataGridViewDataSource {
         return cell
     }
 
-    var viewForHeaderBlock: ((dataGridView: DataGridView, column: Int) -> DataGridViewHeaderCell) = { dataGridView, column in
-        let view = dataGridView.dequeueReusableHeaderViewWithReuseIdentifier(DataGridView.ReuseIdentifiers.defaultHeader, forColumn: column)
+    var viewForColumnHeaderBlock: ((dataGridView: DataGridView, column: Int) -> DataGridViewColumnHeaderCell) = { dataGridView, column in
+        let view = dataGridView.dequeueReusableHeaderViewWithReuseIdentifier(DataGridView.ReuseIdentifiers.defaultColumnHeader, forColumn: column)
         view.tag = column
         return view
     }
 
-    func dataGridView(dataGridView: DataGridView, viewForHeaderForColumn column: Int) -> DataGridViewHeaderCell {
-        return viewForHeaderBlock(dataGridView: dataGridView, column: column)
+    func dataGridView(dataGridView: DataGridView, viewForHeaderForColumn column: Int) -> DataGridViewColumnHeaderCell {
+        return viewForColumnHeaderBlock(dataGridView: dataGridView, column: column)
     }
 
     func dataGridView(dataGridView: DataGridView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
