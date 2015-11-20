@@ -7,28 +7,20 @@
 import UIKit
 
 
-private var setupAppearanceDispatchTocken = dispatch_once_t()
+private var setupAppearanceDispatchToken = dispatch_once_t()
 
 
-public class DataGridViewColumnHeaderCell: DataGridViewCell {
-    public dynamic var normalBackgroundColor: UIColor?
-    public dynamic var sortedBackgroundColor: UIColor?
-    public var dataGridView: DataGridView!
-    public var indexPath: NSIndexPath!
-    public var isSorted: Bool = false {
-        didSet {
-            backgroundColor = isSorted ? sortedBackgroundColor : normalBackgroundColor
-        }
-    }
-
+public class DataGridViewColumnHeaderCell: DataGridViewBaseHeaderCell {
     // MARK: - UIView
     public override static func initialize() {
         super.initialize()
-        dispatch_once(&setupAppearanceDispatchTocken) {
+        dispatch_once(&setupAppearanceDispatchToken) {
             let appearance = self.appearance()
             appearance.backgroundColor = UIColor.whiteColor()
             appearance.normalBackgroundColor = UIColor.whiteColor()
             appearance.sortedBackgroundColor = UIColor(white: 220.0/255.0, alpha: 1)
+            appearance.sortAscSuffix = " ↑"
+            appearance.sortDescSuffix = " ↓"
             appearance.textLabelInsets = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
             appearance.borderBottomColor = UIColor(white: 0.73, alpha: 1)
             appearance.borderBottomWidth = 1 / UIScreen.mainScreen().scale
@@ -46,29 +38,9 @@ public class DataGridViewColumnHeaderCell: DataGridViewCell {
         }
     }
 
-    public override init(frame: CGRect) {
-        super.init(frame: frame)
-        setupDataGridViewColumnHeaderCell()
-    }
-
-    public required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        setupDataGridViewColumnHeaderCell()
-    }
-
     // MARK: - Custom methods
 
-    public func setupDataGridViewColumnHeaderCell() {
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: "didTap:")
-        contentView.addGestureRecognizer(tapGestureRecognizer)
-    }
-
-    func configureForDataGridView(dataGridView: DataGridView, indexPath: NSIndexPath) {
-        self.dataGridView = dataGridView
-        self.indexPath = indexPath
-    }
-
-    public func didTap(gesture: UITapGestureRecognizer) {
+    public override func didTap(gesture: UITapGestureRecognizer) {
         dataGridView.collectionViewDelegate.collectionView(dataGridView.collectionView, didTapHeaderForColumn: indexPath.row)
     }
 }

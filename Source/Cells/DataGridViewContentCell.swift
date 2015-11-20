@@ -7,7 +7,7 @@
 import UIKit
 
 
-private var setupAppearanceDispatchTocken = dispatch_once_t()
+private var setupAppearanceDispatchToken = dispatch_once_t()
 
 
 /**
@@ -16,7 +16,7 @@ private var setupAppearanceDispatchTocken = dispatch_once_t()
 public class DataGridViewContentCell: DataGridViewCell {
     public override static func initialize() {
         super.initialize()
-        dispatch_once(&setupAppearanceDispatchTocken) {
+        dispatch_once(&setupAppearanceDispatchToken) {
             let appearance = self.appearance()
             appearance.textLabelInsets = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
 

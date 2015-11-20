@@ -58,7 +58,7 @@ public class CollectionViewDataSource: NSObject, UICollectionViewDataSource {
         cell.configureForDataGridView(dataGridView, indexPath: indexPath)
         var text = dataGridDataSource.dataGridView?(dataGridView, titleForHeaderForColumn: column) ?? ""
         if dataGridView.sortColumn == column {
-            text += dataGridView.sortAscending ? " ↑" : " ↓"
+            text += (dataGridView.sortAscending ? cell.sortAscSuffix : cell.sortDescSuffix) ?? ""
             cell.isSorted = true
         } else {
             cell.isSorted = false
