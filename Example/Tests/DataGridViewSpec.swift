@@ -48,7 +48,7 @@ class DataGridViewSpec: QuickSpec {
                 expect(cell).to(beTruthy())
             }
 
-            it("should register and dequeue headers") {
+            it("should register and dequeue column headers") {
                 sut.registerClass(DataGridViewColumnHeaderCell.self, forColumnHeaderWithReuseIdentifier: "MyIdentifier")
 
                 let cell = sut.dequeueReusableHeaderViewWithReuseIdentifier("MyIdentifier", forColumn: 1)
@@ -56,6 +56,16 @@ class DataGridViewSpec: QuickSpec {
                 expect(cell).to(beTruthy())
                 expect(cell.dataGridView) == sut
                 expect(cell.indexPath) == NSIndexPath(forColumn: 1, row: 0)
+            }
+
+            it("should register and dequeue row headers") {
+                sut.registerClass(DataGridViewRowHeaderCell.self, forRowHeaderWithReuseIdentifier: "MyIdentifier")
+
+                let cell = sut.dequeueReusableHeaderViewWithReuseIdentifier("MyIdentifier", forRow: 1)
+
+                expect(cell).to(beTruthy())
+                expect(cell.dataGridView) == sut
+                expect(cell.indexPath) == NSIndexPath(forColumn: 0, row: 1)
             }
         }
 
@@ -81,8 +91,13 @@ class DataGridViewSpec: QuickSpec {
                 expect(cell).to(beTruthy())
             }
 
-            it("should register DataGridViewColumnHeaderCell as default header") {
+            it("should register DataGridViewColumnHeaderCell as default column header") {
                 let header = sut.dequeueReusableHeaderViewWithReuseIdentifier(DataGridView.ReuseIdentifiers.defaultColumnHeader, forColumn: 0)
+                expect(header).to(beTruthy())
+            }
+
+            it("should register DataGridViewRowHeaderCell as default row header") {
+                let header = sut.dequeueReusableHeaderViewWithReuseIdentifier(DataGridView.ReuseIdentifiers.defaultRowHeader, forRow: 0)
                 expect(header).to(beTruthy())
             }
 

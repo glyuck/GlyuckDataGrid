@@ -37,7 +37,7 @@ private var setupAppearanceDispatchTocken = dispatch_once_t()
     func numberOfRowsInDataGridView(dataGridView: DataGridView) -> Int
 
     /**
-     Asks the data source for title of header of the specified column in data grid view. You should use either this method or
+     Asks the data source for title of header of the specified column in data grid view. You should use either this method or dataGridView:viewForHeaderForColumn: to configure header view.
 
      - parameter dataGridView: The data grid view requesting information.
      - parameter column:       An index number identifying column of data grid view.
@@ -55,6 +55,27 @@ private var setupAppearanceDispatchTocken = dispatch_once_t()
      - returns: A view object to be displayed in the header of the column.
      */
     optional func dataGridView(dataGridView: DataGridView, viewForHeaderForColumn column: Int) -> DataGridViewColumnHeaderCell
+
+
+    /**
+     Asks the data source for title of header of the specified row in data grid view. You should use either this method or dataGridView:viewForHeaderForRow: to configure header view.
+
+     - parameter dataGridView: The data grid view requesting information.
+     - parameter row:          An index number identifying row of data grid view.
+
+     - returns: A string to use as title for row header.
+     */
+    optional func dataGridView(dataGridView: DataGridView, titleForHeaderForRow row: Int) -> String
+
+    /**
+     Asks the data source for a view object to display in the header of the specified row of the data grid view. If implemented, dataGridView:titleForHeaderForRow: is not called.
+
+     - parameter dataGridView: The data grid view requesting information.
+     - parameter column:       An index number identifying row of data grid view.
+
+     - returns: A view object to be displayed in the header of the row.
+     */
+    optional func dataGridView(dataGridView: DataGridView, viewForHeaderForRow row: Int) -> DataGridViewRowHeaderCell
 
     /**
      Asks the data source for a cell to insert in a particular location of the data grid view.
@@ -165,6 +186,7 @@ public class DataGridView: UIView {
     /// Constants for reuse identifiers for default cells.
     public enum ReuseIdentifiers {
         public static let defaultColumnHeader = "DataGridViewColumnHeaderCell"
+        public static let defaultRowHeader = "DataGridViewRowHeaderCell"
         public static let defaultCell = "DataGridViewCell"
     }
 
@@ -256,6 +278,7 @@ public class DataGridView: UIView {
     public func setupDataGridView() {
         registerClass(DataGridViewContentCell.self, forCellWithReuseIdentifier: ReuseIdentifiers.defaultCell)
         registerClass(DataGridViewColumnHeaderCell.self, forColumnHeaderWithReuseIdentifier: ReuseIdentifiers.defaultColumnHeader)
+        registerClass(DataGridViewRowHeaderCell.self, forRowHeaderWithReuseIdentifier: ReuseIdentifiers.defaultRowHeader)
     }
 
     /**
@@ -391,6 +414,45 @@ public class DataGridView: UIView {
         let cell = collectionView.dequeueReusableSupplementaryViewOfKind(SupplementaryViewKind.ColumnHeader.rawValue, withReuseIdentifier: identifier, forIndexPath: indexPath)
         guard let headerCell = cell as? DataGridViewColumnHeaderCell else {
             fatalError("Error in dequeueReusableHeaderViewWithReuseIdentifier(\(identifier), forColumn:\(column)): expected to receive object of DataGridViewColumnHeaderCell class, got \(_stdlib_getDemangledTypeName(cell)) instead")
+        }
+        headerCell.configureForDataGridView(self, indexPath: indexPath)
+        return headerCell
+    }
+
+
+    /**
+     Registers a nib file for use in creating row header views for the data grid view.
+
+     - parameter nib:        The nib object containing the view object. The nib file must contain only one top-level object and that object must be of the type DataGridViewRowHeaderCell.
+     - parameter identifier: The reuse identifier for the view. This parameter must not be nil and must not be an empty string.
+     */
+    public func registerNib(nib: UINib, forRowHeaderWithReuseIdentifier identifier: String) {
+        collectionView.registerNib(nib, forSupplementaryViewOfKind: SupplementaryViewKind.RowHeader.rawValue, withReuseIdentifier: identifier)
+    }
+
+    /**
+     Registers a class for use in creating column header views for the data grid view.
+
+     - parameter cellClass:  The class of a column header view that you want to use in the data grid view.
+     - parameter identifier: The reuse identifier for the view. This parameter must not be nil and must not be an empty string.
+     */
+    public func registerClass(cellClass: DataGridViewRowHeaderCell.Type, forRowHeaderWithReuseIdentifier identifier: String) {
+        collectionView.registerClass(cellClass, forSupplementaryViewOfKind: SupplementaryViewKind.RowHeader.rawValue, withReuseIdentifier: identifier)
+    }
+
+    /**
+     Returns a resuable view for the specified column header located by identifier.
+
+     - parameter identifier: The reuse identifier for the specified column header view. This parameter must not be nil.
+     - parameter column:     An index number identifying column of data grid view.
+
+     - returns: A DataGridViewColumnHeaderCell object with the associated reuse identifier. This method always returns a valid view.
+     */
+    public func dequeueReusableHeaderViewWithReuseIdentifier(identifier: String, forRow row: NSInteger) -> DataGridViewRowHeaderCell {
+        let indexPath = NSIndexPath(forItem: 0, inSection: row)
+        let cell = collectionView.dequeueReusableSupplementaryViewOfKind(SupplementaryViewKind.RowHeader.rawValue, withReuseIdentifier: identifier, forIndexPath: indexPath)
+        guard let headerCell = cell as? DataGridViewRowHeaderCell else {
+            fatalError("Error in dequeueReusableHeaderViewWithReuseIdentifier(\(identifier), forRow:\(row)): expected to receive object of DataGridViewRowHeaderCell class, got \(_stdlib_getDemangledTypeName(cell)) instead")
         }
         headerCell.configureForDataGridView(self, indexPath: indexPath)
         return headerCell

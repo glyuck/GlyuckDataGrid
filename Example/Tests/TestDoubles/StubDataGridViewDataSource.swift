@@ -24,6 +24,10 @@ class StubDataGridViewDataSource: NSObject, DataGridViewDataSource {
         return "Title for column \(column)"
     }
 
+    func dataGridView(dataGridView: DataGridView, titleForHeaderForRow row: Int) -> String {
+        return "Title for row \(row)"
+    }
+
     func dataGridView(dataGridView: DataGridView, textForCellAtIndexPath indexPath: NSIndexPath) -> String {
         return "Text for cell \(indexPath.dataGridColumn)x\(indexPath.dataGridRow)"
     }
@@ -43,8 +47,18 @@ class StubDataGridViewDataSourceCustomCell: StubDataGridViewDataSource {
         return view
     }
 
+    var viewForRowHeaderBlock: ((dataGridView: DataGridView, row: Int) -> DataGridViewRowHeaderCell) = { dataGridView, row in
+        let view = dataGridView.dequeueReusableHeaderViewWithReuseIdentifier(DataGridView.ReuseIdentifiers.defaultRowHeader, forRow: row)
+        view.tag = row
+        return view
+    }
+
     func dataGridView(dataGridView: DataGridView, viewForHeaderForColumn column: Int) -> DataGridViewColumnHeaderCell {
         return viewForColumnHeaderBlock(dataGridView: dataGridView, column: column)
+    }
+
+    func dataGridView(dataGridView: DataGridView, viewForHeaderForRow row: Int) -> DataGridViewRowHeaderCell {
+        return viewForRowHeaderBlock(dataGridView: dataGridView, row: row)
     }
 
     func dataGridView(dataGridView: DataGridView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {

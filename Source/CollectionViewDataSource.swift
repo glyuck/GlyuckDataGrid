@@ -47,6 +47,18 @@ public class CollectionViewDataSource: NSObject, UICollectionViewDataSource {
     }
 
     public func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
+        guard let dataGridKind = DataGridView.SupplementaryViewKind(rawValue: kind) else {
+            fatalError("Unexpected supplementary view kind: \(kind)")
+        }
+
+        switch dataGridKind {
+        case .ColumnHeader: return columnHeaderViewForIndexPath(indexPath)
+        case .RowHeader: return rowHeaderViewForIndexPath(indexPath)
+        }
+    }
+
+    // MARK: - Custom methods
+    public func columnHeaderViewForIndexPath(indexPath: NSIndexPath) -> DataGridViewColumnHeaderCell{
         guard let dataGridDataSource = dataGridView.dataSource else {
             fatalError("dataGridView.dataSource unexpectedly nil")
         }
@@ -54,7 +66,7 @@ public class CollectionViewDataSource: NSObject, UICollectionViewDataSource {
         if let view = dataGridDataSource.dataGridView?(dataGridView, viewForHeaderForColumn: column) {
             return view
         }
-        let cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: DataGridView.ReuseIdentifiers.defaultColumnHeader, forIndexPath: indexPath) as! DataGridViewColumnHeaderCell
+        let cell = dataGridView.dequeueReusableHeaderViewWithReuseIdentifier(DataGridView.ReuseIdentifiers.defaultColumnHeader, forColumn: column)
         cell.configureForDataGridView(dataGridView, indexPath: indexPath)
         var text = dataGridDataSource.dataGridView?(dataGridView, titleForHeaderForColumn: column) ?? ""
         if dataGridView.sortColumn == column {
@@ -63,6 +75,29 @@ public class CollectionViewDataSource: NSObject, UICollectionViewDataSource {
         } else {
             cell.isSorted = false
         }
+        cell.textLabel.text = text
+        return cell
+    }
+
+    public func rowHeaderViewForIndexPath(indexPath: NSIndexPath) -> DataGridViewRowHeaderCell{
+        guard let dataGridDataSource = dataGridView.dataSource else {
+            fatalError("dataGridView.dataSource unexpectedly nil")
+        }
+        let row = indexPath.section
+        if let view = dataGridDataSource.dataGridView?(dataGridView, viewForHeaderForRow: row) {
+            return view
+        }
+        let cell = dataGridView.dequeueReusableHeaderViewWithReuseIdentifier(DataGridView.ReuseIdentifiers.defaultRowHeader, forRow: row)
+        cell.configureForDataGridView(dataGridView, indexPath: indexPath)
+        var text = dataGridDataSource.dataGridView?(dataGridView, titleForHeaderForRow: row) ?? ""
+/*
+        if dataGridView.sortRow == row {
+            text += (dataGridView.rowSortAscending ? cell.sortAscSuffix : cell.sortDescSuffix) ?? ""
+            cell.isSorted = true
+        } else {
+            cell.isSorted = false
+        }
+*/
         cell.textLabel.text = text
         return cell
     }

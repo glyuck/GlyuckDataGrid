@@ -124,6 +124,82 @@ class CollectionViewDataSourceSpec: QuickSpec {
                     expect(cell?.isSorted).to(beFalse())
                 }
             }
+
+            context("for row headers") {
+                func headerCellForRow(row: Int) -> DataGridViewRowHeaderCell? {
+                    let indexPath = NSIndexPath(forItem: 0, inSection: row)
+                    let view = sut.collectionView(dataGridView.collectionView, viewForSupplementaryElementOfKind: DataGridView.SupplementaryViewKind.RowHeader.rawValue, atIndexPath: indexPath)
+                    return view as? DataGridViewRowHeaderCell
+                }
+
+                context("when dataGridView:viewForHeaderForRow: is implemented") {
+                    var stubDataSourceCustomCell: StubDataGridViewDataSourceCustomCell!
+                    beforeEach {
+                        stubDataSourceCustomCell = StubDataGridViewDataSourceCustomCell()
+                        dataGridView.dataSource = stubDataSourceCustomCell
+                        dataGridView.reloadData()
+                        dataGridView.layoutIfNeeded()
+                    }
+
+                    it("should return view created by delegate") {
+                        // given
+                        let expectedView = dataGridView.dequeueReusableHeaderViewWithReuseIdentifier(DataGridView.ReuseIdentifiers.defaultRowHeader, forRow: 1)
+                        stubDataSourceCustomCell.viewForRowHeaderBlock = { dataGridView, row in
+                            expectedView.tag = row
+                            return expectedView
+                        }
+                        // when
+                        let view = headerCellForRow(1)
+                        // then
+                        expect(view) == expectedView
+                        expect(view?.tag) == 1
+                    }
+                }
+
+                it("should return DataGridViewColumnHeaderCell for 0 section") {
+                    let cell = headerCellForRow(0)
+                    expect(cell).to(beAKindOf(DataGridViewRowHeaderCell.self))
+                }
+
+                it("should configure first header cell with corresponding text") {
+                    let cell = headerCellForRow(0)
+                    expect(cell?.textLabel.text) == "Title for row 0"
+                }
+
+                it("should return nil when kind != header") {
+                    let cell = headerCellForRow(1)
+                    expect(cell?.textLabel.text) == "Title for row 1"
+                }
+/*
+                it("should add sorting symbol when dataGridView is sorted by this column ascending") {
+                    dataGridView.setSortColumn(0, ascending: true)
+
+                    let cell = headerCellForRow(0)
+                    expect(cell?.textLabel.text) == "Title for row 0" + (cell?.sortAscSuffix ?? "")
+                }
+
+                it("should add sorting symbol when dataGridView is sorted by this column descending") {
+                    dataGridView.setSortColumn(0, ascending: false)
+
+                    let cell = headerCellForRow(0)
+                    expect(cell?.textLabel.text) == "Title for column 0" + (cell?.sortDescSuffix ?? "")
+                }
+
+                it("should set cell.isSorted when sorted by this column") {
+                    dataGridView.setSortColumn(0, ascending: false)
+
+                    let cell = headerCellForRow(0)
+                    expect(cell?.isSorted).to(beTrue())
+                }
+
+                it("should not set cell.isSoretd unless sorted by this column") {
+                    dataGridView.setSortColumn(0, ascending: false)
+
+                    let cell = headerCellForRow(1)
+                    expect(cell?.isSorted).to(beFalse())
+                }
+*/
+            }
         }
 
         describe("collectionView:cellForItemAtIndexPath:") {
