@@ -54,6 +54,7 @@ public class CollectionViewDataSource: NSObject, UICollectionViewDataSource {
         switch dataGridKind {
         case .ColumnHeader: return columnHeaderViewForIndexPath(indexPath)
         case .RowHeader: return rowHeaderViewForIndexPath(indexPath)
+        case .CornerHeader: return cornerHeaderViewForIndexPath(indexPath)
         }
     }
 
@@ -100,6 +101,15 @@ public class CollectionViewDataSource: NSObject, UICollectionViewDataSource {
         }
 */
         cell.textLabel.text = text
+        return cell
+    }
+
+    public func cornerHeaderViewForIndexPath(indexPath: NSIndexPath) -> DataGridViewCornerHeaderCell {
+        guard let dataGridDataSource = dataGridView.dataSource else {
+            fatalError("dataGridView.dataSource unexpectedly nil")
+        }
+        let cell = dataGridView.dequeueReusableCornerHeaderViewWithReuseIdentifier(DataGridView.ReuseIdentifiers.defaultRowHeader)
+        cell.configureForDataGridView(dataGridView, indexPath: indexPath)
         return cell
     }
 }

@@ -133,7 +133,7 @@ public class DataGridViewLayout: UICollectionViewLayout {
         // Column headers
         for item in items {
             let headerIndexPath = NSIndexPath(forItem: item, inSection: 0)
-            if let headerAttributes = layoutAttributesForSupplementaryViewOfKind(DataGridView.SupplementaryViewKind.ColumnHeader.rawValue, atIndexPath: headerIndexPath) {
+            if let headerAttributes = layoutAttributesForSupplementaryViewOfKind(.ColumnHeader, atIndexPath: headerIndexPath) {
                 result.append(headerAttributes)
             }
         }
@@ -141,9 +141,16 @@ public class DataGridViewLayout: UICollectionViewLayout {
         if widthForRowHeader() > 0 {
             for section in sections {
                 let rowHeaderIndexPath = NSIndexPath(forItem: 0, inSection: section)
-                if let rowHeaderAttributes = layoutAttributesForSupplementaryViewOfKind(DataGridView.SupplementaryViewKind.RowHeader.rawValue, atIndexPath: rowHeaderIndexPath) {
+                if let rowHeaderAttributes = layoutAttributesForSupplementaryViewOfKind(.RowHeader, atIndexPath: rowHeaderIndexPath) {
                     result.append(rowHeaderAttributes)
                 }
+            }
+        }
+        // Corner header
+        if widthForRowHeader() > 0 && heightForSectionHeader() > 0 {
+            let cornerHeaderIndexPath = NSIndexPath(forItem: 0, inSection: 0)
+            if let cornerHeaderAttributes = layoutAttributesForSupplementaryViewOfKind(.CornerHeader, atIndexPath: cornerHeaderIndexPath) {
+                result.append(cornerHeaderAttributes)
             }
         }
 
@@ -165,6 +172,7 @@ public class DataGridViewLayout: UICollectionViewLayout {
         switch elementKind {
         case .ColumnHeader: return layoutAttributesForColumnHeaderViewAtIndexPath(indexPath)
         case .RowHeader: return layoutAttributesForRowHeaderViewAtIndexPath(indexPath)
+        case .CornerHeader: return layoutAttributesForCornerHeaderViewAtIndexPath(indexPath)
         }
     }
 
@@ -218,4 +226,19 @@ public class DataGridViewLayout: UICollectionViewLayout {
         return attributes
     }
 
+    public func layoutAttributesForCornerHeaderViewAtIndexPath(indexPath: NSIndexPath) -> UICollectionViewLayoutAttributes? {
+        let attributes = UICollectionViewLayoutAttributes(forSupplementaryViewOfKind: DataGridView.SupplementaryViewKind.CornerHeader.rawValue, withIndexPath: indexPath)
+        let x = collectionView!.contentInset.left + dataGridView.collectionView.contentOffset.x
+        let y = collectionView!.contentInset.top + dataGridView.collectionView.contentOffset.y
+        let width = widthForRowHeader()
+        let height = heightForSectionHeader()
+        attributes.frame = CGRect(
+            x: max(0, x),
+            y: max(0, y),
+            width: width,
+            height: height
+        )
+        attributes.zIndex = 5
+        return attributes
+    }
 }

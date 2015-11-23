@@ -187,13 +187,18 @@ public class DataGridView: UIView {
     public enum ReuseIdentifiers {
         public static let defaultColumnHeader = "DataGridViewColumnHeaderCell"
         public static let defaultRowHeader = "DataGridViewRowHeaderCell"
+        public static let defaultCornerHeader = "DataGridViewRowHeaderCell"
         public static let defaultCell = "DataGridViewContentCell"
     }
 
     /// Constants for supplementary view kinds of internally-used collection view.
     public enum SupplementaryViewKind: String {
+        /// Header displayed on top of each column.
         case ColumnHeader = "ColumnHeader"
+        /// Header displayed on left of each row.
         case RowHeader = "RowHeader"
+        /// One header positioned on top-left corner of data grid view. Only displayed if data grid view has both column and row headers.
+        case CornerHeader = "CornerHeader"
     }
 
     /// Collection view used internally to build up data grid.
@@ -277,8 +282,9 @@ public class DataGridView: UIView {
      */
     public func setupDataGridView() {
         registerClass(DataGridViewContentCell.self, forCellWithReuseIdentifier: ReuseIdentifiers.defaultCell)
-        registerClass(DataGridViewColumnHeaderCell.self, forColumnHeaderWithReuseIdentifier: ReuseIdentifiers.defaultColumnHeader)
-        registerClass(DataGridViewRowHeaderCell.self, forRowHeaderWithReuseIdentifier: ReuseIdentifiers.defaultRowHeader)
+        registerClass(DataGridViewColumnHeaderCell.self, forHeaderOfKind: .ColumnHeader, withReuseIdentifier: ReuseIdentifiers.defaultColumnHeader)
+        registerClass(DataGridViewRowHeaderCell.self, forHeaderOfKind: .RowHeader, withReuseIdentifier: ReuseIdentifiers.defaultRowHeader)
+        registerClass(DataGridViewCornerHeaderCell.self, forHeaderOfKind: .CornerHeader, withReuseIdentifier: ReuseIdentifiers.defaultCornerHeader)
     }
 
     /**
@@ -382,23 +388,25 @@ public class DataGridView: UIView {
     }
 
     /**
-     Registers a nib file for use in creating column header views for the data grid view.
+     Registers a nib file for use in creating header views for the data grid view.
 
-     - parameter nib:        The nib object containing the view object. The nib file must contain only one top-level object and that object must be of the type DataGridViewColumnHeaderCell.
+     - parameter nib:        The nib object containing the view object. The nib file must contain only one top-level object and that object must be of the type DataGridViewRowHeaderCell.
+     - parameter kind:       Specified nib will be used to create headers of specified kind.
      - parameter identifier: The reuse identifier for the view. This parameter must not be nil and must not be an empty string.
      */
-    public func registerNib(nib: UINib, forColumnHeaderWithReuseIdentifier identifier: String) {
-        collectionView.registerNib(nib, forSupplementaryViewOfKind: SupplementaryViewKind.ColumnHeader.rawValue, withReuseIdentifier: identifier)
+    public func registerNib(nib: UINib, forHeaderOfKind kind: SupplementaryViewKind, withReuseIdentifier identifier: String) {
+        collectionView.registerNib(nib, forSupplementaryViewOfKind: kind.rawValue, withReuseIdentifier: identifier)
     }
 
     /**
      Registers a class for use in creating column header views for the data grid view.
 
      - parameter cellClass:  The class of a column header view that you want to use in the data grid view.
+     - parameter kind:       Specified class will be used to create headers of specified kind.
      - parameter identifier: The reuse identifier for the view. This parameter must not be nil and must not be an empty string.
      */
-    public func registerClass(cellClass: DataGridViewColumnHeaderCell.Type, forColumnHeaderWithReuseIdentifier identifier: String) {
-        collectionView.registerClass(cellClass, forSupplementaryViewOfKind: SupplementaryViewKind.ColumnHeader.rawValue, withReuseIdentifier: identifier)
+    public func registerClass(cellClass: DataGridViewBaseCell.Type, forHeaderOfKind kind: SupplementaryViewKind, withReuseIdentifier identifier: String) {
+        collectionView.registerClass(cellClass, forSupplementaryViewOfKind: kind.rawValue, withReuseIdentifier: identifier)
     }
 
     /**
@@ -419,27 +427,6 @@ public class DataGridView: UIView {
         return headerCell
     }
 
-
-    /**
-     Registers a nib file for use in creating row header views for the data grid view.
-
-     - parameter nib:        The nib object containing the view object. The nib file must contain only one top-level object and that object must be of the type DataGridViewRowHeaderCell.
-     - parameter identifier: The reuse identifier for the view. This parameter must not be nil and must not be an empty string.
-     */
-    public func registerNib(nib: UINib, forRowHeaderWithReuseIdentifier identifier: String) {
-        collectionView.registerNib(nib, forSupplementaryViewOfKind: SupplementaryViewKind.RowHeader.rawValue, withReuseIdentifier: identifier)
-    }
-
-    /**
-     Registers a class for use in creating column header views for the data grid view.
-
-     - parameter cellClass:  The class of a column header view that you want to use in the data grid view.
-     - parameter identifier: The reuse identifier for the view. This parameter must not be nil and must not be an empty string.
-     */
-    public func registerClass(cellClass: DataGridViewRowHeaderCell.Type, forRowHeaderWithReuseIdentifier identifier: String) {
-        collectionView.registerClass(cellClass, forSupplementaryViewOfKind: SupplementaryViewKind.RowHeader.rawValue, withReuseIdentifier: identifier)
-    }
-
     /**
      Returns a resuable view for the specified column header located by identifier.
 
@@ -453,6 +440,24 @@ public class DataGridView: UIView {
         let cell = collectionView.dequeueReusableSupplementaryViewOfKind(SupplementaryViewKind.RowHeader.rawValue, withReuseIdentifier: identifier, forIndexPath: indexPath)
         guard let headerCell = cell as? DataGridViewRowHeaderCell else {
             fatalError("Error in dequeueReusableHeaderViewWithReuseIdentifier(\(identifier), forRow:\(row)): expected to receive object of DataGridViewRowHeaderCell class, got \(_stdlib_getDemangledTypeName(cell)) instead")
+        }
+        headerCell.configureForDataGridView(self, indexPath: indexPath)
+        return headerCell
+    }
+
+    /**
+     Returns a resuable view for the specified column header located by identifier.
+
+     - parameter identifier: The reuse identifier for the specified column header view. This parameter must not be nil.
+     - parameter column:     An index number identifying column of data grid view.
+
+     - returns: A DataGridViewColumnHeaderCell object with the associated reuse identifier. This method always returns a valid view.
+     */
+    public func dequeueReusableCornerHeaderViewWithReuseIdentifier(identifier: String) -> DataGridViewCornerHeaderCell {
+        let indexPath = NSIndexPath(forItem: 0, inSection: 0)
+        let cell = collectionView.dequeueReusableSupplementaryViewOfKind(SupplementaryViewKind.CornerHeader.rawValue, withReuseIdentifier: identifier, forIndexPath: indexPath)
+        guard let headerCell = cell as? DataGridViewCornerHeaderCell else {
+            fatalError("Error in dequeueReusableCornerHeaderViewWithReuseIdentifier(\(identifier)): expected to receive object of DataGridViewCornerHeaderCell class, got \(_stdlib_getDemangledTypeName(cell)) instead")
         }
         headerCell.configureForDataGridView(self, indexPath: indexPath)
         return headerCell

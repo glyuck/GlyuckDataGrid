@@ -171,21 +171,85 @@ class DataGridViewLayoutSpec: QuickSpec {
                             height: sut.heightForRow(1)
                         )
                     }
-                }
-                context("when there is contentInset") {
-                    beforeEach {
-                        dataGridView.collectionView.contentInset = UIEdgeInsets(top: 10, left: 5, bottom: 0, right: 0)
-                    }
+                    context("when there is contentInset") {
+                        beforeEach {
+                            dataGridView.collectionView.contentInset = UIEdgeInsets(top: 10, left: 5, bottom: 0, right: 0)
+                        }
 
-                    it("should be applied to row header X position") {
-                        let attributes = sut.layoutAttributesForRowHeaderViewAtIndexPath(NSIndexPath(forItem: 0, inSection: 0))!
+                        it("should be applied to row header X position") {
+                            let attributes = sut.layoutAttributesForRowHeaderViewAtIndexPath(NSIndexPath(forItem: 0, inSection: 0))!
+
+                            expect(attributes.frame) == CGRect(
+                                x: dataGridView.collectionView.contentInset.left + dataGridView.collectionView.contentOffset.x,
+                                y: sut.heightForSectionHeader(),
+                                width: sut.widthForRowHeader(),
+                                height: sut.heightForRow(0)
+                            )
+                        }
+                    }
+                }
+            }
+            context("layout corner header") {
+                it("should return correct coordinates for top-left corner header") {
+                    let attributes = sut.layoutAttributesForCornerHeaderViewAtIndexPath(NSIndexPath(forItem: 0, inSection: 0))!
+
+                    expect(attributes.frame) == CGRect(
+                        x: 0,
+                        y: 0,
+                        width: sut.widthForRowHeader(),
+                        height: sut.heightForSectionHeader()
+                    )
+                }
+                it("should return greater zIndex then for content and header cells") {
+                    let cornerHeaderAttributes = sut.layoutAttributesForCornerHeaderViewAtIndexPath(NSIndexPath(forItem: 0, inSection: 0))!
+                    let rowHeaderAttributes = sut.layoutAttributesForRowHeaderViewAtIndexPath(NSIndexPath(forItem: 0, inSection: 0))!
+                    let columnHeaderAttributes = sut.layoutAttributesForColumnHeaderViewAtIndexPath(NSIndexPath(forItem: 0, inSection: 0))!
+                    let contentAttributes = sut.layoutAttributesForItemAtIndexPath(NSIndexPath(forItem: 0, inSection: 0))!
+                    expect(cornerHeaderAttributes.zIndex) > rowHeaderAttributes.zIndex
+                    expect(cornerHeaderAttributes.zIndex) > columnHeaderAttributes.zIndex
+                    expect(cornerHeaderAttributes.zIndex) > contentAttributes.zIndex
+                }
+                context("when content is scrolled") {
+                    beforeEach {
+                        dataGridView.contentOffset = CGPointMake(10, 20)
+                    }
+                    it("should return unscrolled coordinates if offset negative") {
+                        dataGridView.contentOffset = CGPointMake(-10, -20)
+
+                        let attributes = sut.layoutAttributesForCornerHeaderViewAtIndexPath(NSIndexPath(forItem: 0, inSection: 0))!
 
                         expect(attributes.frame) == CGRect(
-                            x: dataGridView.collectionView.contentInset.left + dataGridView.collectionView.contentOffset.x,
-                            y: sut.heightForSectionHeader(),
+                            x: 0,
+                            y: 0,
                             width: sut.widthForRowHeader(),
-                            height: sut.heightForRow(0)
+                            height: sut.heightForSectionHeader()
                         )
+                    }
+                    it("should return correct coordinates for top-left corner header") {
+                        let attributes = sut.layoutAttributesForCornerHeaderViewAtIndexPath(NSIndexPath(forItem: 0, inSection: 0))!
+
+                        expect(attributes.frame) == CGRect(
+                            x: dataGridView.contentOffset.x,
+                            y: dataGridView.contentOffset.y,
+                            width: sut.widthForRowHeader(),
+                            height: sut.heightForSectionHeader()
+                        )
+                    }
+                    context("when there is contentInset") {
+                        beforeEach {
+                            dataGridView.collectionView.contentInset = UIEdgeInsets(top: 10, left: 5, bottom: 0, right: 0)
+                        }
+
+                        it("should be applied to row header X position") {
+                            let attributes = sut.layoutAttributesForCornerHeaderViewAtIndexPath(NSIndexPath(forItem: 0, inSection: 0))!
+
+                            expect(attributes.frame) == CGRect(
+                                x: dataGridView.collectionView.contentInset.left + dataGridView.collectionView.contentOffset.x,
+                                y: dataGridView.collectionView.contentInset.top + dataGridView.collectionView.contentOffset.y,
+                                width: sut.widthForRowHeader(),
+                                height: sut.heightForSectionHeader()
+                            )
+                        }
                     }
                 }
             }
@@ -300,7 +364,12 @@ class DataGridViewLayoutSpec: QuickSpec {
 
                 func ensureItems(items: [Int], sections: [Int], columnHeader: Bool, rowHeader: Bool, inRect rect: CGRect) {
                     let attributes = sut.layoutAttributesForElementsInRect(rect)!
-                    expect(attributes.count) == items.count * sections.count + (columnHeader ? items.count : 0) + (rowHeader ? sections.count : 0)
+                    expect(attributes.count) == items.count * sections.count + (columnHeader ? items.count : 0) + (rowHeader ? sections.count : 0) + (columnHeader && rowHeader ? 1 : 0)
+                    if columnHeader && rowHeader {
+                        let headerIndexPath = NSIndexPath(forItem: 0, inSection: 0)
+                        let res = attributes.filter { isAttribute($0, forIndexPath: headerIndexPath, forSupplementaryViewOfKind: .CornerHeader) }.count == 1
+                        expect(res).to(beTrue(), description: "Expected layout attributes to contain IndexPath(forItem: 0, inSection: 0) for section header")
+                    }
                     for item in items {
                         if columnHeader {
                             let headerIndexPath = NSIndexPath(forItem: item, inSection: 0)

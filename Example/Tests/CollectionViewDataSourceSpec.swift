@@ -200,6 +200,18 @@ class CollectionViewDataSourceSpec: QuickSpec {
                 }
 */
             }
+            context("for corner headers") {
+                func cornerHeaderCell() -> DataGridViewCornerHeaderCell? {
+                    let indexPath = NSIndexPath(forItem: 0, inSection: 0)
+                    let view = sut.collectionView(dataGridView.collectionView, viewForSupplementaryElementOfKind: DataGridView.SupplementaryViewKind.CornerHeader.rawValue, atIndexPath: indexPath)
+                    return view as? DataGridViewCornerHeaderCell
+                }
+
+                it("should return DataGridViewCornerHeaderCell") {
+                    let cell = cornerHeaderCell()
+                    expect(cell).to(beAKindOf(DataGridViewCornerHeaderCell.self))
+                }
+            }
         }
 
         describe("collectionView:cellForItemAtIndexPath:") {
