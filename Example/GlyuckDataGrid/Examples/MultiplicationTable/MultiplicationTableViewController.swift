@@ -20,6 +20,13 @@ class MultiplicationTableViewController: UIViewController, DataGridViewDataSourc
         dataGridAppearance.row1BackgroundColor = nil
         dataGridAppearance.row2BackgroundColor = nil
 
+        let cornerHeaderAppearance = DataGridViewCornerHeaderCell.glyuck_appearanceWhenContainedIn(self)
+        cornerHeaderAppearance.backgroundColor = UIColor.whiteColor()
+        cornerHeaderAppearance.borderBottomWidth = 1 / UIScreen.mainScreen().scale
+        cornerHeaderAppearance.borderBottomColor = UIColor(white: 0.73, alpha: 1)
+        cornerHeaderAppearance.borderRightWidth = 1 / UIScreen.mainScreen().scale
+        cornerHeaderAppearance.borderRightColor = UIColor(white: 0.73, alpha: 1)
+
         let rowHeaderAppearance = DataGridViewRowHeaderCell.glyuck_appearanceWhenContainedIn(self)
         rowHeaderAppearance.normalBackgroundColor = UIColor(white: 0.95, alpha: 1)
         rowHeaderAppearance.borderBottomWidth = 1 / UIScreen.mainScreen().scale

@@ -32,6 +32,17 @@ class SpreadSheetViewController: UIViewController, DataGridViewDataSource, DataG
         dataGridAppearance.row1BackgroundColor = nil
         dataGridAppearance.row2BackgroundColor = nil
 
+        let cornerHeaderAppearance = DataGridViewCornerHeaderCell.glyuck_appearanceWhenContainedIn(self)
+        cornerHeaderAppearance.backgroundColor = Colors.headerBackground
+        cornerHeaderAppearance.borderLeftWidth = 1 / UIScreen.mainScreen().scale
+        cornerHeaderAppearance.borderTopWidth = 1 / UIScreen.mainScreen().scale
+        cornerHeaderAppearance.borderRightWidth = 1 / UIScreen.mainScreen().scale
+        cornerHeaderAppearance.borderBottomWidth = 1 / UIScreen.mainScreen().scale
+        cornerHeaderAppearance.borderLeftColor = Colors.border
+        cornerHeaderAppearance.borderTopColor = Colors.border
+        cornerHeaderAppearance.borderRightColor = Colors.border
+        cornerHeaderAppearance.borderBottomColor = Colors.border
+
         let rowHeaderAppearance = DataGridViewRowHeaderCell.glyuck_appearanceWhenContainedIn(self)
         rowHeaderAppearance.normalBackgroundColor = Colors.headerBackground
         rowHeaderAppearance.borderLeftWidth = 1 / UIScreen.mainScreen().scale
