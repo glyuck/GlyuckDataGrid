@@ -15,7 +15,7 @@ protocol SpreadSheetCellDelegate {
 }
 
 
-class SpreadSheetCell: DataGridViewCell {
+class SpreadSheetCell: DataGridViewBaseCell {
     @IBOutlet weak var textField: UITextField!
     var indexPath: NSIndexPath!
 

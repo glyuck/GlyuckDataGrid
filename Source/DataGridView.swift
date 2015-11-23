@@ -187,7 +187,7 @@ public class DataGridView: UIView {
     public enum ReuseIdentifiers {
         public static let defaultColumnHeader = "DataGridViewColumnHeaderCell"
         public static let defaultRowHeader = "DataGridViewRowHeaderCell"
-        public static let defaultCell = "DataGridViewCell"
+        public static let defaultCell = "DataGridViewContentCell"
     }
 
     /// Constants for supplementary view kinds of internally-used collection view.

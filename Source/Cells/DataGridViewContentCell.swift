@@ -13,7 +13,7 @@ private var setupAppearanceDispatchToken = dispatch_once_t()
 /**
  Class for default data grid view cell.
 */
-public class DataGridViewContentCell: DataGridViewCell {
+public class DataGridViewContentCell: DataGridViewBaseCell {
     public override static func initialize() {
         super.initialize()
         dispatch_once(&setupAppearanceDispatchToken) {

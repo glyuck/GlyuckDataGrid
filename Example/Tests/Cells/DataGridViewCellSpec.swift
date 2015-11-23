@@ -1,5 +1,5 @@
 //
-//  DataGridViewCellSpec.swift
+//  DataGridViewBaseCellSpec.swift
 //  GlyuckDataGrid
 //
 //  Created by Vladimir Lyukov on 12/08/15.
@@ -11,12 +11,12 @@ import Nimble
 import GlyuckDataGrid
 
 
-class DataGridViewCellSpec: QuickSpec {
+class DataGridViewBaseCellSpec: QuickSpec {
     override func spec() {
-        var sut: DataGridViewCell!
+        var sut: DataGridViewBaseCell!
 
         beforeEach {
-            sut = DataGridViewCell(frame: CGRect(x: 0, y: 0, width: 100, height: 60))
+            sut = DataGridViewBaseCell(frame: CGRect(x: 0, y: 0, width: 100, height: 60))
         }
 
         describe("textLabel") {

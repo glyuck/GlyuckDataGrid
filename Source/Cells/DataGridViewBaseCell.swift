@@ -1,5 +1,5 @@
 //
-//  DataGridViewCell.swift
+//  DataGridViewBaseCell.swift
 //  Pods
 //
 //  Created by Vladimir Lyukov on 12/08/15.
@@ -12,7 +12,7 @@ import UIKit
 /**
  Base class for data grid view cells.
 */
-public class DataGridViewCell: UICollectionViewCell {
+public class DataGridViewBaseCell: UICollectionViewCell {
     /// The inset or outset margins for the rectangle around the cell’s text label.
     public dynamic var textLabelInsets = UIEdgeInsetsZero
     /// Background color for highlighted state.
@@ -59,7 +59,7 @@ public class DataGridViewCell: UICollectionViewCell {
 }
 
 // Border getters/setters for UIAppearance
-extension DataGridViewCell {
+extension DataGridViewBaseCell {
     public dynamic var borderTopWidth: CGFloat {
         get { return border.topWidth }
         set { border.topWidth = newValue }

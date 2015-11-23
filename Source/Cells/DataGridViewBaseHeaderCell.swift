@@ -15,7 +15,7 @@
 import UIKit
 
 
-public class DataGridViewBaseHeaderCell: DataGridViewCell {
+public class DataGridViewBaseHeaderCell: DataGridViewBaseCell {
     public dynamic var normalBackgroundColor: UIColor?
     public dynamic var sortedBackgroundColor: UIColor?
     public dynamic var sortAscSuffix: String?
