@@ -182,7 +182,7 @@ class DataGridViewLayoutSpec: QuickSpec {
 
                         expect(attributes.frame) == CGRect(
                             x: dataGridView.collectionView.contentInset.left + dataGridView.collectionView.contentOffset.x,
-                            y: dataGridView.collectionView.contentInset.top + sut.heightForSectionHeader(),
+                            y: sut.heightForSectionHeader(),
                             width: sut.widthForRowHeader(),
                             height: sut.heightForRow(0)
                         )
