@@ -90,6 +90,7 @@ public class CollectionViewDataSource: NSObject, UICollectionViewDataSource {
         let cell = dataGridView.dequeueReusableHeaderViewWithReuseIdentifier(DataGridView.ReuseIdentifiers.defaultRowHeader, forRow: row)
         cell.configureForDataGridView(dataGridView, indexPath: indexPath)
         var text = dataGridDataSource.dataGridView?(dataGridView, titleForHeaderForRow: row) ?? ""
+        cell.isSorted = false
 /*
         if dataGridView.sortRow == row {
             text += (dataGridView.rowSortAscending ? cell.sortAscSuffix : cell.sortDescSuffix) ?? ""
