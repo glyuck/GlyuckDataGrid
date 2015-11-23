@@ -25,8 +25,8 @@
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Simple data grid" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fag-hy-6uH">
-                                                    <rect key="frame" x="8" y="11" width="126" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Simple multicolumn table" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fag-hy-6uH">
+                                                    <rect key="frame" x="8" y="11" width="193" height="21"/>
                                                     <animations/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -68,6 +68,32 @@
                                         <animations/>
                                         <connections>
                                             <segue destination="nyJ-V6-FwE" kind="show" id="erV-mc-SKp"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="YLw-l1-2ek">
+                                        <rect key="frame" x="0.0" y="152" width="600" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="YLw-l1-2ek" id="TeJ-OC-gIs">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Multiplication table" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aUD-sh-ucF">
+                                                    <rect key="frame" x="8" y="11" width="145" height="21"/>
+                                                    <animations/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <animations/>
+                                            <constraints>
+                                                <constraint firstAttribute="centerY" secondItem="aUD-sh-ucF" secondAttribute="centerY" id="3b7-9I-MS0"/>
+                                                <constraint firstItem="aUD-sh-ucF" firstAttribute="leading" secondItem="TeJ-OC-gIs" secondAttribute="leadingMargin" id="Rz8-sC-Di7"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <animations/>
+                                        <connections>
+                                            <segue destination="08J-5w-OYF" kind="show" id="pcP-y0-3ci"/>
                                         </connections>
                                     </tableViewCell>
                                 </cells>
@@ -117,7 +143,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Tpo-sg-OYE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1723" y="188"/>
+            <point key="canvasLocation" x="1723" y="-259"/>
         </scene>
         <!--Spread Sheet View Controller-->
         <scene sceneID="N4m-au-RlM">
@@ -152,7 +178,42 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="D4T-HA-Cav" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1723" y="927"/>
+            <point key="canvasLocation" x="1723" y="534"/>
+        </scene>
+        <!--Multiplication Table View Controller-->
+        <scene sceneID="oEC-9c-29C">
+            <objects>
+                <viewController id="08J-5w-OYF" customClass="MultiplicationTableViewController" customModule="GlyuckDataGrid_Example" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="xqV-g1-WsN"/>
+                        <viewControllerLayoutGuide type="bottom" id="vLr-xN-6sC"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="NI6-Zf-2s1">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HBJ-hM-suY" customClass="DataGridView" customModule="GlyuckDataGrid">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <animations/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="vLr-xN-6sC" firstAttribute="top" secondItem="HBJ-hM-suY" secondAttribute="bottom" id="FQw-Fd-XuO"/>
+                            <constraint firstAttribute="trailing" secondItem="HBJ-hM-suY" secondAttribute="trailing" id="POk-Ym-pTQ"/>
+                            <constraint firstItem="HBJ-hM-suY" firstAttribute="leading" secondItem="NI6-Zf-2s1" secondAttribute="leading" id="e69-If-0gp"/>
+                            <constraint firstItem="HBJ-hM-suY" firstAttribute="top" secondItem="NI6-Zf-2s1" secondAttribute="top" id="pNj-6F-jCn"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="dataGridView" destination="HBJ-hM-suY" id="GZk-js-JWe"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iUQ-3w-7Zb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1723" y="1310"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="tZd-jA-tLp">

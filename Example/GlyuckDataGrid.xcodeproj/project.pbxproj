@@ -14,6 +14,7 @@
 		394EA4361B6F498E00328166 /* DataGridViewSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 394EA4341B6BDFB100328166 /* DataGridViewSpec.swift */; };
 		394EA43C1B6F5DC700328166 /* StubDataGridViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 394EA4381B6F5D1C00328166 /* StubDataGridViewDelegate.swift */; };
 		394EA43D1B6F5DC900328166 /* StubDataGridViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 394EA43A1B6F5D2900328166 /* StubDataGridViewDataSource.swift */; };
+		394F1F441C03349C00F7F462 /* MultiplicationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 394F1F431C03349C00F7F462 /* MultiplicationTableViewController.swift */; };
 		397B94151BFA0267006AB40B /* SpreadSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 397B94141BFA0267006AB40B /* SpreadSheetViewController.swift */; };
 		397B94191BFA02BC006AB40B /* SpreadSheetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 397B94171BFA02BC006AB40B /* SpreadSheetCell.swift */; };
 		397B941A1BFA02BC006AB40B /* SpreadSheetCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 397B94181BFA02BC006AB40B /* SpreadSheetCell.xib */; };
@@ -49,6 +50,7 @@
 		394EA4341B6BDFB100328166 /* DataGridViewSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataGridViewSpec.swift; sourceTree = "<group>"; };
 		394EA4381B6F5D1C00328166 /* StubDataGridViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StubDataGridViewDelegate.swift; sourceTree = "<group>"; };
 		394EA43A1B6F5D2900328166 /* StubDataGridViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StubDataGridViewDataSource.swift; sourceTree = "<group>"; };
+		394F1F431C03349C00F7F462 /* MultiplicationTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiplicationTableViewController.swift; sourceTree = "<group>"; };
 		397B94141BFA0267006AB40B /* SpreadSheetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpreadSheetViewController.swift; sourceTree = "<group>"; };
 		397B94171BFA02BC006AB40B /* SpreadSheetCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpreadSheetCell.swift; sourceTree = "<group>"; };
 		397B94181BFA02BC006AB40B /* SpreadSheetCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SpreadSheetCell.xib; sourceTree = "<group>"; };
@@ -119,9 +121,18 @@
 			path = TestDoubles;
 			sourceTree = "<group>";
 		};
+		394F1F421C03349C00F7F462 /* MultiplicationTable */ = {
+			isa = PBXGroup;
+			children = (
+				394F1F431C03349C00F7F462 /* MultiplicationTableViewController.swift */,
+			);
+			path = MultiplicationTable;
+			sourceTree = "<group>";
+		};
 		397B94121BF9FD24006AB40B /* Examples */ = {
 			isa = PBXGroup;
 			children = (
+				394F1F421C03349C00F7F462 /* MultiplicationTable */,
 				397B941B1BFB1265006AB40B /* SimpleDataGrid */,
 				397B94131BF9FD24006AB40B /* SpreadSheet */,
 			);
@@ -455,6 +466,7 @@
 				397B94191BFA02BC006AB40B /* SpreadSheetCell.swift in Sources */,
 				39B95AC51B7DC095003DEE52 /* DataSource.swift in Sources */,
 				397B94151BFA0267006AB40B /* SpreadSheetViewController.swift in Sources */,
+				394F1F441C03349C00F7F462 /* MultiplicationTableViewController.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
 				397B941D1BFB1265006AB40B /* SimpleDataGridViewController.swift in Sources */,
 			);
