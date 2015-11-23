@@ -14,4 +14,8 @@
     return [self appearanceWhenContainedIn:containerClass, nil];
 }
 
++ (instancetype)glyuck_appearanceWhenContainedIn:(Class<UIAppearanceContainer>)containerClass class2:(Class<UIAppearanceContainer>)containerClass2 {
+    return [self appearanceWhenContainedIn:containerClass, containerClass2, nil];
+}
+
 @end

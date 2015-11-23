@@ -12,5 +12,6 @@
 
 // appearanceWhenContainedIn: is not available in Swift. This fixes that.
 + (instancetype)glyuck_appearanceWhenContainedIn:(Class<UIAppearanceContainer>)containerClass;
++ (instancetype)glyuck_appearanceWhenContainedIn:(Class<UIAppearanceContainer>)containerClass class2:(Class<UIAppearanceContainer>)containerClass2;
 
 @end
