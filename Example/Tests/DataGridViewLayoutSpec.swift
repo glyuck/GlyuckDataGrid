@@ -432,15 +432,24 @@ class DataGridViewLayoutSpec: QuickSpec {
                 it("should return equal widths for columns if delegate missing/not implements method") {
                     dataGridView.dataSource = stubDataSource
                     dataGridView.delegate = nil
-                    stubDataSource.numberOfColumns = 7
-                    // Ensure dataGrid width isn't devisible evenly on number of columns
-                    let exactColumnWidth = (frame.width - dataGridView.rowHeaderWidth) / CGFloat(stubDataSource.numberOfColumns)
-                    expect(ceil(exactColumnWidth)) != exactColumnWidth
+                    stubDataSource.numberOfColumns = 5
 
-                    expect(sut.widthForColumn(0)) == ceil(exactColumnWidth)
-                    for i in (1..<stubDataSource.numberOfColumns) {
-                        expect(sut.widthForColumn(i)) == floor(exactColumnWidth)
-                    }
+                    expect(sut.widthForColumn(0)) == 55
+                    expect(sut.widthForColumn(1)) == 55
+                    expect(sut.widthForColumn(2)) == 56
+                    expect(sut.widthForColumn(3)) == 55
+                    expect(sut.widthForColumn(4)) == 55
+
+                    stubDataSource.numberOfColumns = 7
+
+                    expect(sut.widthForColumn(0)) == 39
+                    expect(sut.widthForColumn(1)) == 40
+                    expect(sut.widthForColumn(2)) == 39
+                    expect(sut.widthForColumn(3)) == 40
+                    expect(sut.widthForColumn(4)) == 39
+                    expect(sut.widthForColumn(5)) == 40
+                    expect(sut.widthForColumn(6)) == 39
+
                 }
                 it("should return zero if delegate and dataSource are not set") {
                     dataGridView.dataSource = nil

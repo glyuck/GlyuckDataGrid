@@ -38,7 +38,9 @@ public class DataGridViewLayout: UICollectionViewLayout {
         }
         if let dataGridView = dataGridView, dataSource = dataGridView.dataSource {
             let exactWidth = (dataGridView.frame.width - dataGridView.rowHeaderWidth) / CGFloat(dataSource.numberOfColumnsInDataGridView(dataGridView))
-            return column == 0 ? ceil(exactWidth) : floor(exactWidth)
+            let exactStart = Array(0..<column).reduce(0) { x, column in x + exactWidth }
+            let exactEnd = exactStart + exactWidth
+            return round(exactEnd) - round(exactStart)
         }
         return 0
     }
