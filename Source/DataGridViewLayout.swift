@@ -37,7 +37,7 @@ public class DataGridViewLayout: UICollectionViewLayout {
             return width
         }
         if let dataGridView = dataGridView, dataSource = dataGridView.dataSource {
-            let exactWidth = dataGridView.frame.width / CGFloat(dataSource.numberOfColumnsInDataGridView(dataGridView))
+            let exactWidth = (dataGridView.frame.width - dataGridView.rowHeaderWidth) / CGFloat(dataSource.numberOfColumnsInDataGridView(dataGridView))
             return column == 0 ? ceil(exactWidth) : floor(exactWidth)
         }
         return 0
@@ -55,7 +55,7 @@ public class DataGridViewLayout: UICollectionViewLayout {
 
     public override func layoutAttributesForItemAtIndexPath(indexPath: NSIndexPath) -> UICollectionViewLayoutAttributes? {
         let attributes = UICollectionViewLayoutAttributes(forCellWithIndexPath: indexPath)
-        let x = Array(0..<indexPath.row).reduce(0) { $0 + widthForColumn($1)}
+        let x = Array(0..<indexPath.row).reduce(widthForRowHeader()) { $0 + widthForColumn($1)}
         let y = Array(0..<indexPath.section).reduce(heightForSectionHeader()) { $0 + heightForRow($1)}
         let width = widthForColumn(indexPath.row)
         let height = heightForRow(indexPath.section)
@@ -99,7 +99,7 @@ public class DataGridViewLayout: UICollectionViewLayout {
             }
 
             let nextX = x + widthForColumn(i)
-            if x >= rect.minX || nextX > rect.minX ||
+            if x - widthForRowHeader() >= rect.minX || nextX - widthForRowHeader() > rect.minX ||
                     dataGridView?.delegate?.dataGridView?(dataGridView!, shouldFloatColumn: i) == true {
                 items.append(i)
             }
@@ -153,7 +153,7 @@ public class DataGridViewLayout: UICollectionViewLayout {
     }
 
     public override func collectionViewContentSize() -> CGSize {
-        let width = Array(0..<dataGridView.numberOfColumns()).reduce(0) { $0 + widthForColumn($1) }
+        let width = Array(0..<dataGridView.numberOfColumns()).reduce(widthForRowHeader()) { $0 + widthForColumn($1) }
         let height = Array(0..<dataGridView.numberOfRows()).reduce(heightForSectionHeader()) { $0 + heightForRow($1) }
         return CGSize(width: width, height: height)
     }
@@ -171,7 +171,7 @@ public class DataGridViewLayout: UICollectionViewLayout {
             return nil
         }
         let attributes = UICollectionViewLayoutAttributes(forSupplementaryViewOfKind: DataGridView.SupplementaryViewKind.ColumnHeader.rawValue, withIndexPath: indexPath)
-        let x = Array(0..<indexPath.row).reduce(0) { $0 + widthForColumn($1)}
+        let x = Array(0..<indexPath.row).reduce(dataGridView.rowHeaderWidth) { $0 + widthForColumn($1)}
         let y = dataGridView.collectionView.contentOffset.y + collectionView!.contentInset.top
         let width = widthForColumn(indexPath.row)
         let height = heightForSectionHeader()
@@ -203,7 +203,7 @@ public class DataGridViewLayout: UICollectionViewLayout {
         }
         let attributes = UICollectionViewLayoutAttributes(forSupplementaryViewOfKind: DataGridView.SupplementaryViewKind.RowHeader.rawValue, withIndexPath: indexPath)
         let x = collectionView!.contentInset.left + dataGridView.collectionView.contentOffset.x
-        let y = collectionView!.contentInset.top + Array(0..<indexPath.section).reduce(heightForSectionHeader()) { $0 + heightForRow($1)}
+        let y = Array(0..<indexPath.section).reduce(heightForSectionHeader()) { $0 + heightForRow($1)}
         let width = widthForRowHeader()
         let height = heightForRow(indexPath.section)
         attributes.frame = CGRect(

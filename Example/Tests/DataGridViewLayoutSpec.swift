@@ -21,6 +21,7 @@ class DataGridViewLayoutSpec: QuickSpec {
             stubDelegate = StubDataGridViewDelegate()
             stubDataSource = StubDataGridViewDataSource()
             dataGridView = DataGridView(frame: frame)
+            dataGridView.rowHeaderWidth = 44
             dataGridView.dataSource = stubDataSource
             dataGridView.delegate = stubDelegate
             sut = dataGridView.collectionView.collectionViewLayout as! DataGridViewLayout
@@ -32,7 +33,7 @@ class DataGridViewLayoutSpec: QuickSpec {
                     let attributes = sut.layoutAttributesForSupplementaryViewOfKind(DataGridView.SupplementaryViewKind.ColumnHeader.rawValue, atIndexPath: NSIndexPath(forItem: 0, inSection: 0))!
 
                     expect(attributes.frame) == CGRect(
-                        x: 0,
+                        x: dataGridView.rowHeaderWidth,
                         y: 0,
                         width: sut.widthForColumn(0),
                         height: sut.heightForSectionHeader()
@@ -42,7 +43,7 @@ class DataGridViewLayoutSpec: QuickSpec {
                     let attributes = sut.layoutAttributesForSupplementaryViewOfKind(DataGridView.SupplementaryViewKind.ColumnHeader.rawValue, atIndexPath: NSIndexPath(forItem: 1, inSection: 0))!
 
                     expect(attributes.frame) == CGRect(
-                        x: sut.widthForColumn(0),
+                        x: dataGridView.rowHeaderWidth + sut.widthForColumn(0),
                         y: 0,
                         width: sut.widthForColumn(1),
                         height: sut.heightForSectionHeader()
@@ -63,7 +64,7 @@ class DataGridViewLayoutSpec: QuickSpec {
                         let attributes = sut.layoutAttributesForSupplementaryViewOfKind(DataGridView.SupplementaryViewKind.ColumnHeader.rawValue, atIndexPath: NSIndexPath(forItem: 0, inSection: 0))!
 
                         expect(attributes.frame) == CGRect(
-                            x: 0,
+                            x: dataGridView.rowHeaderWidth,
                             y: 0,
                             width: sut.widthForColumn(0),
                             height: sut.heightForSectionHeader()
@@ -73,7 +74,7 @@ class DataGridViewLayoutSpec: QuickSpec {
                         let attributes = sut.layoutAttributesForSupplementaryViewOfKind(DataGridView.SupplementaryViewKind.ColumnHeader.rawValue, atIndexPath: NSIndexPath(forItem: 0, inSection: 0))!
 
                         expect(attributes.frame) == CGRect(
-                            x: 0,
+                            x: dataGridView.rowHeaderWidth,
                             y: dataGridView.contentOffset.y,
                             width: sut.widthForColumn(0),
                             height: sut.heightForSectionHeader()
@@ -83,7 +84,7 @@ class DataGridViewLayoutSpec: QuickSpec {
                         let attributes = sut.layoutAttributesForSupplementaryViewOfKind(DataGridView.SupplementaryViewKind.ColumnHeader.rawValue, atIndexPath: NSIndexPath(forItem: 1, inSection: 0))!
 
                         expect(attributes.frame) == CGRect(
-                            x: sut.widthForColumn(0),
+                            x: dataGridView.rowHeaderWidth + sut.widthForColumn(0),
                             y: dataGridView.contentOffset.y,
                             width: sut.widthForColumn(1),
                             height: sut.heightForSectionHeader()
@@ -99,7 +100,7 @@ class DataGridViewLayoutSpec: QuickSpec {
                         let attributes = sut.layoutAttributesForSupplementaryViewOfKind(DataGridView.SupplementaryViewKind.ColumnHeader.rawValue, atIndexPath: NSIndexPath(forItem: 0, inSection: 0))!
 
                         expect(attributes.frame) == CGRect(
-                            x: 0,
+                            x: dataGridView.rowHeaderWidth,
                             y: dataGridView.collectionView.contentInset.top + dataGridView.collectionView.contentOffset.y,
                             width: sut.widthForColumn(0),
                             height: sut.heightForSectionHeader()
@@ -197,7 +198,7 @@ class DataGridViewLayoutSpec: QuickSpec {
                     let attributes = sut.layoutAttributesForItemAtIndexPath(NSIndexPath(forItem: 0, inSection: 0))!
 
                     expect(attributes.frame) == CGRect(
-                        x: 0,
+                        x: sut.widthForRowHeader(),
                         y: sut.heightForSectionHeader(),
                         width: sut.widthForColumn(0),
                         height: sut.heightForRow(0)
@@ -207,7 +208,7 @@ class DataGridViewLayoutSpec: QuickSpec {
                     let attributes = sut.layoutAttributesForItemAtIndexPath(NSIndexPath(forItem: 1, inSection: 1))!
 
                     expect(attributes.frame) == CGRect(
-                        x: sut.widthForColumn(0),
+                        x: sut.widthForRowHeader() + sut.widthForColumn(0),
                         y: sut.heightForSectionHeader() + sut.heightForRow(0),
                         width: sut.widthForColumn(1),
                         height: sut.heightForRow(1)
@@ -221,7 +222,7 @@ class DataGridViewLayoutSpec: QuickSpec {
                         let attributes = sut.layoutAttributesForItemAtIndexPath(NSIndexPath(forItem: 0, inSection: 0))!
 
                         expect(attributes.frame) == CGRect(
-                            x: 0,
+                            x: sut.widthForRowHeader(),
                             y: sut.heightForSectionHeader(),
                             width: sut.widthForColumn(0),
                             height: sut.heightForRow(0)
@@ -231,7 +232,7 @@ class DataGridViewLayoutSpec: QuickSpec {
                         let attributes = sut.layoutAttributesForItemAtIndexPath(NSIndexPath(forItem: 1, inSection: 1))!
 
                         expect(attributes.frame) == CGRect(
-                            x: sut.widthForColumn(0),
+                            x: sut.widthForRowHeader() + sut.widthForColumn(0),
                             y: sut.heightForSectionHeader() + sut.heightForRow(0),
                             width: sut.widthForColumn(1),
                             height: sut.heightForRow(1)
@@ -286,6 +287,7 @@ class DataGridViewLayoutSpec: QuickSpec {
             describe("layoutAttributesForElementsInRect") {
                 beforeEach {
                     stubDelegate.rowHeight = 25
+                    dataGridView.rowHeaderWidth = 0
                     dataGridView.columnHeaderHeight = 50
                     stubDelegate.columnWidth = 100
                 }
@@ -432,7 +434,7 @@ class DataGridViewLayoutSpec: QuickSpec {
                     dataGridView.delegate = nil
                     stubDataSource.numberOfColumns = 7
                     // Ensure dataGrid width isn't devisible evenly on number of columns
-                    let exactColumnWidth = frame.width / CGFloat(stubDataSource.numberOfColumns)
+                    let exactColumnWidth = (frame.width - dataGridView.rowHeaderWidth) / CGFloat(stubDataSource.numberOfColumns)
                     expect(ceil(exactColumnWidth)) != exactColumnWidth
 
                     expect(sut.widthForColumn(0)) == ceil(exactColumnWidth)
@@ -467,7 +469,7 @@ class DataGridViewLayoutSpec: QuickSpec {
         describe("collectionViewContentSize") {
             it("should return sum width for all columns and sum height for all rows and header") {
                 let size = sut.collectionViewContentSize()
-                expect(size.width) == Array(0..<dataGridView.numberOfColumns()).reduce(CGFloat(0)) { $0 + sut.widthForColumn($1) }
+                expect(size.width) == Array(0..<dataGridView.numberOfColumns()).reduce(CGFloat(sut.widthForRowHeader())) { $0 + sut.widthForColumn($1) }
                 expect(size.height) == Array(0..<dataGridView.numberOfRows()).reduce(sut.heightForSectionHeader()) { $0 + sut.heightForRow($1) }
             }
         }
