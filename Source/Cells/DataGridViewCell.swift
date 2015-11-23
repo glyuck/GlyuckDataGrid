@@ -64,7 +64,7 @@ extension DataGridViewCell {
         get { return border.topWidth }
         set { border.topWidth = newValue }
     }
-    public dynamic var topColor: UIColor {
+    public dynamic var borderTopColor: UIColor {
         get { return border.topColor }
         set { border.topColor = newValue }
     }
