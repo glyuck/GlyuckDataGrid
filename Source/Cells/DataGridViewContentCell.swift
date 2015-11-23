@@ -22,12 +22,12 @@ public class DataGridViewContentCell: DataGridViewCell {
 
             let labelAppearance = UILabel.glyuck_appearanceWhenContainedIn(self)
             if #available(iOS 8.2, *) {
-                labelAppearance.font = UIFont.systemFontOfSize(15, weight: UIFontWeightLight)
+                labelAppearance.appearanceFont = UIFont.systemFontOfSize(14, weight: UIFontWeightLight)
             } else {
-                labelAppearance.font = UIFont(name: "HelveticaNeue-Light", size: 15)
+                labelAppearance.appearanceFont = UIFont(name: "HelveticaNeue-Light", size: 14)
             }
-            labelAppearance.minimumScaleFactor = 0.5
-            labelAppearance.numberOfLines = 0
+            labelAppearance.appearanceMinimumScaleFactor = 0.5
+            labelAppearance.appearanceNumberOfLines = 0
         }
     }
 }

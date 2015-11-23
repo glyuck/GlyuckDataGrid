@@ -28,13 +28,13 @@ public class DataGridViewRowHeaderCell: DataGridViewBaseHeaderCell {
 
             let labelAppearance = UILabel.glyuck_appearanceWhenContainedIn(self)
             if #available(iOS 8.2, *) {
-                labelAppearance.font = UIFont.systemFontOfSize(14, weight: UIFontWeightRegular)
+                labelAppearance.appearanceFont = UIFont.systemFontOfSize(14, weight: UIFontWeightRegular)
             } else {
-                labelAppearance.font = UIFont(name: "HelveticaNeue", size: 14)
+                labelAppearance.appearanceFont = UIFont(name: "HelveticaNeue", size: 14)
             }
-            labelAppearance.adjustsFontSizeToFitWidth = true
-            labelAppearance.minimumScaleFactor = 0.5
-            labelAppearance.numberOfLines = 0
+            labelAppearance.appearanceAdjustsFontSizeToFitWidth = true
+            labelAppearance.appearanceMinimumScaleFactor = 0.5
+            labelAppearance.appearanceNumberOfLines = 0
         }
     }
 }
