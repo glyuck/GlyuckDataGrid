@@ -11,7 +11,7 @@ import GlyuckDataGrid
 class SimpleDataGridViewController: UIViewController, DataGridViewDataSource, DataGridViewDelegate {
     let columnsTitles = ["Year", "Driver", "Age", "Team", "Engine", "Poles", "Wins", "Podiums", "Fastest\nlaps", "Points", "Clinched", "Points\nmargin"]
     let columns = ["season", "driver", "age", "team", "engine", "poles", "wins", "podiums", "fastest_laps", "points", "clinched", "point_margin"]
-    let columnsWidths: [CGFloat] = [60, 200, 50, 120, 110, 50, 50, 65, 50, 50, 130, 60]
+    let columnsWidths: [CGFloat] = [70, 150, 60, 120, 110, 70, 70, 95, 70, 75, 130, 70]
     var dataSource = f1stats
 
     @IBOutlet weak var dataGridView: DataGridView!
