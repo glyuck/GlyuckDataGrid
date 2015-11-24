@@ -43,7 +43,7 @@ class SimpleDataGridViewController: UIViewController, DataGridViewDataSource, Da
 
     func dataGridView(dataGridView: DataGridView, viewForHeaderForColumn column: Int) -> DataGridViewColumnHeaderCell {
         let cell = dataGridView.dequeueReusableHeaderViewWithReuseIdentifier(DataGridView.ReuseIdentifiers.defaultColumnHeader, forColumn: column)
-        cell.textLabel.text = self.dataGridView(dataGridView, titleForHeaderForColumn: column)
+        cell.title = self.dataGridView(dataGridView, titleForHeaderForColumn: column)
         if column == 1 {
             cell.border.rightWidth = 1 / UIScreen.mainScreen().scale
             cell.border.rightColor = UIColor(white: 0.72, alpha: 1)

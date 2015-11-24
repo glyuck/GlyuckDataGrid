@@ -106,6 +106,17 @@ class DataGridViewSpec: QuickSpec {
                 expect(header).to(beTruthy())
             }
 
+            it("should set isSorted and iSortedAsc for column headers") {
+                let header1 = sut.dequeueReusableHeaderViewWithReuseIdentifier(DataGridView.ReuseIdentifiers.defaultColumnHeader, forColumn: 0)
+                expect(header1.isSorted).to(beFalse())
+
+                sut.setSortColumn(0, ascending: false)
+
+                let header2 = sut.dequeueReusableHeaderViewWithReuseIdentifier(DataGridView.ReuseIdentifiers.defaultColumnHeader, forColumn: 0)
+                expect(header2.isSorted).to(beTrue())
+                expect(header2.isSortedAsc).to(beFalse())
+            }
+
             it("should register DataGridViewRowHeaderCell as default row header") {
                 let header = sut.dequeueReusableHeaderViewWithReuseIdentifier(DataGridView.ReuseIdentifiers.defaultRowHeader, forRow: 0)
                 expect(header).to(beTruthy())

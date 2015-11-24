@@ -11,6 +11,7 @@
 		0EF99790E2E6C94F82AC5BE2 /* Pods_GlyuckDataGrid_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20AB0B922B7550F463E724F1 /* Pods_GlyuckDataGrid_Example.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		390C05C81B6FBA730040E5D7 /* CollectionViewDataSourceSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 390C05C71B6FBA730040E5D7 /* CollectionViewDataSourceSpec.swift */; };
 		3941988E1B81FABF008BC0E7 /* CollectionViewDelegateSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3941988C1B81FABC008BC0E7 /* CollectionViewDelegateSpec.swift */; };
+		394E845C1C048F600009CD3E /* DataGridViewBaseHeaderCellSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 394F1F4D1C046F1500F7F462 /* DataGridViewBaseHeaderCellSpec.swift */; };
 		394EA4361B6F498E00328166 /* DataGridViewSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 394EA4341B6BDFB100328166 /* DataGridViewSpec.swift */; };
 		394EA43C1B6F5DC700328166 /* StubDataGridViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 394EA4381B6F5D1C00328166 /* StubDataGridViewDelegate.swift */; };
 		394EA43D1B6F5DC900328166 /* StubDataGridViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 394EA43A1B6F5D2900328166 /* StubDataGridViewDataSource.swift */; };
@@ -51,6 +52,7 @@
 		394EA4381B6F5D1C00328166 /* StubDataGridViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StubDataGridViewDelegate.swift; sourceTree = "<group>"; };
 		394EA43A1B6F5D2900328166 /* StubDataGridViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StubDataGridViewDataSource.swift; sourceTree = "<group>"; };
 		394F1F431C03349C00F7F462 /* MultiplicationTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiplicationTableViewController.swift; sourceTree = "<group>"; };
+		394F1F4D1C046F1500F7F462 /* DataGridViewBaseHeaderCellSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataGridViewBaseHeaderCellSpec.swift; sourceTree = "<group>"; };
 		397B94141BFA0267006AB40B /* SpreadSheetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpreadSheetViewController.swift; sourceTree = "<group>"; };
 		397B94171BFA02BC006AB40B /* SpreadSheetCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpreadSheetCell.swift; sourceTree = "<group>"; };
 		397B94181BFA02BC006AB40B /* SpreadSheetCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SpreadSheetCell.xib; sourceTree = "<group>"; };
@@ -108,6 +110,7 @@
 			isa = PBXGroup;
 			children = (
 				39B95ABC1B7B2553003DEE52 /* DataGridViewBaseCellSpec.swift */,
+				394F1F4D1C046F1500F7F462 /* DataGridViewBaseHeaderCellSpec.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -485,6 +488,7 @@
 				39B95ABE1B7B2E7D003DEE52 /* DataGridViewBaseCellSpec.swift in Sources */,
 				390C05C81B6FBA730040E5D7 /* CollectionViewDataSourceSpec.swift in Sources */,
 				394EA4361B6F498E00328166 /* DataGridViewSpec.swift in Sources */,
+				394E845C1C048F600009CD3E /* DataGridViewBaseHeaderCellSpec.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

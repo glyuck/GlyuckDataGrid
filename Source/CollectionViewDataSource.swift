@@ -69,14 +69,7 @@ public class CollectionViewDataSource: NSObject, UICollectionViewDataSource {
         }
         let cell = dataGridView.dequeueReusableHeaderViewWithReuseIdentifier(DataGridView.ReuseIdentifiers.defaultColumnHeader, forColumn: column)
         cell.configureForDataGridView(dataGridView, indexPath: indexPath)
-        var text = dataGridDataSource.dataGridView?(dataGridView, titleForHeaderForColumn: column) ?? ""
-        if dataGridView.sortColumn == column {
-            text += (dataGridView.sortAscending ? cell.sortAscSuffix : cell.sortDescSuffix) ?? ""
-            cell.isSorted = true
-        } else {
-            cell.isSorted = false
-        }
-        cell.textLabel.text = text
+        cell.title = dataGridDataSource.dataGridView?(dataGridView, titleForHeaderForColumn: column) ?? ""
         return cell
     }
 
@@ -89,27 +82,12 @@ public class CollectionViewDataSource: NSObject, UICollectionViewDataSource {
             return view
         }
         let cell = dataGridView.dequeueReusableHeaderViewWithReuseIdentifier(DataGridView.ReuseIdentifiers.defaultRowHeader, forRow: row)
-        cell.configureForDataGridView(dataGridView, indexPath: indexPath)
-        var text = dataGridDataSource.dataGridView?(dataGridView, titleForHeaderForRow: row) ?? ""
-        cell.isSorted = false
-/*
-        if dataGridView.sortRow == row {
-            text += (dataGridView.rowSortAscending ? cell.sortAscSuffix : cell.sortDescSuffix) ?? ""
-            cell.isSorted = true
-        } else {
-            cell.isSorted = false
-        }
-*/
-        cell.textLabel.text = text
+        cell.title = dataGridDataSource.dataGridView?(dataGridView, titleForHeaderForRow: row) ?? ""
         return cell
     }
 
     public func cornerHeaderViewForIndexPath(indexPath: NSIndexPath) -> DataGridViewCornerHeaderCell {
-        guard let dataGridDataSource = dataGridView.dataSource else {
-            fatalError("dataGridView.dataSource unexpectedly nil")
-        }
         let cell = dataGridView.dequeueReusableCornerHeaderViewWithReuseIdentifier(DataGridView.ReuseIdentifiers.defaultRowHeader)
-        cell.configureForDataGridView(dataGridView, indexPath: indexPath)
         return cell
     }
 }

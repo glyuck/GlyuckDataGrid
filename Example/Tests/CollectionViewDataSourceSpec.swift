@@ -86,42 +86,12 @@ class CollectionViewDataSourceSpec: QuickSpec {
 
                 it("should configure first header cell with corresponding text") {
                     let cell = headerCellForColumn(0)
-                    expect(cell?.textLabel.text) == "Title for column 0"
+                    expect(cell?.title) == "Title for column 0"
                 }
 
-                it("should return nil when kind != header") {
+                it("should configure second header cell with corresponding text") {
                     let cell = headerCellForColumn(1)
-                    expect(cell?.textLabel.text) == "Title for column 1"
-                }
-
-                it("should add sorting symbol when dataGridView is sorted by this column ascending") {
-                    // FIXME: Investigate why UIAppearance not working in test mode
-                    dataGridView.setSortColumn(0, ascending: true)
-
-                    let cell = headerCellForColumn(0)
-                    expect(cell?.textLabel.text) == "Title for column 0" + (cell?.sortAscSuffix ?? "")
-                }
-
-                it("should add sorting symbol when dataGridView is sorted by this column descending") {
-                    // FIXME: Investigate why UIAppearance not working in test mode
-                    dataGridView.setSortColumn(0, ascending: false)
-
-                    let cell = headerCellForColumn(0)
-                    expect(cell?.textLabel.text) == "Title for column 0" + (cell?.sortDescSuffix ?? "")
-                }
-
-                it("should set cell.isSorted when sorted by this column") {
-                    dataGridView.setSortColumn(0, ascending: false)
-
-                    let cell = headerCellForColumn(0)
-                    expect(cell?.isSorted).to(beTrue())
-                }
-
-                it("should not set cell.isSoretd unless sorted by this column") {
-                    dataGridView.setSortColumn(0, ascending: false)
-
-                    let cell = headerCellForColumn(1)
-                    expect(cell?.isSorted).to(beFalse())
+                    expect(cell?.title) == "Title for column 1"
                 }
             }
 
@@ -163,42 +133,13 @@ class CollectionViewDataSourceSpec: QuickSpec {
 
                 it("should configure first header cell with corresponding text") {
                     let cell = headerCellForRow(0)
-                    expect(cell?.textLabel.text) == "Title for row 0"
+                    expect(cell?.title) == "Title for row 0"
                 }
 
-                it("should return nil when kind != header") {
+                it("should configure second header cell with corresponding text") {
                     let cell = headerCellForRow(1)
-                    expect(cell?.textLabel.text) == "Title for row 1"
+                    expect(cell?.title) == "Title for row 1"
                 }
-/*
-                it("should add sorting symbol when dataGridView is sorted by this column ascending") {
-                    dataGridView.setSortColumn(0, ascending: true)
-
-                    let cell = headerCellForRow(0)
-                    expect(cell?.textLabel.text) == "Title for row 0" + (cell?.sortAscSuffix ?? "")
-                }
-
-                it("should add sorting symbol when dataGridView is sorted by this column descending") {
-                    dataGridView.setSortColumn(0, ascending: false)
-
-                    let cell = headerCellForRow(0)
-                    expect(cell?.textLabel.text) == "Title for column 0" + (cell?.sortDescSuffix ?? "")
-                }
-
-                it("should set cell.isSorted when sorted by this column") {
-                    dataGridView.setSortColumn(0, ascending: false)
-
-                    let cell = headerCellForRow(0)
-                    expect(cell?.isSorted).to(beTrue())
-                }
-
-                it("should not set cell.isSoretd unless sorted by this column") {
-                    dataGridView.setSortColumn(0, ascending: false)
-
-                    let cell = headerCellForRow(1)
-                    expect(cell?.isSorted).to(beFalse())
-                }
-*/
             }
             context("for corner headers") {
                 func cornerHeaderCell() -> DataGridViewCornerHeaderCell? {

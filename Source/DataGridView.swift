@@ -424,6 +424,8 @@ public class DataGridView: UIView {
             fatalError("Error in dequeueReusableHeaderViewWithReuseIdentifier(\(identifier), forColumn:\(column)): expected to receive object of DataGridViewColumnHeaderCell class, got \(_stdlib_getDemangledTypeName(cell)) instead")
         }
         headerCell.configureForDataGridView(self, indexPath: indexPath)
+        headerCell.isSorted = column == sortColumn
+        headerCell.isSortedAsc = sortAscending
         return headerCell
     }
 
