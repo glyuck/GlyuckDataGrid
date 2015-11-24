@@ -44,7 +44,7 @@ class SpreadSheetViewController: UIViewController, DataGridViewDataSource, DataG
         cornerHeaderAppearance.borderBottomColor = Colors.border
 
         let rowHeaderAppearance = DataGridViewRowHeaderCell.glyuck_appearanceWhenContainedIn(self)
-        rowHeaderAppearance.normalBackgroundColor = Colors.headerBackground
+        rowHeaderAppearance.backgroundColor = Colors.headerBackground
         rowHeaderAppearance.borderLeftWidth = 1 / UIScreen.mainScreen().scale
         rowHeaderAppearance.borderBottomWidth = 1 / UIScreen.mainScreen().scale
         rowHeaderAppearance.borderRightWidth = 1 / UIScreen.mainScreen().scale
@@ -56,7 +56,7 @@ class SpreadSheetViewController: UIViewController, DataGridViewDataSource, DataG
         rowHeaderLabelAppearane.appearanceTextAlignment = .Right
 
         let columnHeaderAppearance = DataGridViewColumnHeaderCell.glyuck_appearanceWhenContainedIn(self)
-        columnHeaderAppearance.normalBackgroundColor = Colors.headerBackground
+        columnHeaderAppearance.backgroundColor = Colors.headerBackground
         columnHeaderAppearance.borderTopWidth = 1 / UIScreen.mainScreen().scale
         columnHeaderAppearance.borderBottomWidth = 1 / UIScreen.mainScreen().scale
         columnHeaderAppearance.borderRightWidth = 1 / UIScreen.mainScreen().scale
@@ -70,7 +70,7 @@ class SpreadSheetViewController: UIViewController, DataGridViewDataSource, DataG
         cellAppearance.borderBottomWidth = 1 / UIScreen.mainScreen().scale
         cellAppearance.borderBottomColor = UIColor(white: 0.73, alpha: 1)
 
-        columnHeaderAppearance.normalBackgroundColor = UIColor(white: 0.95, alpha: 1)
+        columnHeaderAppearance.backgroundColor = UIColor(white: 0.95, alpha: 1)
         let labelAppearance = UILabel.glyuck_appearanceWhenContainedIn(self)
         labelAppearance.appearanceFont = UIFont.systemFontOfSize(12, weight: UIFontWeightLight)
         labelAppearance.appearanceTextAlignment = .Center

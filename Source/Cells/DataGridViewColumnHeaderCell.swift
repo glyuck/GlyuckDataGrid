@@ -17,7 +17,6 @@ public class DataGridViewColumnHeaderCell: DataGridViewBaseHeaderCell {
         dispatch_once(&setupAppearanceDispatchToken) {
             let appearance = self.appearance()
             appearance.backgroundColor = UIColor.whiteColor()
-            appearance.normalBackgroundColor = UIColor.whiteColor()
             appearance.sortedBackgroundColor = UIColor(white: 220.0/255.0, alpha: 1)
             appearance.sortAscSuffix = " ↑"
             appearance.sortDescSuffix = " ↓"

@@ -28,7 +28,7 @@ class MultiplicationTableViewController: UIViewController, DataGridViewDataSourc
         cornerHeaderAppearance.borderRightColor = UIColor(white: 0.73, alpha: 1)
 
         let rowHeaderAppearance = DataGridViewRowHeaderCell.glyuck_appearanceWhenContainedIn(self)
-        rowHeaderAppearance.normalBackgroundColor = UIColor(white: 0.95, alpha: 1)
+        rowHeaderAppearance.backgroundColor = UIColor(white: 0.95, alpha: 1)
         rowHeaderAppearance.borderBottomWidth = 1 / UIScreen.mainScreen().scale
         rowHeaderAppearance.borderBottomColor = UIColor(white: 0.73, alpha: 1)
 
@@ -42,7 +42,7 @@ class MultiplicationTableViewController: UIViewController, DataGridViewDataSourc
         cellAppearance.borderBottomWidth = 1 / UIScreen.mainScreen().scale
         cellAppearance.borderBottomColor = UIColor(white: 0.73, alpha: 1)
 
-        columnHeaderAppearance.normalBackgroundColor = UIColor(white: 0.95, alpha: 1)
+        columnHeaderAppearance.backgroundColor = UIColor(white: 0.95, alpha: 1)
         let labelAppearance = UILabel.glyuck_appearanceWhenContainedIn(self)
         labelAppearance.appearanceFont = UIFont.systemFontOfSize(12, weight: UIFontWeightLight)
         labelAppearance.appearanceTextAlignment = .Center
