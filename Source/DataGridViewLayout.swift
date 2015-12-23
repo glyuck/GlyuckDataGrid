@@ -132,7 +132,7 @@ public class DataGridViewLayout: UICollectionViewLayout {
         }
         // Column headers
         for item in items {
-            let headerIndexPath = NSIndexPath(forItem: item, inSection: 0)
+            let headerIndexPath = NSIndexPath(index: item)
             if let headerAttributes = layoutAttributesForSupplementaryViewOfKind(.ColumnHeader, atIndexPath: headerIndexPath) {
                 result.append(headerAttributes)
             }
@@ -140,7 +140,7 @@ public class DataGridViewLayout: UICollectionViewLayout {
         // Row headers
         if widthForRowHeader() > 0 {
             for section in sections {
-                let rowHeaderIndexPath = NSIndexPath(forItem: 0, inSection: section)
+                let rowHeaderIndexPath = NSIndexPath(index: section)
                 if let rowHeaderAttributes = layoutAttributesForSupplementaryViewOfKind(.RowHeader, atIndexPath: rowHeaderIndexPath) {
                     result.append(rowHeaderAttributes)
                 }
@@ -148,7 +148,7 @@ public class DataGridViewLayout: UICollectionViewLayout {
         }
         // Corner header
         if widthForRowHeader() > 0 && heightForSectionHeader() > 0 {
-            let cornerHeaderIndexPath = NSIndexPath(forItem: 0, inSection: 0)
+            let cornerHeaderIndexPath = NSIndexPath(index: 0)
             if let cornerHeaderAttributes = layoutAttributesForSupplementaryViewOfKind(.CornerHeader, atIndexPath: cornerHeaderIndexPath) {
                 result.append(cornerHeaderAttributes)
             }
@@ -177,13 +177,10 @@ public class DataGridViewLayout: UICollectionViewLayout {
     }
 
     public func layoutAttributesForColumnHeaderViewAtIndexPath(indexPath: NSIndexPath) -> UICollectionViewLayoutAttributes? {
-        guard indexPath.section == 0 else {
-            return nil
-        }
         let attributes = UICollectionViewLayoutAttributes(forSupplementaryViewOfKind: DataGridView.SupplementaryViewKind.ColumnHeader.rawValue, withIndexPath: indexPath)
-        let x = Array(0..<indexPath.row).reduce(dataGridView.rowHeaderWidth) { $0 + widthForColumn($1)}
+        let x = Array(0..<indexPath.index).reduce(dataGridView.rowHeaderWidth) { $0 + widthForColumn($1)}
         let y = dataGridView.collectionView.contentOffset.y + collectionView!.contentInset.top
-        let width = widthForColumn(indexPath.row)
+        let width = widthForColumn(indexPath.index)
         let height = heightForSectionHeader()
         attributes.frame = CGRect(
             x: max(0, x),
@@ -192,9 +189,9 @@ public class DataGridViewLayout: UICollectionViewLayout {
             height: height
         )
         attributes.zIndex = 2
-        if dataGridView?.delegate?.dataGridView?(dataGridView!, shouldFloatColumn: indexPath.row) == true {
+        if dataGridView?.delegate?.dataGridView?(dataGridView!, shouldFloatColumn: indexPath.index) == true {
             let scrollOffsetX = dataGridView.collectionView.contentOffset.x + collectionView!.contentInset.left
-            let floatWidths = Array(0..<indexPath.row).reduce(CGFloat(0)) {
+            let floatWidths = Array(0..<indexPath.index).reduce(CGFloat(0)) {
                 if dataGridView?.delegate?.dataGridView?(dataGridView!, shouldFloatColumn: $1) == true {
                     return $0 + widthForColumn($1)
                 } else {
@@ -208,14 +205,11 @@ public class DataGridViewLayout: UICollectionViewLayout {
     }
 
     public func layoutAttributesForRowHeaderViewAtIndexPath(indexPath: NSIndexPath) -> UICollectionViewLayoutAttributes? {
-        guard indexPath.item == 0 else {
-            return nil
-        }
         let attributes = UICollectionViewLayoutAttributes(forSupplementaryViewOfKind: DataGridView.SupplementaryViewKind.RowHeader.rawValue, withIndexPath: indexPath)
         let x = collectionView!.contentInset.left + dataGridView.collectionView.contentOffset.x
-        let y = Array(0..<indexPath.section).reduce(heightForSectionHeader()) { $0 + heightForRow($1)}
+        let y = Array(0..<indexPath.index).reduce(heightForSectionHeader()) { $0 + heightForRow($1)}
         let width = widthForRowHeader()
-        let height = heightForRow(indexPath.section)
+        let height = heightForRow(indexPath.index)
         attributes.frame = CGRect(
             x: max(0, x),
             y: max(0, y),

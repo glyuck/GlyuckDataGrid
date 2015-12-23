@@ -28,6 +28,20 @@ class DataGridViewLayoutSpec: QuickSpec {
         }
 
         describe("layoutAttributesForSupplementaryViewOfKind:atIndexPath:") {
+            context("when there are 0 rows in table") {
+                it("should return supplementary views for headers and don't crash") {
+                    stubDataSource.numberOfRows = 0
+
+                    let attributes = sut.layoutAttributesForSupplementaryViewOfKind(DataGridView.SupplementaryViewKind.ColumnHeader.rawValue, atIndexPath: NSIndexPath(forItem: 0, inSection: 0))!
+
+                    expect(attributes.frame) == CGRect(
+                        x: dataGridView.rowHeaderWidth,
+                        y: 0,
+                        width: sut.widthForColumn(0),
+                        height: sut.heightForSectionHeader()
+                    )
+                }
+            }
             context("layout column header") {
                 it("should return correct coordinates for first header") {
                     let attributes = sut.layoutAttributesForSupplementaryViewOfKind(DataGridView.SupplementaryViewKind.ColumnHeader.rawValue, atIndexPath: NSIndexPath(forItem: 0, inSection: 0))!

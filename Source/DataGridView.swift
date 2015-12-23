@@ -418,7 +418,7 @@ public class DataGridView: UIView {
      - returns: A DataGridViewColumnHeaderCell object with the associated reuse identifier. This method always returns a valid view.
      */
     public func dequeueReusableHeaderViewWithReuseIdentifier(identifier: String, forColumn column: NSInteger) -> DataGridViewColumnHeaderCell {
-        let indexPath = NSIndexPath(forItem: column, inSection: 0)
+        let indexPath = NSIndexPath(index: column)
         let cell = collectionView.dequeueReusableSupplementaryViewOfKind(SupplementaryViewKind.ColumnHeader.rawValue, withReuseIdentifier: identifier, forIndexPath: indexPath)
         guard let headerCell = cell as? DataGridViewColumnHeaderCell else {
             fatalError("Error in dequeueReusableHeaderViewWithReuseIdentifier(\(identifier), forColumn:\(column)): expected to receive object of DataGridViewColumnHeaderCell class, got \(_stdlib_getDemangledTypeName(cell)) instead")
@@ -438,7 +438,7 @@ public class DataGridView: UIView {
      - returns: A DataGridViewColumnHeaderCell object with the associated reuse identifier. This method always returns a valid view.
      */
     public func dequeueReusableHeaderViewWithReuseIdentifier(identifier: String, forRow row: NSInteger) -> DataGridViewRowHeaderCell {
-        let indexPath = NSIndexPath(forItem: 0, inSection: row)
+        let indexPath = NSIndexPath(index: row)
         let cell = collectionView.dequeueReusableSupplementaryViewOfKind(SupplementaryViewKind.RowHeader.rawValue, withReuseIdentifier: identifier, forIndexPath: indexPath)
         guard let headerCell = cell as? DataGridViewRowHeaderCell else {
             fatalError("Error in dequeueReusableHeaderViewWithReuseIdentifier(\(identifier), forRow:\(row)): expected to receive object of DataGridViewRowHeaderCell class, got \(_stdlib_getDemangledTypeName(cell)) instead")
@@ -456,7 +456,7 @@ public class DataGridView: UIView {
      - returns: A DataGridViewColumnHeaderCell object with the associated reuse identifier. This method always returns a valid view.
      */
     public func dequeueReusableCornerHeaderViewWithReuseIdentifier(identifier: String) -> DataGridViewCornerHeaderCell {
-        let indexPath = NSIndexPath(forItem: 0, inSection: 0)
+        let indexPath = NSIndexPath(index: 0)
         let cell = collectionView.dequeueReusableSupplementaryViewOfKind(SupplementaryViewKind.CornerHeader.rawValue, withReuseIdentifier: identifier, forIndexPath: indexPath)
         guard let headerCell = cell as? DataGridViewCornerHeaderCell else {
             fatalError("Error in dequeueReusableCornerHeaderViewWithReuseIdentifier(\(identifier)): expected to receive object of DataGridViewCornerHeaderCell class, got \(_stdlib_getDemangledTypeName(cell)) instead")

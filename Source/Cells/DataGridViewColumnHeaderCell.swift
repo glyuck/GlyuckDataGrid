@@ -40,6 +40,6 @@ public class DataGridViewColumnHeaderCell: DataGridViewBaseHeaderCell {
     // MARK: - Custom methods
 
     public override func didTap(gesture: UITapGestureRecognizer) {
-        dataGridView.collectionViewDelegate.collectionView(dataGridView.collectionView, didTapHeaderForColumn: indexPath.row)
+        dataGridView.collectionViewDelegate.collectionView(dataGridView.collectionView, didTapHeaderForColumn: indexPath.index)
     }
 }

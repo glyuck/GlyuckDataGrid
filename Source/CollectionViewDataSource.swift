@@ -63,7 +63,7 @@ public class CollectionViewDataSource: NSObject, UICollectionViewDataSource {
         guard let dataGridDataSource = dataGridView.dataSource else {
             fatalError("dataGridView.dataSource unexpectedly nil")
         }
-        let column = indexPath.row
+        let column = indexPath.index
         if let view = dataGridDataSource.dataGridView?(dataGridView, viewForHeaderForColumn: column) {
             return view
         }
@@ -77,7 +77,7 @@ public class CollectionViewDataSource: NSObject, UICollectionViewDataSource {
         guard let dataGridDataSource = dataGridView.dataSource else {
             fatalError("dataGridView.dataSource unexpectedly nil")
         }
-        let row = indexPath.section
+        let row = indexPath.index
         if let view = dataGridDataSource.dataGridView?(dataGridView, viewForHeaderForRow: row) {
             return view
         }

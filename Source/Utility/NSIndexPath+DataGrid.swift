@@ -32,4 +32,9 @@ public extension NSIndexPath {
     var dataGridRow: Int {
         return indexAtPosition(0)
     }
+
+    /// An index number for single-item indexPath
+    var index: Int {
+        return indexAtPosition(0)
+    }
 }
