@@ -86,7 +86,7 @@ public class DataGridViewBaseHeaderCell: DataGridViewBaseCell {
     }
 
     public func setupDataGridViewHeaderCell() {
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: "didTap:")
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(DataGridViewBaseHeaderCell.didTap(_:)))
         contentView.addGestureRecognizer(tapGestureRecognizer)
     }
 

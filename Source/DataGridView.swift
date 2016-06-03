@@ -421,7 +421,7 @@ public class DataGridView: UIView {
         let indexPath = NSIndexPath(index: column)
         let cell = collectionView.dequeueReusableSupplementaryViewOfKind(SupplementaryViewKind.ColumnHeader.rawValue, withReuseIdentifier: identifier, forIndexPath: indexPath)
         guard let headerCell = cell as? DataGridViewColumnHeaderCell else {
-            fatalError("Error in dequeueReusableHeaderViewWithReuseIdentifier(\(identifier), forColumn:\(column)): expected to receive object of DataGridViewColumnHeaderCell class, got \(_stdlib_getDemangledTypeName(cell)) instead")
+            fatalError("Error in dequeueReusableHeaderViewWithReuseIdentifier(\(identifier), forColumn:\(column)): expected to receive object of DataGridViewColumnHeaderCell class, got \(String(cell.self)) instead")
         }
         headerCell.configureForDataGridView(self, indexPath: indexPath)
         headerCell.isSorted = column == sortColumn
@@ -441,7 +441,7 @@ public class DataGridView: UIView {
         let indexPath = NSIndexPath(index: row)
         let cell = collectionView.dequeueReusableSupplementaryViewOfKind(SupplementaryViewKind.RowHeader.rawValue, withReuseIdentifier: identifier, forIndexPath: indexPath)
         guard let headerCell = cell as? DataGridViewRowHeaderCell else {
-            fatalError("Error in dequeueReusableHeaderViewWithReuseIdentifier(\(identifier), forRow:\(row)): expected to receive object of DataGridViewRowHeaderCell class, got \(_stdlib_getDemangledTypeName(cell)) instead")
+            fatalError("Error in dequeueReusableHeaderViewWithReuseIdentifier(\(identifier), forRow:\(row)): expected to receive object of DataGridViewRowHeaderCell class, got \(String(cell.self)) instead")
         }
         headerCell.configureForDataGridView(self, indexPath: indexPath)
         return headerCell
@@ -459,7 +459,7 @@ public class DataGridView: UIView {
         let indexPath = NSIndexPath(index: 0)
         let cell = collectionView.dequeueReusableSupplementaryViewOfKind(SupplementaryViewKind.CornerHeader.rawValue, withReuseIdentifier: identifier, forIndexPath: indexPath)
         guard let headerCell = cell as? DataGridViewCornerHeaderCell else {
-            fatalError("Error in dequeueReusableCornerHeaderViewWithReuseIdentifier(\(identifier)): expected to receive object of DataGridViewCornerHeaderCell class, got \(_stdlib_getDemangledTypeName(cell)) instead")
+            fatalError("Error in dequeueReusableCornerHeaderViewWithReuseIdentifier(\(identifier)): expected to receive object of DataGridViewCornerHeaderCell class, got \(String(cell.self)) instead")
         }
         headerCell.configureForDataGridView(self, indexPath: indexPath)
         return headerCell
