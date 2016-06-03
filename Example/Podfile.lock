@@ -1,7 +1,7 @@
 PODS:
   - GlyuckDataGrid (0.1.0)
-  - Nimble (3.0.0)
-  - Quick (0.8.0)
+  - Nimble (4.0.1)
+  - Quick (0.9.2)
 
 DEPENDENCIES:
   - GlyuckDataGrid (from `../`)
@@ -14,7 +14,9 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   GlyuckDataGrid: 8ab9f2436327193260d3be452b28b06d0c8309f9
-  Nimble: 4c353d43735b38b545cbb4cb91504588eb5de926
-  Quick: 563d0f6ec5f72e394645adb377708639b7dd38ab
+  Nimble: 0f3c8b8b084cda391209c3c5efbb48bedeeb920a
+  Quick: 18d057bc66451eedd5d1c8dc99ba2a5db6e60226
 
-COCOAPODS: 0.38.2
+PODFILE CHECKSUM: e21efb884f3fce871cdbb16508cfe8ad6cd2c1b3
+
+COCOAPODS: 1.0.1

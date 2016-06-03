@@ -1,11 +1,11 @@
 source 'https://github.com/CocoaPods/Specs.git'
 use_frameworks!
 
-target 'GlyuckDataGrid_Example', :exclusive => true do
+target 'GlyuckDataGrid_Example' do
   pod "GlyuckDataGrid", :path => "../"
 end
 
-target 'GlyuckDataGrid_Tests', :exclusive => true do
+target 'GlyuckDataGrid_Tests' do
   pod "GlyuckDataGrid", :path => "../"
 
   pod 'Quick'

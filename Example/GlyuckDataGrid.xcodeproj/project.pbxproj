@@ -7,8 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		05C44643CC5DE03E65245538 /* Pods_GlyuckDataGrid_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B373DDF395A4A1865F4DA1E /* Pods_GlyuckDataGrid_Tests.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
-		0EF99790E2E6C94F82AC5BE2 /* Pods_GlyuckDataGrid_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20AB0B922B7550F463E724F1 /* Pods_GlyuckDataGrid_Example.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		2444B292EAC7EBBEB94B4BF2 /* Pods_GlyuckDataGrid_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1FE3BC4233B913291CF3404 /* Pods_GlyuckDataGrid_Tests.framework */; };
 		390C05C81B6FBA730040E5D7 /* CollectionViewDataSourceSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 390C05C71B6FBA730040E5D7 /* CollectionViewDataSourceSpec.swift */; };
 		3941988E1B81FABF008BC0E7 /* CollectionViewDelegateSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3941988C1B81FABC008BC0E7 /* CollectionViewDelegateSpec.swift */; };
 		394E845C1C048F600009CD3E /* DataGridViewBaseHeaderCellSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 394F1F4D1C046F1500F7F462 /* DataGridViewBaseHeaderCellSpec.swift */; };
@@ -29,6 +28,7 @@
 		607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 607FACD91AFB9204008FA782 /* Main.storyboard */; };
 		607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDC1AFB9204008FA782 /* Images.xcassets */; };
 		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
+		6A9097EB8BB4B6B337BF27CA /* Pods_GlyuckDataGrid_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF663D139FF3117BE1626D0B /* Pods_GlyuckDataGrid_Example.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,10 +42,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		04AA3CDDD7A3895ECFDD48B6 /* Pods-GlyuckDataGrid_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GlyuckDataGrid_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GlyuckDataGrid_Tests/Pods-GlyuckDataGrid_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		0E41F53698DC87B16E459BA3 /* GlyuckDataGrid.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = GlyuckDataGrid.podspec; path = ../GlyuckDataGrid.podspec; sourceTree = "<group>"; };
-		0EB66F99C133FFB76C0019BD /* Pods-GlyuckDataGrid_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GlyuckDataGrid_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GlyuckDataGrid_Example/Pods-GlyuckDataGrid_Example.debug.xcconfig"; sourceTree = "<group>"; };
-		20AB0B922B7550F463E724F1 /* Pods_GlyuckDataGrid_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GlyuckDataGrid_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		2B373DDF395A4A1865F4DA1E /* Pods_GlyuckDataGrid_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GlyuckDataGrid_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		390C05C71B6FBA730040E5D7 /* CollectionViewDataSourceSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewDataSourceSpec.swift; sourceTree = "<group>"; };
 		3941988C1B81FABC008BC0E7 /* CollectionViewDelegateSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewDelegateSpec.swift; sourceTree = "<group>"; };
 		394EA4341B6BDFB100328166 /* DataGridViewSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataGridViewSpec.swift; sourceTree = "<group>"; };
@@ -63,7 +61,6 @@
 		39B95AC11B7CE3E3003DEE52 /* BorderHelperSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BorderHelperSpec.swift; sourceTree = "<group>"; };
 		39B95AC41B7DC095003DEE52 /* DataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataSource.swift; sourceTree = "<group>"; };
 		56CFED095AE2E74BA9C026B0 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
-		5C56511963C24F33A7A77A96 /* Pods-GlyuckDataGrid_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GlyuckDataGrid_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GlyuckDataGrid_Tests/Pods-GlyuckDataGrid_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		607FACD01AFB9204008FA782 /* GlyuckDataGrid_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GlyuckDataGrid_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD41AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACD51AFB9204008FA782 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -73,8 +70,11 @@
 		607FACE51AFB9204008FA782 /* GlyuckDataGrid_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GlyuckDataGrid_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACEA1AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		612E2C7243217BEE44ABECEA /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
-		947AFCC7368670A15FC1B809 /* Pods-GlyuckDataGrid_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GlyuckDataGrid_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-GlyuckDataGrid_Tests/Pods-GlyuckDataGrid_Tests.release.xcconfig"; sourceTree = "<group>"; };
-		95A2E749A4534F7B0AA01786 /* Pods-GlyuckDataGrid_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GlyuckDataGrid_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-GlyuckDataGrid_Example/Pods-GlyuckDataGrid_Example.release.xcconfig"; sourceTree = "<group>"; };
+		7B358E392952CA3A22CF26B4 /* Pods-GlyuckDataGrid_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GlyuckDataGrid_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-GlyuckDataGrid_Tests/Pods-GlyuckDataGrid_Tests.release.xcconfig"; sourceTree = "<group>"; };
+		C7229A65CA6966EE549772CF /* Pods-GlyuckDataGrid_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GlyuckDataGrid_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-GlyuckDataGrid_Example/Pods-GlyuckDataGrid_Example.release.xcconfig"; sourceTree = "<group>"; };
+		CB45F8C2A3EE4BF4BCD701D7 /* Pods-GlyuckDataGrid_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GlyuckDataGrid_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GlyuckDataGrid_Example/Pods-GlyuckDataGrid_Example.debug.xcconfig"; sourceTree = "<group>"; };
+		D1FE3BC4233B913291CF3404 /* Pods_GlyuckDataGrid_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GlyuckDataGrid_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		EF663D139FF3117BE1626D0B /* Pods_GlyuckDataGrid_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GlyuckDataGrid_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,7 +82,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0EF99790E2E6C94F82AC5BE2 /* Pods_GlyuckDataGrid_Example.framework in Frameworks */,
+				6A9097EB8BB4B6B337BF27CA /* Pods_GlyuckDataGrid_Example.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -90,18 +90,18 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				05C44643CC5DE03E65245538 /* Pods_GlyuckDataGrid_Tests.framework in Frameworks */,
+				2444B292EAC7EBBEB94B4BF2 /* Pods_GlyuckDataGrid_Tests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0545A9530095FF6C3FF433E8 /* Frameworks */ = {
+		03E22B24F1E90D8668826420 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				20AB0B922B7550F463E724F1 /* Pods_GlyuckDataGrid_Example.framework */,
-				2B373DDF395A4A1865F4DA1E /* Pods_GlyuckDataGrid_Tests.framework */,
+				EF663D139FF3117BE1626D0B /* Pods_GlyuckDataGrid_Example.framework */,
+				D1FE3BC4233B913291CF3404 /* Pods_GlyuckDataGrid_Tests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -177,17 +177,6 @@
 			path = Utility;
 			sourceTree = "<group>";
 		};
-		4F31A870DE6A99A242A0B2DE /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				0EB66F99C133FFB76C0019BD /* Pods-GlyuckDataGrid_Example.debug.xcconfig */,
-				95A2E749A4534F7B0AA01786 /* Pods-GlyuckDataGrid_Example.release.xcconfig */,
-				5C56511963C24F33A7A77A96 /* Pods-GlyuckDataGrid_Tests.debug.xcconfig */,
-				947AFCC7368670A15FC1B809 /* Pods-GlyuckDataGrid_Tests.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 		607FACC71AFB9204008FA782 = {
 			isa = PBXGroup;
 			children = (
@@ -195,8 +184,8 @@
 				607FACD21AFB9204008FA782 /* Example for GlyuckDataGrid */,
 				607FACE81AFB9204008FA782 /* Tests */,
 				607FACD11AFB9204008FA782 /* Products */,
-				4F31A870DE6A99A242A0B2DE /* Pods */,
-				0545A9530095FF6C3FF433E8 /* Frameworks */,
+				B5660EDE9A9CD809C662037C /* Pods */,
+				03E22B24F1E90D8668826420 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -265,6 +254,17 @@
 			name = "Podspec Metadata";
 			sourceTree = "<group>";
 		};
+		B5660EDE9A9CD809C662037C /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				CB45F8C2A3EE4BF4BCD701D7 /* Pods-GlyuckDataGrid_Example.debug.xcconfig */,
+				C7229A65CA6966EE549772CF /* Pods-GlyuckDataGrid_Example.release.xcconfig */,
+				04AA3CDDD7A3895ECFDD48B6 /* Pods-GlyuckDataGrid_Tests.debug.xcconfig */,
+				7B358E392952CA3A22CF26B4 /* Pods-GlyuckDataGrid_Tests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -272,12 +272,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 607FACEF1AFB9204008FA782 /* Build configuration list for PBXNativeTarget "GlyuckDataGrid_Example" */;
 			buildPhases = (
-				C1549E132B5CDBF3E5B31CA5 /* Check Pods Manifest.lock */,
+				F018D6774197F0D5B96E0D96 /* [CP] Check Pods Manifest.lock */,
 				607FACCC1AFB9204008FA782 /* Sources */,
 				607FACCD1AFB9204008FA782 /* Frameworks */,
 				607FACCE1AFB9204008FA782 /* Resources */,
-				D05FB594406605AE0698CD5B /* Embed Pods Frameworks */,
-				B732C39418FA058F84AF2FC1 /* Copy Pods Resources */,
+				F475821A0549D1A0BF818838 /* [CP] Embed Pods Frameworks */,
+				093B26BBDC98DD67073F13D7 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -292,12 +292,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 607FACF21AFB9204008FA782 /* Build configuration list for PBXNativeTarget "GlyuckDataGrid_Tests" */;
 			buildPhases = (
-				DB7CFCEA41D613843065DF81 /* Check Pods Manifest.lock */,
+				828250D15011D84DEB8923B8 /* [CP] Check Pods Manifest.lock */,
 				607FACE11AFB9204008FA782 /* Sources */,
 				607FACE21AFB9204008FA782 /* Frameworks */,
 				607FACE31AFB9204008FA782 /* Resources */,
-				E9B2A262A825FE43A0CE5218 /* Embed Pods Frameworks */,
-				A323D1DBA94A0205ABC28B8F /* Copy Pods Resources */,
+				3B023957F5AEF07B18EA2212 /* [CP] Embed Pods Frameworks */,
+				1107411C237B189882701FEC /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -369,29 +369,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		A323D1DBA94A0205ABC28B8F /* Copy Pods Resources */ = {
+		093B26BBDC98DD67073F13D7 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GlyuckDataGrid_Tests/Pods-GlyuckDataGrid_Tests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		B732C39418FA058F84AF2FC1 /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -399,64 +384,79 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GlyuckDataGrid_Example/Pods-GlyuckDataGrid_Example-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		C1549E132B5CDBF3E5B31CA5 /* Check Pods Manifest.lock */ = {
+		1107411C237B189882701FEC /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GlyuckDataGrid_Tests/Pods-GlyuckDataGrid_Tests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		D05FB594406605AE0698CD5B /* Embed Pods Frameworks */ = {
+		3B023957F5AEF07B18EA2212 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GlyuckDataGrid_Example/Pods-GlyuckDataGrid_Example-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		DB7CFCEA41D613843065DF81 /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		E9B2A262A825FE43A0CE5218 /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GlyuckDataGrid_Tests/Pods-GlyuckDataGrid_Tests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		828250D15011D84DEB8923B8 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		F018D6774197F0D5B96E0D96 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		F475821A0549D1A0BF818838 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GlyuckDataGrid_Example/Pods-GlyuckDataGrid_Example-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -606,7 +606,7 @@
 		};
 		607FACF01AFB9204008FA782 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0EB66F99C133FFB76C0019BD /* Pods-GlyuckDataGrid_Example.debug.xcconfig */;
+			baseConfigurationReference = CB45F8C2A3EE4BF4BCD701D7 /* Pods-GlyuckDataGrid_Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = GlyuckDataGrid/Info.plist;
@@ -619,7 +619,7 @@
 		};
 		607FACF11AFB9204008FA782 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 95A2E749A4534F7B0AA01786 /* Pods-GlyuckDataGrid_Example.release.xcconfig */;
+			baseConfigurationReference = C7229A65CA6966EE549772CF /* Pods-GlyuckDataGrid_Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = GlyuckDataGrid/Info.plist;
@@ -632,7 +632,7 @@
 		};
 		607FACF31AFB9204008FA782 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5C56511963C24F33A7A77A96 /* Pods-GlyuckDataGrid_Tests.debug.xcconfig */;
+			baseConfigurationReference = 04AA3CDDD7A3895ECFDD48B6 /* Pods-GlyuckDataGrid_Tests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -653,7 +653,7 @@
 		};
 		607FACF41AFB9204008FA782 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 947AFCC7368670A15FC1B809 /* Pods-GlyuckDataGrid_Tests.release.xcconfig */;
+			baseConfigurationReference = 7B358E392952CA3A22CF26B4 /* Pods-GlyuckDataGrid_Tests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (
