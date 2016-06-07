@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "GlyuckDataGrid"
-  s.version          = "0.1.0"
+  s.version          = "0.2.0"
   s.summary          = "An UICollectionView subclass specialized on displaying multicolumn tables or spreadsheets."
   s.homepage         = "https://github.com/glyuck/GlyuckDataGrid"
   s.screenshots      = "https://raw.githubusercontent.com/glyuck/GlyuckDataGrid/master/Example/screenshot_01.png", "https://raw.githubusercontent.com/glyuck/GlyuckDataGrid/master/Example/screenshot_02.png"
