@@ -50,7 +50,7 @@ class CollectionViewDataSourceSpec: QuickSpec {
         describe("collectionView:viewForSupplementaryElementOfKind:atIndexPath:") {
             context("for column headers") {
                 func headerCellForColumn(column: Int) -> DataGridViewColumnHeaderCell? {
-                    let indexPath = NSIndexPath(forItem: column, inSection: 0)
+                    let indexPath = NSIndexPath(index: column)
                     let view = sut.collectionView(dataGridView.collectionView, viewForSupplementaryElementOfKind: DataGridView.SupplementaryViewKind.ColumnHeader.rawValue, atIndexPath: indexPath)
                     return view as? DataGridViewColumnHeaderCell
                 }

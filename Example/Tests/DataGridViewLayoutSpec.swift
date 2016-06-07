@@ -44,7 +44,7 @@ class DataGridViewLayoutSpec: QuickSpec {
             }
             context("layout column header") {
                 it("should return correct coordinates for first header") {
-                    let attributes = sut.layoutAttributesForSupplementaryViewOfKind(DataGridView.SupplementaryViewKind.ColumnHeader.rawValue, atIndexPath: NSIndexPath(forItem: 0, inSection: 0))!
+                    let attributes = sut.layoutAttributesForSupplementaryViewOfKind(DataGridView.SupplementaryViewKind.ColumnHeader.rawValue, atIndexPath: NSIndexPath(index: 0))!
 
                     expect(attributes.frame) == CGRect(
                         x: dataGridView.rowHeaderWidth,
@@ -54,7 +54,7 @@ class DataGridViewLayoutSpec: QuickSpec {
                     )
                 }
                 it("should return correct coordinates for second header") {
-                    let attributes = sut.layoutAttributesForSupplementaryViewOfKind(DataGridView.SupplementaryViewKind.ColumnHeader.rawValue, atIndexPath: NSIndexPath(forItem: 1, inSection: 0))!
+                    let attributes = sut.layoutAttributesForSupplementaryViewOfKind(DataGridView.SupplementaryViewKind.ColumnHeader.rawValue, atIndexPath: NSIndexPath(index: 1))!
 
                     expect(attributes.frame) == CGRect(
                         x: dataGridView.rowHeaderWidth + sut.widthForColumn(0),
@@ -64,7 +64,7 @@ class DataGridViewLayoutSpec: QuickSpec {
                     )
                 }
                 it("should return greater zIndex then for content cell") {
-                    let headerAttributes = sut.layoutAttributesForSupplementaryViewOfKind(DataGridView.SupplementaryViewKind.ColumnHeader.rawValue, atIndexPath: NSIndexPath(forItem: 0, inSection: 0))!
+                    let headerAttributes = sut.layoutAttributesForSupplementaryViewOfKind(DataGridView.SupplementaryViewKind.ColumnHeader.rawValue, atIndexPath: NSIndexPath(index: 0))!
                     let contentAttributes = sut.layoutAttributesForItemAtIndexPath(NSIndexPath(forItem: 0, inSection: 0))!
                     expect(headerAttributes.zIndex) > contentAttributes.zIndex
                 }
@@ -75,7 +75,7 @@ class DataGridViewLayoutSpec: QuickSpec {
                     it("should return unscrolled coordinates if offset negative") {
                         dataGridView.contentOffset = CGPointMake(-10, -20)
 
-                        let attributes = sut.layoutAttributesForSupplementaryViewOfKind(DataGridView.SupplementaryViewKind.ColumnHeader.rawValue, atIndexPath: NSIndexPath(forItem: 0, inSection: 0))!
+                        let attributes = sut.layoutAttributesForSupplementaryViewOfKind(DataGridView.SupplementaryViewKind.ColumnHeader.rawValue, atIndexPath: NSIndexPath(index: 0))!
 
                         expect(attributes.frame) == CGRect(
                             x: dataGridView.rowHeaderWidth,
@@ -85,7 +85,7 @@ class DataGridViewLayoutSpec: QuickSpec {
                         )
                     }
                     it("should return correct coordinates for first header") {
-                        let attributes = sut.layoutAttributesForSupplementaryViewOfKind(DataGridView.SupplementaryViewKind.ColumnHeader.rawValue, atIndexPath: NSIndexPath(forItem: 0, inSection: 0))!
+                        let attributes = sut.layoutAttributesForSupplementaryViewOfKind(DataGridView.SupplementaryViewKind.ColumnHeader.rawValue, atIndexPath: NSIndexPath(index: 0))!
 
                         expect(attributes.frame) == CGRect(
                             x: dataGridView.rowHeaderWidth,
@@ -95,7 +95,7 @@ class DataGridViewLayoutSpec: QuickSpec {
                         )
                     }
                     it("should return correct coordinates for second header") {
-                        let attributes = sut.layoutAttributesForSupplementaryViewOfKind(DataGridView.SupplementaryViewKind.ColumnHeader.rawValue, atIndexPath: NSIndexPath(forItem: 1, inSection: 0))!
+                        let attributes = sut.layoutAttributesForSupplementaryViewOfKind(DataGridView.SupplementaryViewKind.ColumnHeader.rawValue, atIndexPath: NSIndexPath(index: 1))!
 
                         expect(attributes.frame) == CGRect(
                             x: dataGridView.rowHeaderWidth + sut.widthForColumn(0),
@@ -111,7 +111,7 @@ class DataGridViewLayoutSpec: QuickSpec {
                     }
 
                     it("should be applied to section header Y position") {
-                        let attributes = sut.layoutAttributesForSupplementaryViewOfKind(DataGridView.SupplementaryViewKind.ColumnHeader.rawValue, atIndexPath: NSIndexPath(forItem: 0, inSection: 0))!
+                        let attributes = sut.layoutAttributesForSupplementaryViewOfKind(DataGridView.SupplementaryViewKind.ColumnHeader.rawValue, atIndexPath: NSIndexPath(index: 0))!
 
                         expect(attributes.frame) == CGRect(
                             x: dataGridView.rowHeaderWidth,
@@ -125,7 +125,7 @@ class DataGridViewLayoutSpec: QuickSpec {
 
             context("layout rows header") {
                 it("should return correct coordinates for first header") {
-                    let attributes = sut.layoutAttributesForRowHeaderViewAtIndexPath(NSIndexPath(forItem: 0, inSection: 0))!
+                    let attributes = sut.layoutAttributesForRowHeaderViewAtIndexPath(NSIndexPath(index: 0))!
 
                     expect(attributes.frame) == CGRect(
                         x: 0,
@@ -135,7 +135,7 @@ class DataGridViewLayoutSpec: QuickSpec {
                     )
                 }
                 it("should return correct coordinates for second header") {
-                    let attributes = sut.layoutAttributesForRowHeaderViewAtIndexPath(NSIndexPath(forItem: 0, inSection: 1))!
+                    let attributes = sut.layoutAttributesForRowHeaderViewAtIndexPath(NSIndexPath(index: 1))!
 
                     expect(attributes.frame) == CGRect(
                         x: 0,
@@ -145,7 +145,7 @@ class DataGridViewLayoutSpec: QuickSpec {
                     )
                 }
                 it("should return greater zIndex then for content cell") {
-                    let headerAttributes = sut.layoutAttributesForRowHeaderViewAtIndexPath(NSIndexPath(forItem: 0, inSection: 0))!
+                    let headerAttributes = sut.layoutAttributesForRowHeaderViewAtIndexPath(NSIndexPath(index: 0))!
                     let contentAttributes = sut.layoutAttributesForItemAtIndexPath(NSIndexPath(forItem: 0, inSection: 0))!
                     expect(headerAttributes.zIndex) > contentAttributes.zIndex
                 }
@@ -156,7 +156,7 @@ class DataGridViewLayoutSpec: QuickSpec {
                     it("should return unscrolled coordinates if offset negative") {
                         dataGridView.contentOffset = CGPointMake(-10, -20)
 
-                        let attributes = sut.layoutAttributesForRowHeaderViewAtIndexPath(NSIndexPath(forItem: 0, inSection: 0))!
+                        let attributes = sut.layoutAttributesForRowHeaderViewAtIndexPath(NSIndexPath(index: 0))!
 
                         expect(attributes.frame) == CGRect(
                             x: 0,
@@ -166,7 +166,7 @@ class DataGridViewLayoutSpec: QuickSpec {
                         )
                     }
                     it("should return correct coordinates for first header") {
-                        let attributes = sut.layoutAttributesForRowHeaderViewAtIndexPath(NSIndexPath(forItem: 0, inSection: 0))!
+                        let attributes = sut.layoutAttributesForRowHeaderViewAtIndexPath(NSIndexPath(index: 0))!
 
                         expect(attributes.frame) == CGRect(
                             x: dataGridView.contentOffset.x,
@@ -176,7 +176,7 @@ class DataGridViewLayoutSpec: QuickSpec {
                         )
                     }
                     it("should return correct coordinates for second header") {
-                        let attributes = sut.layoutAttributesForRowHeaderViewAtIndexPath(NSIndexPath(forItem: 0, inSection: 1))!
+                        let attributes = sut.layoutAttributesForRowHeaderViewAtIndexPath(NSIndexPath(index: 1))!
 
                         expect(attributes.frame) == CGRect(
                             x: dataGridView.contentOffset.x,
@@ -191,7 +191,7 @@ class DataGridViewLayoutSpec: QuickSpec {
                         }
 
                         it("should be applied to row header X position") {
-                            let attributes = sut.layoutAttributesForRowHeaderViewAtIndexPath(NSIndexPath(forItem: 0, inSection: 0))!
+                            let attributes = sut.layoutAttributesForRowHeaderViewAtIndexPath(NSIndexPath(index: 0))!
 
                             expect(attributes.frame) == CGRect(
                                 x: dataGridView.collectionView.contentInset.left + dataGridView.collectionView.contentOffset.x,
@@ -205,7 +205,7 @@ class DataGridViewLayoutSpec: QuickSpec {
             }
             context("layout corner header") {
                 it("should return correct coordinates for top-left corner header") {
-                    let attributes = sut.layoutAttributesForCornerHeaderViewAtIndexPath(NSIndexPath(forItem: 0, inSection: 0))!
+                    let attributes = sut.layoutAttributesForCornerHeaderViewAtIndexPath(NSIndexPath(index: 0))!
 
                     expect(attributes.frame) == CGRect(
                         x: 0,
@@ -215,9 +215,9 @@ class DataGridViewLayoutSpec: QuickSpec {
                     )
                 }
                 it("should return greater zIndex then for content and header cells") {
-                    let cornerHeaderAttributes = sut.layoutAttributesForCornerHeaderViewAtIndexPath(NSIndexPath(forItem: 0, inSection: 0))!
-                    let rowHeaderAttributes = sut.layoutAttributesForRowHeaderViewAtIndexPath(NSIndexPath(forItem: 0, inSection: 0))!
-                    let columnHeaderAttributes = sut.layoutAttributesForColumnHeaderViewAtIndexPath(NSIndexPath(forItem: 0, inSection: 0))!
+                    let cornerHeaderAttributes = sut.layoutAttributesForCornerHeaderViewAtIndexPath(NSIndexPath(index: 0))!
+                    let rowHeaderAttributes = sut.layoutAttributesForRowHeaderViewAtIndexPath(NSIndexPath(index: 0))!
+                    let columnHeaderAttributes = sut.layoutAttributesForColumnHeaderViewAtIndexPath(NSIndexPath(index: 0))!
                     let contentAttributes = sut.layoutAttributesForItemAtIndexPath(NSIndexPath(forItem: 0, inSection: 0))!
                     expect(cornerHeaderAttributes.zIndex) > rowHeaderAttributes.zIndex
                     expect(cornerHeaderAttributes.zIndex) > columnHeaderAttributes.zIndex
@@ -230,7 +230,7 @@ class DataGridViewLayoutSpec: QuickSpec {
                     it("should return unscrolled coordinates if offset negative") {
                         dataGridView.contentOffset = CGPointMake(-10, -20)
 
-                        let attributes = sut.layoutAttributesForCornerHeaderViewAtIndexPath(NSIndexPath(forItem: 0, inSection: 0))!
+                        let attributes = sut.layoutAttributesForCornerHeaderViewAtIndexPath(NSIndexPath(index: 0))!
 
                         expect(attributes.frame) == CGRect(
                             x: 0,
@@ -240,7 +240,7 @@ class DataGridViewLayoutSpec: QuickSpec {
                         )
                     }
                     it("should return correct coordinates for top-left corner header") {
-                        let attributes = sut.layoutAttributesForCornerHeaderViewAtIndexPath(NSIndexPath(forItem: 0, inSection: 0))!
+                        let attributes = sut.layoutAttributesForCornerHeaderViewAtIndexPath(NSIndexPath(index: 0))!
 
                         expect(attributes.frame) == CGRect(
                             x: dataGridView.contentOffset.x,
@@ -255,7 +255,7 @@ class DataGridViewLayoutSpec: QuickSpec {
                         }
 
                         it("should be applied to row header X position") {
-                            let attributes = sut.layoutAttributesForCornerHeaderViewAtIndexPath(NSIndexPath(forItem: 0, inSection: 0))!
+                            let attributes = sut.layoutAttributesForCornerHeaderViewAtIndexPath(NSIndexPath(index: 0))!
 
                             expect(attributes.frame) == CGRect(
                                 x: dataGridView.collectionView.contentInset.left + dataGridView.collectionView.contentOffset.x,
@@ -348,8 +348,8 @@ class DataGridViewLayoutSpec: QuickSpec {
                         stubDelegate.floatingColumns = [1]
 
                         // when
-                        let header0Attributes = sut.layoutAttributesForSupplementaryViewOfKind(DataGridView.SupplementaryViewKind.ColumnHeader.rawValue, atIndexPath: NSIndexPath(forItem: 0, inSection: 0))!
-                        let header1Attributes = sut.layoutAttributesForSupplementaryViewOfKind(DataGridView.SupplementaryViewKind.ColumnHeader.rawValue, atIndexPath: NSIndexPath(forItem: 1, inSection: 0))!
+                        let header0Attributes = sut.layoutAttributesForSupplementaryViewOfKind(DataGridView.SupplementaryViewKind.ColumnHeader.rawValue, atIndexPath: NSIndexPath(index: 0))!
+                        let header1Attributes = sut.layoutAttributesForSupplementaryViewOfKind(DataGridView.SupplementaryViewKind.ColumnHeader.rawValue, atIndexPath: NSIndexPath(index: 1))!
                         let row0Attributes = sut.layoutAttributesForItemAtIndexPath(NSIndexPath(forItem: 0, inSection: 0))!
                         let row1Attributes = sut.layoutAttributesForItemAtIndexPath(NSIndexPath(forItem: 1, inSection: 0))!
 
@@ -380,21 +380,21 @@ class DataGridViewLayoutSpec: QuickSpec {
                     let attributes = sut.layoutAttributesForElementsInRect(rect)!
                     expect(attributes.count, file: file, line: line) == items.count * sections.count + (columnHeader ? items.count : 0) + (rowHeader ? sections.count : 0) + (columnHeader && rowHeader ? 1 : 0)
                     if columnHeader && rowHeader {
-                        let headerIndexPath = NSIndexPath(forItem: 0, inSection: 0)
+                        let headerIndexPath = NSIndexPath(index: 0)
                         let res = attributes.filter { isAttribute($0, forIndexPath: headerIndexPath, forSupplementaryViewOfKind: .CornerHeader) }.count == 1
-                        expect(res, file: file, line: line).to(beTrue(), description: "Expected layout attributes to contain IndexPath(forItem: 0, inSection: 0) for section header")
+                        expect(res, file: file, line: line).to(beTrue(), description: "Expected layout attributes to contain IndexPath(index: 0) for section header")
                     }
                     for item in items {
                         if columnHeader {
-                            let headerIndexPath = NSIndexPath(forItem: item, inSection: 0)
+                            let headerIndexPath = NSIndexPath(index: item)
                             let res = attributes.filter { isAttribute($0, forIndexPath: headerIndexPath, forSupplementaryViewOfKind: .ColumnHeader) }.count == 1
-                            expect(res, file: file, line: line).to(beTrue(), description: "Expected layout attributes to contain IndexPath(forItem: \(item), inSection: 0) for column header")
+                            expect(res, file: file, line: line).to(beTrue(), description: "Expected layout attributes to contain IndexPath(index: \(item)) for column header")
                         }
                         for section in sections {
                             if rowHeader {
-                                let headerIndexPath = NSIndexPath(forItem: 0, inSection: section)
+                                let headerIndexPath = NSIndexPath(index: section)
                                 let res = attributes.filter { isAttribute($0, forIndexPath: headerIndexPath, forSupplementaryViewOfKind: .RowHeader) }.count == 1
-                                expect(res, file: file, line: line).to(beTrue(), description: "Expected layout attributes to contain IndexPath(forItem: 0, inSection: \(section)) for row header")
+                                expect(res, file: file, line: line).to(beTrue(), description: "Expected layout attributes to contain IndexPath(index: \(section)) for row header")
                             }
                             let indexPath = NSIndexPath(forItem: item, inSection: section)
                             let res = attributes.filter { $0.indexPath == indexPath && $0.representedElementCategory == .Cell }.count == 1

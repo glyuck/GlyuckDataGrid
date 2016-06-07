@@ -55,7 +55,7 @@ class DataGridViewSpec: QuickSpec {
 
                 expect(cell).to(beTruthy())
                 expect(cell.dataGridView) == sut
-                expect(cell.indexPath) == NSIndexPath(forColumn: 1, row: 0)
+                expect(cell.indexPath) == NSIndexPath(index: 1)
             }
 
             it("should register and dequeue row headers") {
@@ -65,7 +65,7 @@ class DataGridViewSpec: QuickSpec {
 
                 expect(cell).to(beTruthy())
                 expect(cell.dataGridView) == sut
-                expect(cell.indexPath) == NSIndexPath(forColumn: 0, row: 1)
+                expect(cell.indexPath) == NSIndexPath(index: 1)
             }
 
             it("should register and dequeue corner headers") {
@@ -75,7 +75,7 @@ class DataGridViewSpec: QuickSpec {
 
                 expect(cell).to(beTruthy())
                 expect(cell.dataGridView) == sut
-                expect(cell.indexPath) == NSIndexPath(forColumn: 0, row: 0)
+                expect(cell.indexPath) == NSIndexPath(index: 0)
             }
         }
 
