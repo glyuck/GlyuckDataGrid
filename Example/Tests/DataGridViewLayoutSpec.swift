@@ -376,29 +376,29 @@ class DataGridViewLayoutSpec: QuickSpec {
                         && attr.representedElementKind == kind.rawValue
                 }
 
-                func ensureItems(items: [Int], sections: [Int], columnHeader: Bool, rowHeader: Bool, inRect rect: CGRect) {
+                func ensureItems(items: [Int], sections: [Int], columnHeader: Bool, rowHeader: Bool, inRect rect: CGRect, file: FileString = #file, line: UInt = #line) {
                     let attributes = sut.layoutAttributesForElementsInRect(rect)!
-                    expect(attributes.count) == items.count * sections.count + (columnHeader ? items.count : 0) + (rowHeader ? sections.count : 0) + (columnHeader && rowHeader ? 1 : 0)
+                    expect(attributes.count, file: file, line: line) == items.count * sections.count + (columnHeader ? items.count : 0) + (rowHeader ? sections.count : 0) + (columnHeader && rowHeader ? 1 : 0)
                     if columnHeader && rowHeader {
                         let headerIndexPath = NSIndexPath(forItem: 0, inSection: 0)
                         let res = attributes.filter { isAttribute($0, forIndexPath: headerIndexPath, forSupplementaryViewOfKind: .CornerHeader) }.count == 1
-                        expect(res).to(beTrue(), description: "Expected layout attributes to contain IndexPath(forItem: 0, inSection: 0) for section header")
+                        expect(res, file: file, line: line).to(beTrue(), description: "Expected layout attributes to contain IndexPath(forItem: 0, inSection: 0) for section header")
                     }
                     for item in items {
                         if columnHeader {
                             let headerIndexPath = NSIndexPath(forItem: item, inSection: 0)
                             let res = attributes.filter { isAttribute($0, forIndexPath: headerIndexPath, forSupplementaryViewOfKind: .ColumnHeader) }.count == 1
-                            expect(res).to(beTrue(), description: "Expected layout attributes to contain IndexPath(forItem: \(item), inSection: 0) for column header")
+                            expect(res, file: file, line: line).to(beTrue(), description: "Expected layout attributes to contain IndexPath(forItem: \(item), inSection: 0) for column header")
                         }
                         for section in sections {
                             if rowHeader {
                                 let headerIndexPath = NSIndexPath(forItem: 0, inSection: section)
                                 let res = attributes.filter { isAttribute($0, forIndexPath: headerIndexPath, forSupplementaryViewOfKind: .RowHeader) }.count == 1
-                                expect(res).to(beTrue(), description: "Expected layout attributes to contain IndexPath(forItem: 0, inSection: \(section)) for row header")
+                                expect(res, file: file, line: line).to(beTrue(), description: "Expected layout attributes to contain IndexPath(forItem: 0, inSection: \(section)) for row header")
                             }
                             let indexPath = NSIndexPath(forItem: item, inSection: section)
                             let res = attributes.filter { $0.indexPath == indexPath && $0.representedElementCategory == .Cell }.count == 1
-                            expect(res).to(beTrue(), description: "Expected layout attributes to contain IndexPath(forItem: \(item), inSection: \(section)) for cell")
+                            expect(res, file: file, line: line).to(beTrue(), description: "Expected layout attributes to contain IndexPath(forItem: \(item), inSection: \(section)) for cell")
                         }
                     }
                 }
