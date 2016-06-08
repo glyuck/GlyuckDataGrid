@@ -96,6 +96,6 @@ public class DataGridViewBaseHeaderCell: DataGridViewBaseCell {
     }
 
     public func didTap(gesture: UITapGestureRecognizer) {
-        dataGridView.collectionViewDelegate.collectionView(dataGridView.collectionView, didTapHeaderForColumn: indexPath.row)
+        dataGridView.collectionViewDelegate.collectionView(dataGridView.collectionView, didTapHeaderForColumn: indexPath.index)
     }
 }
