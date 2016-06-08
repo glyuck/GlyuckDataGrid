@@ -1,7 +1,7 @@
 # GlyuckDataGrid
 [![CI Status](http://img.shields.io/travis/glyuck/GlyuckDataGrid.svg?style=flat)](https://travis-ci.org/Glyuck/GlyuckDataGrid)
 [![Version](https://img.shields.io/cocoapods/v/GlyuckDataGrid.svg?style=flat)](http://cocoapods.org/pods/GlyuckDataGrid)
-[![Quality](https://apps.e-sites.nl/cocoapodsquality/GlyuckDataGrid/badge.svg)](https://cocoapods.org/pods/GlyuckDataGrid/quality)
+[![Quality](https://apps.e-sites.nl/cocoapodsquality/GlyuckDataGrid/badge.svg?clear_cache)](https://cocoapods.org/pods/GlyuckDataGrid/quality)
 [![License](https://img.shields.io/cocoapods/l/GlyuckDataGrid.svg?style=flat)](http://cocoapods.org/pods/GlyuckDataGrid)
 [![Platform](https://img.shields.io/cocoapods/p/GlyuckDataGrid.svg?style=flat)](http://cocoapods.org/pods/GlyuckDataGrid)
 
