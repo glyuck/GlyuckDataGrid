@@ -12,51 +12,51 @@ import UIKit
 /**
  Helper class for adding and configuring borders to UIView. Can configure top/left/bottom/right borders separately.
 */
-public class BorderHelper {
+open class BorderHelper {
     /// Top border width (in points).
-    public var topWidth = CGFloat(0) {
+    open var topWidth = CGFloat(0) {
         didSet { updateLayer(&topLayer, forBorderWidth: topWidth, color: topColor) }
     }
     /// Top border color.
-    public var topColor: UIColor = UIColor.blackColor() {
-        didSet { topLayer?.backgroundColor = topColor.CGColor }
+    open var topColor: UIColor = UIColor.black {
+        didSet { topLayer?.backgroundColor = topColor.cgColor }
     }
     /// Left border width (in points).
-    public var leftWidth = CGFloat(0) {
+    open var leftWidth = CGFloat(0) {
         didSet { updateLayer(&leftLayer, forBorderWidth: leftWidth, color: leftColor) }
     }
     /// Left border color.
-    public var leftColor: UIColor = UIColor.blackColor() {
-        didSet { leftLayer?.backgroundColor = leftColor.CGColor }
+    open var leftColor: UIColor = UIColor.black {
+        didSet { leftLayer?.backgroundColor = leftColor.cgColor }
     }
     /// Bottom border width (in points).
-    public var bottomWidth = CGFloat(0) {
+    open var bottomWidth = CGFloat(0) {
         didSet { updateLayer(&bottomLayer, forBorderWidth: bottomWidth, color: bottomColor) }
     }
     /// Bottom border color.
-    public var bottomColor: UIColor = UIColor.blackColor() {
-        didSet { bottomLayer?.backgroundColor = bottomColor.CGColor }
+    open var bottomColor: UIColor = UIColor.black {
+        didSet { bottomLayer?.backgroundColor = bottomColor.cgColor }
     }
     /// Right border width (in points.
-    public var rightWidth = CGFloat(0) {
+    open var rightWidth = CGFloat(0) {
         didSet { updateLayer(&rightLayer, forBorderWidth: rightWidth, color: rightColor) }
     }
     /// Right border color.
-    public var rightColor: UIColor = UIColor.blackColor() {
-        didSet { rightLayer?.backgroundColor = rightColor.CGColor }
+    open var rightColor: UIColor = UIColor.black {
+        didSet { rightLayer?.backgroundColor = rightColor.cgColor }
     }
 
     /// Layer used to render top border.
-    public var topLayer: CALayer?
+    open var topLayer: CALayer?
     /// Layer used to render left border.
-    public var leftLayer: CALayer?
+    open var leftLayer: CALayer?
     /// Layer user to render bottom border.
-    public var bottomLayer: CALayer?
+    open var bottomLayer: CALayer?
     /// Layer used to render right border.
-    public var rightLayer: CALayer?
+    open var rightLayer: CALayer?
 
     /// Main view to add borders to.
-    private weak var view: UIView!
+    fileprivate weak var view: UIView!
 
     /**
      Creates and returns border helper for the specified view.
@@ -76,13 +76,13 @@ public class BorderHelper {
      - parameter width: border width (in points).
      - parameter color: border color.
      */
-    private func updateLayer(inout layer:CALayer?, forBorderWidth width: CGFloat, color: UIColor) {
+    fileprivate func updateLayer(_ layer:inout CALayer?, forBorderWidth width: CGFloat, color: UIColor) {
         if width == 0 {
             layer?.removeFromSuperlayer()
             layer = nil
         } else if layer == nil {
             layer = CALayer()
-            layer!.backgroundColor = color.CGColor
+            layer!.backgroundColor = color.cgColor
             view.layer.addSublayer(layer!)
         }
         view.layer.setNeedsLayout()
@@ -93,17 +93,17 @@ public class BorderHelper {
 
      - parameter frame: Parent view frame rectangle.
      */
-    public func layoutLayersInFrame(frame: CGRect) {
-        topLayer?.backgroundColor = topColor.CGColor
+    open func layoutLayersInFrame(_ frame: CGRect) {
+        topLayer?.backgroundColor = topColor.cgColor
         topLayer?.frame = CGRect(x: 0, y: 0, width: frame.width, height: topWidth)
 
-        leftLayer?.backgroundColor = leftColor.CGColor
+        leftLayer?.backgroundColor = leftColor.cgColor
         leftLayer?.frame = CGRect(x: 0, y: 0, width: leftWidth, height: frame.height)
 
-        bottomLayer?.backgroundColor = bottomColor.CGColor
+        bottomLayer?.backgroundColor = bottomColor.cgColor
         bottomLayer?.frame = CGRect(x: 0, y: frame.height - bottomWidth, width: frame.width, height: bottomWidth)
 
-        rightLayer?.backgroundColor = rightColor.CGColor
+        rightLayer?.backgroundColor = rightColor.cgColor
         rightLayer?.frame = CGRect(x: frame.width - rightWidth, y: 0, width: rightWidth, height: frame.height)
     }
 }

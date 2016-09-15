@@ -12,42 +12,42 @@ import UIKit
 /**
     This class incapsulates logic for delegate of UICollectionView used internally by DataGridView. You should not use this class directly.
  */
-public class CollectionViewDelegate:  NSObject, UICollectionViewDelegate {
-    private(set) public weak var dataGridView: DataGridView!
+open class CollectionViewDelegate:  NSObject, UICollectionViewDelegate {
+    fileprivate(set) open weak var dataGridView: DataGridView!
 
     init(dataGridView: DataGridView) {
         self.dataGridView = dataGridView
         super.init()
     }
 
-    public func collectionView(collectionView: UICollectionView, shouldSelectItemAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return dataGridView.delegate?.dataGridView?(dataGridView, shouldSelectRow: indexPath.section) ?? true
+    open func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+        return dataGridView.delegate?.dataGridView?(dataGridView, shouldSelectRow: (indexPath as NSIndexPath).section) ?? true
     }
     
-    public func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        dataGridView.selectRow(indexPath.section, animated: false)
-        dataGridView.delegate?.dataGridView?(dataGridView, didSelectRow: indexPath.section)
+    open func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        dataGridView.selectRow((indexPath as NSIndexPath).section, animated: false)
+        dataGridView.delegate?.dataGridView?(dataGridView, didSelectRow: (indexPath as NSIndexPath).section)
     }
 
-    public func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath) {
-        dataGridView.deselectRow(indexPath.section , animated: false)
+    open func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        dataGridView.deselectRow((indexPath as NSIndexPath).section , animated: false)
     }
 
-    public func collectionView(collectionView: UICollectionView, didHighlightItemAtIndexPath indexPath: NSIndexPath) {
-        dataGridView.highlightRow(indexPath.section)
+    open func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
+        dataGridView.highlightRow((indexPath as NSIndexPath).section)
     }
 
-    public func collectionView(collectionView: UICollectionView, didUnhighlightItemAtIndexPath indexPath: NSIndexPath) {
-        dataGridView.unhighlightRow(indexPath.section)
+    open func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
+        dataGridView.unhighlightRow((indexPath as NSIndexPath).section)
     }
 
     // MARK: - Custom delegate methods
 
-    public func collectionView(collectionView: UICollectionView, shouldHighlightHeaderForColumn column: Int) -> Bool {
+    open func collectionView(_ collectionView: UICollectionView, shouldHighlightHeaderForColumn column: Int) -> Bool {
         return dataGridView.delegate?.dataGridView?(dataGridView, shouldSortByColumn: column) ?? false
     }
 
-    public func collectionView(collectionView: UICollectionView, didTapHeaderForColumn column: Int) {
+    open func collectionView(_ collectionView: UICollectionView, didTapHeaderForColumn column: Int) {
         if dataGridView.delegate?.dataGridView?(dataGridView, shouldSortByColumn: column) == true {
             if dataGridView.sortColumn == column {
                 dataGridView.setSortColumn(column, ascending: !dataGridView.sortAscending)

@@ -12,20 +12,20 @@ import UIKit
 /**
  Base class for data grid view cells.
 */
-public class DataGridViewBaseCell: UICollectionViewCell {
+open class DataGridViewBaseCell: UICollectionViewCell {
     /// The inset or outset margins for the rectangle around the cell’s text label.
-    public dynamic var textLabelInsets = UIEdgeInsetsZero
+    open dynamic var textLabelInsets = UIEdgeInsets.zero
     /// Background color for highlighted state.
-    public dynamic var highlightedBackgroundColor = UIColor(white: 0.9, alpha: 1)
+    open dynamic var highlightedBackgroundColor = UIColor(white: 0.9, alpha: 1)
     /// Background color for selected state.
-    public dynamic var selectedBackgroundColor = UIColor(white: 0.8, alpha: 1)
+    open dynamic var selectedBackgroundColor = UIColor(white: 0.8, alpha: 1)
     /// Helper object for configuring cell borders.
-    public lazy var border: BorderHelper = {
+    open lazy var border: BorderHelper = {
         BorderHelper(view: self)
     }()
 
     /// Returns the label used for the main textual content of the table cell. (read-only)
-    private(set) public lazy var textLabel: UILabel = {
+    fileprivate(set) open lazy var textLabel: UILabel = {
         let label = UILabel(frame: self.bounds)
         self.contentView.addSubview(label)
         return label
@@ -33,24 +33,24 @@ public class DataGridViewBaseCell: UICollectionViewCell {
 
     // MARK: - UICollectionViewCell
 
-    public override var highlighted: Bool {
+    open override var isHighlighted: Bool {
         didSet {
-            contentView.backgroundColor = highlighted ? highlightedBackgroundColor : UIColor.clearColor()
+            contentView.backgroundColor = isHighlighted ? highlightedBackgroundColor : UIColor.clear
         }
     }
 
-    public override var selected: Bool {
+    open override var isSelected: Bool {
         didSet {
-            contentView.backgroundColor = selected ? selectedBackgroundColor : UIColor.clearColor()
+            contentView.backgroundColor = isSelected ? selectedBackgroundColor : UIColor.clear
         }
     }
 
-    public override func layoutSubviews() {
+    open override func layoutSubviews() {
         super.layoutSubviews()
         textLabel.frame = UIEdgeInsetsInsetRect(bounds, textLabelInsets)
     }
 
-    public override func layoutSublayersOfLayer(layer: CALayer) {
+    open override func layoutSublayersOfLayer(_ layer: CALayer) {
         super.layoutSublayersOfLayer(layer)
         if layer == self.layer {
             border.layoutLayersInFrame(layer.frame)
