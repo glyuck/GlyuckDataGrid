@@ -184,7 +184,7 @@ private var setupAppearanceDispatchTocken = Int()
 */
 open class DataGridView: UIView {
     private static var __once: () = {
-            let appearance = self.appearance()
+            let appearance = DataGridView.appearance()
             appearance.row1BackgroundColor = UIColor(white: 0.95, alpha: 1)
             appearance.row2BackgroundColor = UIColor.white
         }()

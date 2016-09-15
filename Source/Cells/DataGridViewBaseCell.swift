@@ -50,8 +50,8 @@ open class DataGridViewBaseCell: UICollectionViewCell {
         textLabel.frame = UIEdgeInsetsInsetRect(bounds, textLabelInsets)
     }
 
-    open override func layoutSublayersOfLayer(_ layer: CALayer) {
-        super.layoutSublayersOfLayer(layer)
+    open override func layoutSublayers(of layer: CALayer) {
+        super.layoutSublayers(of: layer)
         if layer == self.layer {
             border.layoutLayersInFrame(layer.frame)
         }

@@ -12,13 +12,13 @@ private var setupAppearanceDispatchToken = Int()
 
 /**
  Class for default data grid view cell.
-*/
+ */
 open class DataGridViewContentCell: DataGridViewBaseCell {
     private static var __once: () = {
-            let appearance = self.appearance()
-            appearance.textLabelInsets = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
-
-            let labelAppearance = UILabel.glyuck_appearanceWhenContained(in: self)
+        let appearance = DataGridViewContentCell.appearance()
+        appearance.textLabelInsets = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
+        
+        if let labelAppearance = UILabel.glyuck_appearanceWhenContained(in: DataGridViewContentCell.self) {
             if #available(iOS 8.2, *) {
                 labelAppearance.appearanceFont = UIFont.systemFont(ofSize: 14, weight: UIFontWeightLight)
             } else {
@@ -26,7 +26,9 @@ open class DataGridViewContentCell: DataGridViewBaseCell {
             }
             labelAppearance.appearanceMinimumScaleFactor = 0.5
             labelAppearance.appearanceNumberOfLines = 0
-        }()
+        }
+        
+    }()
     open override static func initialize() {
         super.initialize()
         _ = DataGridViewContentCell.__once

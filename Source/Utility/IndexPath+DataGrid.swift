@@ -20,21 +20,21 @@ public extension IndexPath {
      - returns: An NSIndexPath object.
      */
     init(forColumn column: Int, row: Int) {
-        (self as NSIndexPath).init(item: column, section: row)
+        self.init(item: column, section: row)
     }
 
     /// An index number identifying a column in a row of a data grid view. (read-only)
     var dataGridColumn: Int {
-        return self.index(atPosition: 1)
+        return self.item
     }
 
     /// An index number identifying a row in a data grid view. (read-only)
     var dataGridRow: Int {
-        return self.index(atPosition: 0)
+        return self.section
     }
 
     /// An index number for single-item indexPath
     var index: Int {
-        return self.index(atPosition: 0)
+        return self.section
     }
 }
