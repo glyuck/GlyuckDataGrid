@@ -25,16 +25,16 @@ public extension IndexPath {
 
     /// An index number identifying a column in a row of a data grid view. (read-only)
     var dataGridColumn: Int {
-        return self.item
+        return self[1]
     }
 
     /// An index number identifying a row in a data grid view. (read-only)
     var dataGridRow: Int {
-        return self.section
+        return self[0]
     }
 
     /// An index number for single-item indexPath
     var index: Int {
-        return self.section
+        return self[0]
     }
 }
