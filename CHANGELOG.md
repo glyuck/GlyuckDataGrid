@@ -1,5 +1,9 @@
 # Change Log
 
+## 0.2.1 (2016-09-22)
+
+* Fixed crash when tapping row header
+
 ## 0.2.0 (2016-06-07)
 
 * Fixed crash when there are 0 items in data grid
