@@ -1,5 +1,5 @@
 PODS:
-  - GlyuckDataGrid (0.2.0)
+  - GlyuckDataGrid (0.2.1)
   - Nimble (4.0.1)
   - Quick (0.9.2)
 
@@ -13,7 +13,7 @@ EXTERNAL SOURCES:
     :path: ../
 
 SPEC CHECKSUMS:
-  GlyuckDataGrid: ae972b101d9844c8650aff505be039221f41a126
+  GlyuckDataGrid: 975d0756b74c241c3be16abe20de5b82999cc945
   Nimble: 0f3c8b8b084cda391209c3c5efbb48bedeeb920a
   Quick: 18d057bc66451eedd5d1c8dc99ba2a5db6e60226
 
