@@ -15,4 +15,9 @@ before_install:
   BUNDLE_GEMFILE=Example/Gemfile bundle exec pod install --project-directory=Example
 install:
 - gem install xcpretty --no-rdoc --no-ri --no-document --quiet
-script: set -o pipefail && xcodebuild test -workspace Example/GlyuckDataGrid.xcworkspace -scheme GlyuckDataGrid-Example -sdk iphonesimulator9.3 | xcpretty
+script:
+- |
+  set -o pipefail
+  xcodebuild -version
+  xcodebuild -showsdks
+  xcodebuild test -workspace Example/GlyuckDataGrid.xcworkspace -scheme GlyuckDataGrid-Example -sdk iphonesimulator10.0 | xcpretty
