@@ -10,9 +10,9 @@ podfile: Example/Podfile
 osx_image: xcode8
 before_install:
 - |
-  bundle install
-  bundle exec pod repo update
-  bundle exec pod install --project-directory=Example
+  BUNDLE_GEMFILE=Example/Gemfile bundle install
+  BUNDLE_GEMFILE=Example/Gemfile bundle exec pod repo update
+  BUNDLE_GEMFILE=Example/Gemfile bundle exec pod install --project-directory=Example
 install:
 - gem install xcpretty --no-rdoc --no-ri --no-document --quiet
 script: set -o pipefail && xcodebuild test -workspace Example/GlyuckDataGrid.xcworkspace -scheme GlyuckDataGrid-Example -sdk iphonesimulator9.3 | xcpretty
