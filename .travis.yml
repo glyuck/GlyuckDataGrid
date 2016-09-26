@@ -9,8 +9,10 @@ cache: cocoapods
 podfile: Example/Podfile
 osx_image: xcode8
 before_install:
-- gem install cocoapods -v '1.1.0.rc.2' # Since Travis is not always on latest version
-- pod install --project-directory=Example
+- |
+  bundle install
+  bundle exec pod repo update
+  bundle exec pod install --project-directory=Example
 install:
 - gem install xcpretty --no-rdoc --no-ri --no-document --quiet
 script: set -o pipefail && xcodebuild test -workspace Example/GlyuckDataGrid.xcworkspace -scheme GlyuckDataGrid-Example -sdk iphonesimulator9.3 | xcpretty
