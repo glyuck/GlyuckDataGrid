@@ -16,8 +16,7 @@ before_install:
 install:
 - gem install xcpretty --no-rdoc --no-ri --no-document --quiet
 script:
-- |
-  set -o pipefail
-  xcodebuild -version
-  xcodebuild -showsdks
-  xcodebuild test -workspace Example/GlyuckDataGrid.xcworkspace -scheme GlyuckDataGrid-Example -sdk iphonesimulator10.0 | xcpretty
+- set -o pipefail
+- xcodebuild -version
+- xcodebuild -showsdks
+- xcodebuild test -workspace Example/GlyuckDataGrid.xcworkspace -scheme GlyuckDataGrid-Example -sdk iphonesimulator10.0 -destination 'platform=iOS Simulator,name=iPhone 7,OS=10.0' | xcpretty
