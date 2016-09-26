@@ -12,8 +12,8 @@ import UIKit
 /**
     This class incapsulates logic for data source of UICollectionView used internally by DataGridView. You should not use this class directly.
 */
-public class CollectionViewDataSource: NSObject, UICollectionViewDataSource {
-    public weak var dataGridView: DataGridView!
+open class CollectionViewDataSource: NSObject, UICollectionViewDataSource {
+    open weak var dataGridView: DataGridView!
 
     public init(dataGridView: DataGridView) {
         self.dataGridView = dataGridView
@@ -22,18 +22,18 @@ public class CollectionViewDataSource: NSObject, UICollectionViewDataSource {
 
     // MARK: - UICollectionViewDataSource
 
-    public func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+    open func numberOfSections(in collectionView: UICollectionView) -> Int {
         if let numberOfRows = dataGridView?.dataSource?.numberOfRowsInDataGridView(dataGridView) {
             return numberOfRows
         }
         return 0
     }
 
-    public func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    open func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return dataGridView.dataSource?.numberOfColumnsInDataGridView(dataGridView) ?? 0
     }
 
-    public func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+    open func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let dataGridDataSource = dataGridView.dataSource else {
             fatalError("dataGridView.dataSource unexpectedly nil")
         }
@@ -46,7 +46,7 @@ public class CollectionViewDataSource: NSObject, UICollectionViewDataSource {
         }
     }
 
-    public func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
+    open func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         guard let dataGridKind = DataGridView.SupplementaryViewKind(rawValue: kind) else {
             fatalError("Unexpected supplementary view kind: \(kind)")
         }
@@ -59,7 +59,7 @@ public class CollectionViewDataSource: NSObject, UICollectionViewDataSource {
     }
 
     // MARK: - Custom methods
-    public func columnHeaderViewForIndexPath(indexPath: NSIndexPath) -> DataGridViewColumnHeaderCell{
+    open func columnHeaderViewForIndexPath(_ indexPath: IndexPath) -> DataGridViewColumnHeaderCell{
         guard let dataGridDataSource = dataGridView.dataSource else {
             fatalError("dataGridView.dataSource unexpectedly nil")
         }
@@ -73,7 +73,7 @@ public class CollectionViewDataSource: NSObject, UICollectionViewDataSource {
         return cell
     }
 
-    public func rowHeaderViewForIndexPath(indexPath: NSIndexPath) -> DataGridViewRowHeaderCell{
+    open func rowHeaderViewForIndexPath(_ indexPath: IndexPath) -> DataGridViewRowHeaderCell{
         guard let dataGridDataSource = dataGridView.dataSource else {
             fatalError("dataGridView.dataSource unexpectedly nil")
         }
@@ -86,7 +86,7 @@ public class CollectionViewDataSource: NSObject, UICollectionViewDataSource {
         return cell
     }
 
-    public func cornerHeaderViewForIndexPath(indexPath: NSIndexPath) -> DataGridViewCornerHeaderCell {
+    open func cornerHeaderViewForIndexPath(_ indexPath: IndexPath) -> DataGridViewCornerHeaderCell {
         let cell = dataGridView.dequeueReusableCornerHeaderViewWithReuseIdentifier(DataGridView.ReuseIdentifiers.defaultRowHeader)
         return cell
     }

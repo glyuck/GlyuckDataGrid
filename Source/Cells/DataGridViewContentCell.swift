@@ -7,27 +7,30 @@
 import UIKit
 
 
-private var setupAppearanceDispatchToken = dispatch_once_t()
+private var setupAppearanceDispatchToken = Int()
 
 
 /**
  Class for default data grid view cell.
-*/
-public class DataGridViewContentCell: DataGridViewBaseCell {
-    public override static func initialize() {
-        super.initialize()
-        dispatch_once(&setupAppearanceDispatchToken) {
-            let appearance = self.appearance()
-            appearance.textLabelInsets = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
-
-            let labelAppearance = UILabel.glyuck_appearanceWhenContainedIn(self)
+ */
+open class DataGridViewContentCell: DataGridViewBaseCell {
+    private static var __once: () = {
+        let appearance = DataGridViewContentCell.appearance()
+        appearance.textLabelInsets = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
+        
+        if let labelAppearance = UILabel.glyuck_appearanceWhenContained(in: DataGridViewContentCell.self) {
             if #available(iOS 8.2, *) {
-                labelAppearance.appearanceFont = UIFont.systemFontOfSize(14, weight: UIFontWeightLight)
+                labelAppearance.appearanceFont = UIFont.systemFont(ofSize: 14, weight: UIFontWeightLight)
             } else {
                 labelAppearance.appearanceFont = UIFont(name: "HelveticaNeue-Light", size: 14)
             }
             labelAppearance.appearanceMinimumScaleFactor = 0.5
             labelAppearance.appearanceNumberOfLines = 0
         }
+        
+    }()
+    open override static func initialize() {
+        super.initialize()
+        _ = DataGridViewContentCell.__once
     }
 }

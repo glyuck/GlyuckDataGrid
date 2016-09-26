@@ -9,5 +9,5 @@
 import UIKit
 
 
-public class DataGridViewCornerHeaderCell: DataGridViewBaseHeaderCell {
+open class DataGridViewCornerHeaderCell: DataGridViewBaseHeaderCell {
 }
