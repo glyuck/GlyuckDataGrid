@@ -11,17 +11,17 @@ import GlyuckDataGrid
 
 
 protocol SpreadSheetCellDelegate {
-    func spreadSheetCell(cell: SpreadSheetCell, didUpdateData data: String, atIndexPath indexPath: NSIndexPath)
+    func spreadSheetCell(_ cell: SpreadSheetCell, didUpdateData data: String, atIndexPath indexPath: IndexPath)
 }
 
 
 class SpreadSheetCell: DataGridViewBaseCell {
     @IBOutlet weak var textField: UITextField!
-    var indexPath: NSIndexPath!
+    var indexPath: IndexPath!
 
     var delegate: SpreadSheetCellDelegate?
 
-    func configureWithData(data: String, forIndexPath indexPath: NSIndexPath) {
+    func configureWithData(_ data: String, forIndexPath indexPath: IndexPath) {
         self.indexPath = indexPath
         textField.text = data
     }
@@ -29,7 +29,7 @@ class SpreadSheetCell: DataGridViewBaseCell {
 
 
 extension SpreadSheetCell: UITextFieldDelegate {
-    func textFieldDidEndEditing(textField: UITextField) {
+    func textFieldDidEndEditing(_ textField: UITextField) {
         let data = textField.text ?? ""
         delegate?.spreadSheetCell(self, didUpdateData: data, atIndexPath: indexPath)
     }

@@ -28,22 +28,22 @@ class BorderHelperSpec: QuickSpec {
                     }
                     it("should not be nil if width != 0") {
                         sut.topWidth = 1
-                        expect(sut.topLayer).to(beTruthy())
+                        expect(sut.topLayer).notTo(beNil())
                     }
                     it("should be sublayer of view.layer") {
                         sut.topWidth = 1
                         expect(sut.topLayer?.superlayer) === view.layer
                     }
                     it("should have correct background color after it's created") {
-                        sut.topColor = UIColor.redColor() // Assign border color before border is created
+                        sut.topColor = UIColor.red // Assign border color before border is created
                         sut.topWidth = 1
 
-                        let isEqual = CGColorEqualToColor(sut.topLayer!.backgroundColor, UIColor.redColor().CGColor)
+                        let isEqual = sut.topLayer!.backgroundColor == UIColor.red.cgColor
                         expect(isEqual).to(beTrue())
                     }
                     it("should be removed from superlayer and deallocated if width became 0") {
                         sut.topWidth = 1
-                        expect(sut.topLayer).to(beTruthy())
+                        expect(sut.topLayer).notTo(beNil())
                         expect(view.layer.sublayers?.count) == 1
 
                         sut.topWidth = 0
@@ -55,9 +55,9 @@ class BorderHelperSpec: QuickSpec {
                     it("should be assigned to corresponding layer.backgroundColor") {
                         sut.topWidth = 1 // Ensure layer already created
 
-                        sut.topColor = UIColor.greenColor()
+                        sut.topColor = UIColor.green
 
-                        let isEqual = CGColorEqualToColor(sut.topColor.CGColor, sut?.topLayer?.backgroundColor)
+                        let isEqual = sut.topColor.cgColor == sut?.topLayer?.backgroundColor
                         expect(isEqual).to(beTrue())
                     }
                 }

@@ -16,36 +16,36 @@ class MultiplicationTableViewController: UIViewController, DataGridViewDataSourc
     static override func initialize() {
         super.initialize()
 
-        let dataGridAppearance = DataGridView.glyuck_appearanceWhenContainedIn(self)
+        let dataGridAppearance = DataGridView.glyuck_appearanceWhenContained(in: self)!
         dataGridAppearance.row1BackgroundColor = nil
         dataGridAppearance.row2BackgroundColor = nil
 
-        let cornerHeaderAppearance = DataGridViewCornerHeaderCell.glyuck_appearanceWhenContainedIn(self)
-        cornerHeaderAppearance.backgroundColor = UIColor.whiteColor()
-        cornerHeaderAppearance.borderBottomWidth = 1 / UIScreen.mainScreen().scale
+        let cornerHeaderAppearance = DataGridViewCornerHeaderCell.glyuck_appearanceWhenContained(in: self)!
+        cornerHeaderAppearance.backgroundColor = UIColor.white
+        cornerHeaderAppearance.borderBottomWidth = 1 / UIScreen.main.scale
         cornerHeaderAppearance.borderBottomColor = UIColor(white: 0.73, alpha: 1)
-        cornerHeaderAppearance.borderRightWidth = 1 / UIScreen.mainScreen().scale
+        cornerHeaderAppearance.borderRightWidth = 1 / UIScreen.main.scale
         cornerHeaderAppearance.borderRightColor = UIColor(white: 0.73, alpha: 1)
 
-        let rowHeaderAppearance = DataGridViewRowHeaderCell.glyuck_appearanceWhenContainedIn(self)
+        let rowHeaderAppearance = DataGridViewRowHeaderCell.glyuck_appearanceWhenContained(in: self)!
         rowHeaderAppearance.backgroundColor = UIColor(white: 0.95, alpha: 1)
-        rowHeaderAppearance.borderBottomWidth = 1 / UIScreen.mainScreen().scale
+        rowHeaderAppearance.borderBottomWidth = 1 / UIScreen.main.scale
         rowHeaderAppearance.borderBottomColor = UIColor(white: 0.73, alpha: 1)
 
-        let columnHeaderAppearance = DataGridViewColumnHeaderCell.glyuck_appearanceWhenContainedIn(self)
-        columnHeaderAppearance.borderRightWidth = 1 / UIScreen.mainScreen().scale
+        let columnHeaderAppearance = DataGridViewColumnHeaderCell.glyuck_appearanceWhenContained(in: self)!
+        columnHeaderAppearance.borderRightWidth = 1 / UIScreen.main.scale
         columnHeaderAppearance.borderRightColor = UIColor(white: 0.73, alpha: 1)
 
-        let cellAppearance = DataGridViewContentCell.glyuck_appearanceWhenContainedIn(self)
-        cellAppearance.borderRightWidth = 1 / UIScreen.mainScreen().scale
+        let cellAppearance = DataGridViewContentCell.glyuck_appearanceWhenContained(in: self)!
+        cellAppearance.borderRightWidth = 1 / UIScreen.main.scale
         cellAppearance.borderRightColor = UIColor(white: 0.73, alpha: 1)
-        cellAppearance.borderBottomWidth = 1 / UIScreen.mainScreen().scale
+        cellAppearance.borderBottomWidth = 1 / UIScreen.main.scale
         cellAppearance.borderBottomColor = UIColor(white: 0.73, alpha: 1)
 
         columnHeaderAppearance.backgroundColor = UIColor(white: 0.95, alpha: 1)
-        let labelAppearance = UILabel.glyuck_appearanceWhenContainedIn(self)
-        labelAppearance.appearanceFont = UIFont.systemFontOfSize(12, weight: UIFontWeightLight)
-        labelAppearance.appearanceTextAlignment = .Center
+        let labelAppearance = UILabel.glyuck_appearanceWhenContained(in: self)!
+        labelAppearance.appearanceFont = UIFont.systemFont(ofSize: 12, weight: UIFontWeightLight)
+        labelAppearance.appearanceTextAlignment = .center
     }
 
     override func viewDidLoad() {
@@ -58,33 +58,33 @@ class MultiplicationTableViewController: UIViewController, DataGridViewDataSourc
 
     // MARK: - DataGridViewDataSource
 
-    func numberOfRowsInDataGridView(dataGridView: DataGridView) -> Int {
+    func numberOfRowsInDataGridView(_ dataGridView: DataGridView) -> Int {
         return 9
     }
 
-    func numberOfColumnsInDataGridView(dataGridView: DataGridView) -> Int {
+    func numberOfColumnsInDataGridView(_ dataGridView: DataGridView) -> Int {
         return 9
     }
 
-    func dataGridView(dataGridView: DataGridView, titleForHeaderForRow row: Int) -> String {
+    func dataGridView(_ dataGridView: DataGridView, titleForHeaderForRow row: Int) -> String {
         return String(row + 1)
     }
 
-    func dataGridView(dataGridView: DataGridView, titleForHeaderForColumn column: Int) -> String {
+    func dataGridView(_ dataGridView: DataGridView, titleForHeaderForColumn column: Int) -> String {
         return String(column + 1)
     }
 
-    func dataGridView(dataGridView: DataGridView, textForCellAtIndexPath indexPath: NSIndexPath) -> String {
+    func dataGridView(_ dataGridView: DataGridView, textForCellAtIndexPath indexPath: IndexPath) -> String {
         return String( (indexPath.dataGridRow + 1) * (indexPath.dataGridColumn + 1) )
     }
 
     // MARK: - DataGridViewDelegate
 
-    func dataGridView(dataGridView: DataGridView, shouldSelectRow row: Int) -> Bool {
+    func dataGridView(_ dataGridView: DataGridView, shouldSelectRow row: Int) -> Bool {
         return false
     }
 
-    func dataGridView(dataGridView: DataGridView, heightForRow row: Int) -> CGFloat {
+    func dataGridView(_ dataGridView: DataGridView, heightForRow row: Int) -> CGFloat {
         if let layout = dataGridView.collectionView.collectionViewLayout as? DataGridViewLayout {
             return layout.widthForColumn(row)
         }

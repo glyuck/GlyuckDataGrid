@@ -24,17 +24,17 @@ class DataGridViewSpec: QuickSpec {
         describe("Registering/dequeuing cells") {
             context("zebra-striped tables") {
                 it("should return transparent cells when row1BackgroundColor and row2BackgroundColor are nil") {
-                    let cell1 = sut.dequeueReusableCellWithReuseIdentifier(DataGridView.ReuseIdentifiers.defaultCell, forIndexPath: NSIndexPath(forColumn: 1, row: 0))
-                    let cell2 = sut.dequeueReusableCellWithReuseIdentifier(DataGridView.ReuseIdentifiers.defaultCell, forIndexPath: NSIndexPath(forColumn: 1, row: 1))
+                    let cell1 = sut.dequeueReusableCellWithReuseIdentifier(DataGridView.ReuseIdentifiers.defaultCell, forIndexPath: IndexPath(forColumn: 1, row: 0))
+                    let cell2 = sut.dequeueReusableCellWithReuseIdentifier(DataGridView.ReuseIdentifiers.defaultCell, forIndexPath: IndexPath(forColumn: 1, row: 1))
                     expect(cell1.backgroundColor).to(beNil())
                     expect(cell2.backgroundColor).to(beNil())
                 }
 
                 it("should return row1BackgroundColor for odd rows and row2BackgroundColor for even rows") {
-                    sut.row1BackgroundColor = UIColor.redColor()
-                    sut.row2BackgroundColor = UIColor.greenColor()
-                    let cell1 = sut.dequeueReusableCellWithReuseIdentifier(DataGridView.ReuseIdentifiers.defaultCell, forIndexPath: NSIndexPath(forColumn: 1, row: 0))
-                    let cell2 = sut.dequeueReusableCellWithReuseIdentifier(DataGridView.ReuseIdentifiers.defaultCell, forIndexPath: NSIndexPath(forColumn: 1, row: 1))
+                    sut.row1BackgroundColor = UIColor.red
+                    sut.row2BackgroundColor = UIColor.green
+                    let cell1 = sut.dequeueReusableCellWithReuseIdentifier(DataGridView.ReuseIdentifiers.defaultCell, forIndexPath: IndexPath(forColumn: 1, row: 0))
+                    let cell2 = sut.dequeueReusableCellWithReuseIdentifier(DataGridView.ReuseIdentifiers.defaultCell, forIndexPath: IndexPath(forColumn: 1, row: 1))
                     expect(cell1.backgroundColor) == sut.row1BackgroundColor
                     expect(cell2.backgroundColor) == sut.row2BackgroundColor
                 }
@@ -43,9 +43,9 @@ class DataGridViewSpec: QuickSpec {
             it("should register and dequeue cells") {
                 sut.registerClass(DataGridViewContentCell.self, forCellWithReuseIdentifier: "MyIdentifier")
 
-                let cell = sut.dequeueReusableCellWithReuseIdentifier("MyIdentifier", forIndexPath: NSIndexPath(forColumn: 0, row: 0))
+                let cell = sut.dequeueReusableCellWithReuseIdentifier("MyIdentifier", forIndexPath: IndexPath(forColumn: 0, row: 0))
 
-                expect(cell).to(beTruthy())
+                expect(cell).notTo(beNil())
             }
 
             it("should register and dequeue column headers") {
@@ -53,9 +53,9 @@ class DataGridViewSpec: QuickSpec {
 
                 let cell = sut.dequeueReusableHeaderViewWithReuseIdentifier("MyIdentifier", forColumn: 1)
 
-                expect(cell).to(beTruthy())
+                expect(cell).notTo(beNil())
                 expect(cell.dataGridView) == sut
-                expect(cell.indexPath) == NSIndexPath(index: 1)
+                expect(cell.indexPath) == IndexPath(index: 1)
             }
 
             it("should register and dequeue row headers") {
@@ -63,9 +63,9 @@ class DataGridViewSpec: QuickSpec {
 
                 let cell = sut.dequeueReusableHeaderViewWithReuseIdentifier("MyIdentifier", forRow: 1)
 
-                expect(cell).to(beTruthy())
+                expect(cell).notTo(beNil())
                 expect(cell.dataGridView) == sut
-                expect(cell.indexPath) == NSIndexPath(index: 1)
+                expect(cell.indexPath) == IndexPath(index: 1)
             }
 
             it("should register and dequeue corner headers") {
@@ -73,15 +73,15 @@ class DataGridViewSpec: QuickSpec {
 
                 let cell = sut.dequeueReusableCornerHeaderViewWithReuseIdentifier("MyIdentifier")
 
-                expect(cell).to(beTruthy())
+                expect(cell).notTo(beNil())
                 expect(cell.dataGridView) == sut
-                expect(cell.indexPath) == NSIndexPath(index: 0)
+                expect(cell.indexPath) == IndexPath(index: 0)
             }
         }
 
         describe("collectionView") {
             it("should not be nil") {
-                expect(sut.collectionView).to(beTruthy())
+                expect(sut.collectionView).notTo(beNil())
             }
 
             it("should be subview of dataGridView") {
@@ -91,19 +91,19 @@ class DataGridViewSpec: QuickSpec {
             it("should resize along with dataGridView") {
                 sut.collectionView.layoutIfNeeded()  // Ensure text label is initialized when tests are started
 
-                sut.frame = CGRectMake(0, 0, sut.frame.width * 2, sut.frame.height / 2)
+                sut.frame = CGRect(x: 0, y: 0, width: sut.frame.width * 2, height: sut.frame.height / 2)
                 sut.layoutIfNeeded()
                 expect(sut.collectionView.frame) == sut.frame
             }
 
             it("should register DataGridViewContentCell as default cell") {
-                let cell = sut.dequeueReusableCellWithReuseIdentifier(DataGridView.ReuseIdentifiers.defaultCell, forIndexPath: NSIndexPath(forColumn: 0, row: 0)) as? DataGridViewContentCell
-                expect(cell).to(beTruthy())
+                let cell = sut.dequeueReusableCellWithReuseIdentifier(DataGridView.ReuseIdentifiers.defaultCell, forIndexPath: IndexPath(forColumn: 0, row: 0)) as? DataGridViewContentCell
+                expect(cell).notTo(beNil())
             }
 
             it("should register DataGridViewColumnHeaderCell as default column header") {
                 let header = sut.dequeueReusableHeaderViewWithReuseIdentifier(DataGridView.ReuseIdentifiers.defaultColumnHeader, forColumn: 0)
-                expect(header).to(beTruthy())
+                expect(header).notTo(beNil())
             }
 
             it("should set isSorted and iSortedAsc for column headers") {
@@ -119,30 +119,30 @@ class DataGridViewSpec: QuickSpec {
 
             it("should register DataGridViewRowHeaderCell as default row header") {
                 let header = sut.dequeueReusableHeaderViewWithReuseIdentifier(DataGridView.ReuseIdentifiers.defaultRowHeader, forRow: 0)
-                expect(header).to(beTruthy())
+                expect(header).notTo(beNil())
             }
 
             it("should register DataGridViewCornerHeaderCell as default row header") {
                 let header = sut.dequeueReusableCornerHeaderViewWithReuseIdentifier(DataGridView.ReuseIdentifiers.defaultCornerHeader)
-                expect(header).to(beTruthy())
+                expect(header).notTo(beNil())
             }
 
             it("should have CollectionViewDataSource as dataSource") {
                 let dataSource = sut.collectionView.dataSource as? CollectionViewDataSource
-                expect(dataSource).to(beTruthy())
+                expect(dataSource).notTo(beNil())
                 expect(dataSource) == sut.collectionViewDataSource
                 expect(dataSource?.dataGridView) == sut
             }
 
             it("should have CollectionViewDelegate as delegate") {
                 let delegate = sut.collectionView.delegate as? CollectionViewDelegate
-                expect(delegate).to(beTruthy())
+                expect(delegate).notTo(beNil())
                 expect(delegate) == sut.collectionViewDelegate
                 expect(delegate?.dataGridView) == sut
             }
 
             it("should have transparent background") {
-                expect(sut.collectionView.backgroundColor) == UIColor.clearColor()
+                expect(sut.collectionView.backgroundColor) == UIColor.clear
             }
 
             describe("layout") {
@@ -155,7 +155,7 @@ class DataGridViewSpec: QuickSpec {
                 }
                 it("should have collectionView and dataGridView properties set") {
                     let layout = sut.collectionView.collectionViewLayout as? DataGridViewLayout
-                    expect(layout).to(beTruthy())
+                    expect(layout).notTo(beNil())
                     if let layout = layout {
                         expect(layout.dataGridView) === sut
                         expect(layout.collectionView) === sut.collectionView
@@ -193,10 +193,10 @@ class DataGridViewSpec: QuickSpec {
                 let row = 1
                 sut.selectRow(row, animated: false)
 
-                expect(sut.collectionView.indexPathsForSelectedItems()?.count) == sut.numberOfColumns()
+                expect(sut.collectionView.indexPathsForSelectedItems?.count) == sut.numberOfColumns()
                 for i in 0..<sut.numberOfColumns() {
-                    let indexPath = NSIndexPath(forItem: i, inSection: row)
-                    expect(sut.collectionView.indexPathsForSelectedItems()).to(contain(indexPath))
+                    let indexPath = IndexPath(item: i, section: row)
+                    expect(sut.collectionView.indexPathsForSelectedItems).to(contain(indexPath))
                 }
             }
             it("should deselect previously selected row") {
@@ -204,10 +204,10 @@ class DataGridViewSpec: QuickSpec {
                 sut.selectRow(0, animated: false)
                 sut.selectRow(row, animated: false)
 
-                expect(sut.collectionView.indexPathsForSelectedItems()?.count) == sut.numberOfColumns()
+                expect(sut.collectionView.indexPathsForSelectedItems?.count) == sut.numberOfColumns()
                 for i in 0..<sut.numberOfColumns() {
-                    let indexPath = NSIndexPath(forItem: i, inSection: row)
-                    expect(sut.collectionView.indexPathsForSelectedItems()).to(contain(indexPath))
+                    let indexPath = IndexPath(item: i, section: row)
+                    expect(sut.collectionView.indexPathsForSelectedItems).to(contain(indexPath))
                 }
             }
         }
@@ -218,7 +218,7 @@ class DataGridViewSpec: QuickSpec {
                 sut.selectRow(row, animated: false)
                 sut.deselectRow(row, animated: false)
 
-                expect(sut.collectionView.indexPathsForSelectedItems()?.count) == 0
+                expect(sut.collectionView.indexPathsForSelectedItems?.count) == 0
             }
         }
     }

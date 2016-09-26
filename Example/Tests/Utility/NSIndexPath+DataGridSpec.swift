@@ -13,7 +13,7 @@ class NSIndexPathDataGridSpec: QuickSpec {
     override func spec() {
         describe("NSIndexPath") {
             it("can be initialized with column, row") {
-                let indexPath = NSIndexPath(forColumn: 1, row: 2)
+                let indexPath = IndexPath(forColumn: 1, row: 2)
                 expect(indexPath.dataGridColumn) == 1
                 expect(indexPath.dataGridRow) == 2
             }

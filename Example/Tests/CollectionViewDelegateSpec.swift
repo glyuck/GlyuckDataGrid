@@ -77,17 +77,17 @@ class CollectionViewDelegateSpec: QuickSpec {
         describe("collectionView:didHighlightItemAtIndexPath:") {
             it("should highlight whole row") {
                 let row = 1
-                let indexPath = NSIndexPath(forItem: 2, inSection: row + 1)
+                let indexPath = IndexPath(item: 2, section: row + 1)
                 let collectionView = dataGridView.collectionView
                 collectionView.layoutSubviews()  // Otherwise collectionView.cellForItemAtIndexPath won't work
                 // when
-                sut.collectionView(collectionView, didHighlightItemAtIndexPath: indexPath)
+                sut.collectionView(collectionView, didHighlightItemAt: indexPath)
 
                 // then
                 for i in 0..<stubDataSource.numberOfColumns {
-                    let indexPath = NSIndexPath(forItem: i, inSection: row + 1)
-                    if let cell = collectionView.cellForItemAtIndexPath(indexPath) {
-                        expect(cell.highlighted).to(beTrue())
+                    let indexPath = IndexPath(item: i, section: row + 1)
+                    if let cell = collectionView.cellForItem(at: indexPath) {
+                        expect(cell.isHighlighted).to(beTrue())
                     }
                 }
             }
@@ -96,20 +96,20 @@ class CollectionViewDelegateSpec: QuickSpec {
         describe("collectionView:didUnhighlightItemAtIndexPath:") {
             it("should unhighlight whole row") {
                 let row = 1
-                let indexPath = NSIndexPath(forItem: 2, inSection: row + 1)
+                let indexPath = IndexPath(item: 2, section: row + 1)
                 let collectionView = dataGridView.collectionView
                 collectionView.layoutSubviews()  // Otherwise collectionView.cellForItemAtIndexPath won't work
                 // given
-                sut.collectionView(collectionView, didHighlightItemAtIndexPath: indexPath)
+                sut.collectionView(collectionView, didHighlightItemAt: indexPath)
 
                 // when
-                sut.collectionView(collectionView, didUnhighlightItemAtIndexPath: indexPath)
+                sut.collectionView(collectionView, didUnhighlightItemAt: indexPath)
 
                 // then
                 for i in 0..<stubDataSource.numberOfColumns {
-                    let indexPath = NSIndexPath(forItem: i, inSection: row + 1)
-                    if let cell = collectionView.cellForItemAtIndexPath(indexPath) {
-                        expect(cell.highlighted).to(beFalse())
+                    let indexPath = IndexPath(item: i, section: row + 1)
+                    if let cell = collectionView.cellForItem(at: indexPath) {
+                        expect(cell.isHighlighted).to(beFalse())
                     }
                 }
             }
@@ -121,8 +121,8 @@ class CollectionViewDelegateSpec: QuickSpec {
                 stubDelegate.shouldSelectRowBlock = { row in row % 2 == 0 }
 
                 // then
-                expect(sut.collectionView(dataGridView.collectionView, shouldSelectItemAtIndexPath: NSIndexPath(forItem: 0, inSection: 0))).to(beTrue())
-                expect(sut.collectionView(dataGridView.collectionView, shouldSelectItemAtIndexPath: NSIndexPath(forItem: 0, inSection: 1))).to(beFalse())
+                expect(sut.collectionView(dataGridView.collectionView, shouldSelectItemAt: IndexPath(item: 0, section: 0))).to(beTrue())
+                expect(sut.collectionView(dataGridView.collectionView, shouldSelectItemAt: IndexPath(item: 0, section: 1))).to(beFalse())
             }
 
             it("should return true if delegate doesn't implement dataGridView:shouldSelectRow:") {
@@ -130,33 +130,33 @@ class CollectionViewDelegateSpec: QuickSpec {
                 dataGridView.delegate = StubMinimumDataGridViewDelegate()
 
                 // then
-                expect(sut.collectionView(dataGridView.collectionView, shouldSelectItemAtIndexPath: NSIndexPath(forItem: 0, inSection: 0))).to(beTrue())
-                expect(sut.collectionView(dataGridView.collectionView, shouldSelectItemAtIndexPath: NSIndexPath(forItem: 0, inSection: 1))).to(beTrue())
+                expect(sut.collectionView(dataGridView.collectionView, shouldSelectItemAt: IndexPath(item: 0, section: 0))).to(beTrue())
+                expect(sut.collectionView(dataGridView.collectionView, shouldSelectItemAt: IndexPath(item: 0, section: 1))).to(beTrue())
             }
         }
         
         describe("collectionView:didSelectItemAtIndexPath:") {
             it("should select whole row") {
                 let row = 1
-                let indexPath = NSIndexPath(forItem: 2, inSection: row)
+                let indexPath = IndexPath(item: 2, section: row)
                 let collectionView = dataGridView.collectionView
                 collectionView.layoutSubviews()
 
                 // when
-                sut.collectionView(collectionView, didSelectItemAtIndexPath: indexPath)
-                let selectedIndexes = collectionView.indexPathsForSelectedItems()
+                sut.collectionView(collectionView, didSelectItemAt: indexPath)
+                let selectedIndexes = collectionView.indexPathsForSelectedItems
 
                 // then
                 expect(selectedIndexes?.count) == stubDataSource.numberOfColumns
                 for i in 0..<stubDataSource.numberOfColumns {
-                    let indexPath = NSIndexPath(forItem: i, inSection: row)
+                    let indexPath = IndexPath(item: i, section: row)
                     expect(selectedIndexes).to(contain(indexPath))
                 }
             }
 
             it("should call delegate's dataGridView:didSelectRow:") {
                 let row = 1
-                let indexPath = NSIndexPath(forItem: 2, inSection: row)
+                let indexPath = IndexPath(item: 2, section: row)
                 let collectionView = dataGridView.collectionView
                 var selectedRow: Int?
                 // given
@@ -164,7 +164,7 @@ class CollectionViewDelegateSpec: QuickSpec {
                     selectedRow = row
                 }
                 // when
-                sut.collectionView(collectionView, didSelectItemAtIndexPath: indexPath)
+                sut.collectionView(collectionView, didSelectItemAt: indexPath)
                 // then
                 expect(selectedRow) == row
             }

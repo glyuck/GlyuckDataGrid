@@ -21,7 +21,7 @@ class DataGridViewBaseCellSpec: QuickSpec {
 
         describe("textLabel") {
             it("should not be nil") {
-                expect(sut.textLabel).to(beTruthy())
+                expect(sut.textLabel).notTo(beNil())
             }
 
             it("should be subview of contentView") {
@@ -32,7 +32,7 @@ class DataGridViewBaseCellSpec: QuickSpec {
                 sut.textLabel.text = ""  // Ensure text label is initialized when tests are started
 
                 sut.textLabelInsets = UIEdgeInsets(top: 1, left: 2, bottom: 3, right: 4)
-                sut.frame = CGRectMake(0, 0, sut.frame.width * 2, sut.frame.height / 2)
+                sut.frame = CGRect(x: 0, y: 0, width: sut.frame.width * 2, height: sut.frame.height / 2)
                 sut.layoutIfNeeded()
                 expect(sut.textLabel.frame) == UIEdgeInsetsInsetRect(sut.bounds, sut.textLabelInsets)
             }

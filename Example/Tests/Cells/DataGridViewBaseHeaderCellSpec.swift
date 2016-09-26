@@ -41,16 +41,16 @@ class DataGridViewBaseHeaderCellSpec: QuickSpec {
             }
 
             it("should update backgroundColor according to isSorted") {
-                sut.backgroundColor = UIColor.greenColor()
-                sut.sortedBackgroundColor = UIColor.redColor()
+                sut.backgroundColor = UIColor.green
+                sut.sortedBackgroundColor = UIColor.red
 
-                expect(sut.backgroundColor) == UIColor.greenColor()
+                expect(sut.backgroundColor) == UIColor.green
 
                 sut.isSorted = true
-                expect(sut.backgroundColor) == UIColor.redColor()
+                expect(sut.backgroundColor) == UIColor.red
 
                 sut.isSorted = false
-                expect(sut.backgroundColor) == UIColor.greenColor()
+                expect(sut.backgroundColor) == UIColor.green
             }
         }
     }

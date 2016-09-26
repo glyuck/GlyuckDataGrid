@@ -6,6 +6,17 @@
 
 import UIKit
 import GlyuckDataGrid
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
 
 
 class SimpleDataGridViewController: UIViewController, DataGridViewDataSource, DataGridViewDelegate {
@@ -24,28 +35,28 @@ class SimpleDataGridViewController: UIViewController, DataGridViewDataSource, Da
 
     // MARK: DataGridViewDataSource
 
-    func numberOfColumnsInDataGridView(dataGridView: DataGridView) -> Int {
+    func numberOfColumnsInDataGridView(_ dataGridView: DataGridView) -> Int {
         return columns.count
     }
 
-    func numberOfRowsInDataGridView(dataGridView: DataGridView) -> Int {
+    func numberOfRowsInDataGridView(_ dataGridView: DataGridView) -> Int {
         return dataSource.count
     }
 
-    func dataGridView(dataGridView: DataGridView, titleForHeaderForColumn column: Int) -> String {
+    func dataGridView(_ dataGridView: DataGridView, titleForHeaderForColumn column: Int) -> String {
         return columnsTitles[column]
     }
 
-    func dataGridView(dataGridView: DataGridView, textForCellAtIndexPath indexPath: NSIndexPath) -> String {
+    func dataGridView(_ dataGridView: DataGridView, textForCellAtIndexPath indexPath: IndexPath) -> String {
         let fieldName = columns[indexPath.dataGridColumn]
         return dataSource[indexPath.dataGridRow][fieldName]!
     }
 
-    func dataGridView(dataGridView: DataGridView, viewForHeaderForColumn column: Int) -> DataGridViewColumnHeaderCell {
+    func dataGridView(_ dataGridView: DataGridView, viewForHeaderForColumn column: Int) -> DataGridViewColumnHeaderCell {
         let cell = dataGridView.dequeueReusableHeaderViewWithReuseIdentifier(DataGridView.ReuseIdentifiers.defaultColumnHeader, forColumn: column)
         cell.title = self.dataGridView(dataGridView, titleForHeaderForColumn: column)
         if column == 1 {
-            cell.border.rightWidth = 1 / UIScreen.mainScreen().scale
+            cell.border.rightWidth = 1 / UIScreen.main.scale
             cell.border.rightColor = UIColor(white: 0.72, alpha: 1)
         } else {
             cell.border.rightWidth = 0
@@ -53,17 +64,17 @@ class SimpleDataGridViewController: UIViewController, DataGridViewDataSource, Da
         return cell
     }
 
-    func dataGridView(dataGridView: DataGridView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+    func dataGridView(_ dataGridView: DataGridView, cellForItemAtIndexPath indexPath: IndexPath) -> UICollectionViewCell {
         let cell = dataGridView.dequeueReusableCellWithReuseIdentifier(DataGridView.ReuseIdentifiers.defaultCell, forIndexPath: indexPath) as! DataGridViewContentCell
         cell.textLabel.text = self.dataGridView(dataGridView, textForCellAtIndexPath: indexPath)
         switch indexPath.dataGridColumn {
         case 0,2,5,6,7,8,9,11:
-            cell.textLabel.textAlignment = .Right
+            cell.textLabel.textAlignment = .right
         default:
-            cell.textLabel.textAlignment = .Left
+            cell.textLabel.textAlignment = .left
         }
         if indexPath.dataGridColumn == 1 {
-            cell.border.rightWidth = 1 / UIScreen.mainScreen().scale
+            cell.border.rightWidth = 1 / UIScreen.main.scale
             cell.border.rightColor = UIColor(white: 0.72, alpha: 1)
         } else {
             cell.border.rightWidth = 0
@@ -73,21 +84,21 @@ class SimpleDataGridViewController: UIViewController, DataGridViewDataSource, Da
 
     // MARK: DataGridViewDelegate
 
-    func dataGridView(dataGridView: DataGridView, widthForColumn column: Int) -> CGFloat {
+    func dataGridView(_ dataGridView: DataGridView, widthForColumn column: Int) -> CGFloat {
         return columnsWidths[column]
     }
 
-    func dataGridView(dataGridView: DataGridView, shouldFloatColumn column: Int) -> Bool {
+    func dataGridView(_ dataGridView: DataGridView, shouldFloatColumn column: Int) -> Bool {
         return column == 1
     }
 
-    func dataGridView(dataGridView: DataGridView, shouldSortByColumn column: Int) -> Bool {
+    func dataGridView(_ dataGridView: DataGridView, shouldSortByColumn column: Int) -> Bool {
         return true
     }
 
-    func dataGridView(dataGridView: DataGridView, didSortByColumn column: Int, ascending: Bool) {
+    func dataGridView(_ dataGridView: DataGridView, didSortByColumn column: Int, ascending: Bool) {
         let columnName = columns[column]
-        dataSource = f1stats.sort { ($0[columnName] < $1[columnName]) == ascending }
+        dataSource = f1stats.sorted { ($0[columnName] < $1[columnName]) == ascending }
         dataGridView.reloadData()
     }
 }
