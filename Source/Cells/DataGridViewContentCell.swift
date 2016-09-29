@@ -7,9 +7,6 @@
 import UIKit
 
 
-private var setupAppearanceDispatchToken = Int()
-
-
 /**
  Class for default data grid view cell.
  */

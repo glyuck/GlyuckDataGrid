@@ -9,9 +9,6 @@
 import UIKit
 
 
-private var setupAppearanceDispatchTocken = Int()
-
-
 /**
  An object that adopts the DataGridViewDataSource protocol is responsible for providing the data and views required by a collection view. Just like UITableViewDataSource or UICollectionView data source.
 

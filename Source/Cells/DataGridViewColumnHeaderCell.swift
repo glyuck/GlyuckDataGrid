@@ -7,9 +7,6 @@
 import UIKit
 
 
-private var setupAppearanceDispatchToken = Int()
-
-
 open class DataGridViewColumnHeaderCell: DataGridViewBaseHeaderCell {
     private static var __once: () = {
         let appearance = DataGridViewColumnHeaderCell.appearance()
