@@ -20,10 +20,7 @@ fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
 
 
 class SimpleDataGridViewController: UIViewController, DataGridViewDataSource, DataGridViewDelegate {
-    let columnsTitles = ["Year", "Driver", "Age", "Team", "Engine", "Poles", "Wins", "Podiums", "Fastest\nlaps", "Points", "Clinched", "Points\nmargin"]
-    let columns = ["season", "driver", "age", "team", "engine", "poles", "wins", "podiums", "fastest_laps", "points", "clinched", "point_margin"]
-    let columnsWidths: [CGFloat] = [70, 150, 60, 120, 110, 70, 70, 95, 70, 75, 130, 70]
-    var dataSource = f1stats
+    var dataSource = F1DataSource.stats
 
     @IBOutlet weak var dataGridView: DataGridView!
     override func viewDidLoad() {
@@ -36,7 +33,7 @@ class SimpleDataGridViewController: UIViewController, DataGridViewDataSource, Da
     // MARK: DataGridViewDataSource
 
     func numberOfColumnsInDataGridView(_ dataGridView: DataGridView) -> Int {
-        return columns.count
+        return F1DataSource.columns.count
     }
 
     func numberOfRowsInDataGridView(_ dataGridView: DataGridView) -> Int {
@@ -44,11 +41,11 @@ class SimpleDataGridViewController: UIViewController, DataGridViewDataSource, Da
     }
 
     func dataGridView(_ dataGridView: DataGridView, titleForHeaderForColumn column: Int) -> String {
-        return columnsTitles[column]
+        return F1DataSource.columnsTitles[column]
     }
 
     func dataGridView(_ dataGridView: DataGridView, textForCellAtIndexPath indexPath: IndexPath) -> String {
-        let fieldName = columns[indexPath.dataGridColumn]
+        let fieldName = F1DataSource.columns[indexPath.dataGridColumn]
         return dataSource[indexPath.dataGridRow][fieldName]!
     }
 
@@ -85,7 +82,7 @@ class SimpleDataGridViewController: UIViewController, DataGridViewDataSource, Da
     // MARK: DataGridViewDelegate
 
     func dataGridView(_ dataGridView: DataGridView, widthForColumn column: Int) -> CGFloat {
-        return columnsWidths[column]
+        return F1DataSource.columnsWidths[column]
     }
 
     func dataGridView(_ dataGridView: DataGridView, shouldFloatColumn column: Int) -> Bool {
@@ -97,8 +94,8 @@ class SimpleDataGridViewController: UIViewController, DataGridViewDataSource, Da
     }
 
     func dataGridView(_ dataGridView: DataGridView, didSortByColumn column: Int, ascending: Bool) {
-        let columnName = columns[column]
-        dataSource = f1stats.sorted { ($0[columnName] < $1[columnName]) == ascending }
+        let columnName = F1DataSource.columns[column]
+        dataSource = F1DataSource.stats.sorted { ($0[columnName] < $1[columnName]) == ascending }
         dataGridView.reloadData()
     }
 }
