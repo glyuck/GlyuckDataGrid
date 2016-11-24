@@ -19,6 +19,7 @@
 		397B94191BFA02BC006AB40B /* SpreadSheetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 397B94171BFA02BC006AB40B /* SpreadSheetCell.swift */; };
 		397B941A1BFA02BC006AB40B /* SpreadSheetCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 397B94181BFA02BC006AB40B /* SpreadSheetCell.xib */; };
 		397B941D1BFB1265006AB40B /* SimpleDataGridViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 397B941C1BFB1265006AB40B /* SimpleDataGridViewController.swift */; };
+		399209521DE6DF07000E1F1D /* ObjectiveCDataGridViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 399209511DE6DF07000E1F1D /* ObjectiveCDataGridViewController.m */; };
 		399D79861B6BD66D0070BC49 /* DataGridViewLayoutSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 399D79851B6BD66D0070BC49 /* DataGridViewLayoutSpec.swift */; };
 		399D79891B6BD9F00070BC49 /* NSIndexPath+DataGridSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 399D79881B6BD9F00070BC49 /* NSIndexPath+DataGridSpec.swift */; };
 		39B95ABE1B7B2E7D003DEE52 /* DataGridViewBaseCellSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39B95ABC1B7B2553003DEE52 /* DataGridViewBaseCellSpec.swift */; };
@@ -55,6 +56,9 @@
 		397B94171BFA02BC006AB40B /* SpreadSheetCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpreadSheetCell.swift; sourceTree = "<group>"; };
 		397B94181BFA02BC006AB40B /* SpreadSheetCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SpreadSheetCell.xib; sourceTree = "<group>"; };
 		397B941C1BFB1265006AB40B /* SimpleDataGridViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleDataGridViewController.swift; sourceTree = "<group>"; };
+		3992094F1DE6DF07000E1F1D /* GlyuckDataGrid_Example-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GlyuckDataGrid_Example-Bridging-Header.h"; sourceTree = "<group>"; };
+		399209501DE6DF07000E1F1D /* ObjectiveCDataGridViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjectiveCDataGridViewController.h; sourceTree = "<group>"; };
+		399209511DE6DF07000E1F1D /* ObjectiveCDataGridViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ObjectiveCDataGridViewController.m; sourceTree = "<group>"; };
 		399D79851B6BD66D0070BC49 /* DataGridViewLayoutSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataGridViewLayoutSpec.swift; sourceTree = "<group>"; };
 		399D79881B6BD9F00070BC49 /* NSIndexPath+DataGridSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSIndexPath+DataGridSpec.swift"; sourceTree = "<group>"; };
 		39B95ABC1B7B2553003DEE52 /* DataGridViewBaseCellSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataGridViewBaseCellSpec.swift; sourceTree = "<group>"; };
@@ -136,6 +140,7 @@
 			isa = PBXGroup;
 			children = (
 				394F1F421C03349C00F7F462 /* MultiplicationTable */,
+				3992094E1DE6DF07000E1F1D /* ObjectiveC */,
 				397B941B1BFB1265006AB40B /* SimpleDataGrid */,
 				397B94131BF9FD24006AB40B /* SpreadSheet */,
 			);
@@ -166,6 +171,16 @@
 				397B941C1BFB1265006AB40B /* SimpleDataGridViewController.swift */,
 			);
 			path = SimpleDataGrid;
+			sourceTree = "<group>";
+		};
+		3992094E1DE6DF07000E1F1D /* ObjectiveC */ = {
+			isa = PBXGroup;
+			children = (
+				3992094F1DE6DF07000E1F1D /* GlyuckDataGrid_Example-Bridging-Header.h */,
+				399209501DE6DF07000E1F1D /* ObjectiveCDataGridViewController.h */,
+				399209511DE6DF07000E1F1D /* ObjectiveCDataGridViewController.m */,
+			);
+			path = ObjectiveC;
 			sourceTree = "<group>";
 		};
 		399D79871B6BD9E10070BC49 /* Utility */ = {
@@ -321,7 +336,7 @@
 				TargetAttributes = {
 					607FACCF1AFB9204008FA782 = {
 						CreatedOnToolsVersion = 6.3.1;
-						LastSwiftMigration = 0800;
+						LastSwiftMigration = 0810;
 					};
 					607FACE41AFB9204008FA782 = {
 						CreatedOnToolsVersion = 6.3.1;
@@ -470,6 +485,7 @@
 			files = (
 				397B94191BFA02BC006AB40B /* SpreadSheetCell.swift in Sources */,
 				39B95AC51B7DC095003DEE52 /* F1DataSource.swift in Sources */,
+				399209521DE6DF07000E1F1D /* ObjectiveCDataGridViewController.m in Sources */,
 				397B94151BFA0267006AB40B /* SpreadSheetViewController.swift in Sources */,
 				394F1F441C03349C00F7F462 /* MultiplicationTableViewController.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
@@ -619,11 +635,14 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = GlyuckDataGrid/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "GlyuckDataGrid/Examples/ObjectiveC/GlyuckDataGrid_Example-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -634,11 +653,13 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = GlyuckDataGrid/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "GlyuckDataGrid/Examples/ObjectiveC/GlyuckDataGrid_Example-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
