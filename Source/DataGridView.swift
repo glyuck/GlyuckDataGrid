@@ -186,11 +186,6 @@ open class DataGridView: UIView {
         appearance.row2BackgroundColor = UIColor.white
     }()
     
-    public override init(frame: CGRect) {
-        super.init(frame: frame)
-        DataGridView.__once
-    }
-    
     /// Constants for reuse identifiers for default cells.
     public enum ReuseIdentifiers {
         public static let defaultColumnHeader = "DataGridViewColumnHeaderCell"
@@ -478,6 +473,7 @@ open class DataGridView: UIView {
     public override init(frame: CGRect) {
         super.init(frame: frame)
         setupDataGridView()
+        _ = DataGridView.__once
     }
     
     public required init?(coder aDecoder: NSCoder) {

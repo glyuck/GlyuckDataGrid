@@ -29,7 +29,11 @@ open class DataGridViewContentCell: DataGridViewBaseCell {
     
     public override init(frame: CGRect) {
         super.init(frame: frame)
-        DataGridViewContentCell.__once
+        _ = DataGridViewContentCell.__once
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
     }
 }
 
