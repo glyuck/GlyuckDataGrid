@@ -12,7 +12,7 @@ import UIKit
 /**
  Base class for data grid view cells.
 */
-open class DataGridViewBaseCell: UICollectionViewCell {
+@objcMembers open class DataGridViewBaseCell: UICollectionViewCell {
     /// The inset or outset margins for the rectangle around the cell’s text label.
     open dynamic var textLabelInsets = UIEdgeInsets.zero
     /// Background color for highlighted state.

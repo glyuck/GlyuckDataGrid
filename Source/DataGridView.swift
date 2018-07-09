@@ -179,7 +179,7 @@ import UIKit
 /**
  An instance of DataGridView (or simply, a data grid view) is a means for displaying and editing data represented in multicolumn tables (or 2-dimension matrices).
 */
-open class DataGridView: UIView {
+@objcMembers open class DataGridView: UIView {
     private static var __once: () = {
             let appearance = DataGridView.appearance()
             appearance.row1BackgroundColor = UIColor(white: 0.95, alpha: 1)
@@ -468,19 +468,15 @@ open class DataGridView: UIView {
     }
 
     // UIView
-
-    open override static func initialize() {
-        super.initialize()
-        _ = DataGridView.__once
-    }
-
     public override init(frame: CGRect) {
         super.init(frame: frame)
+        _ = DataGridView.__once
         setupDataGridView()
     }
 
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+        _ = DataGridView.__once
         setupDataGridView()
     }
 
