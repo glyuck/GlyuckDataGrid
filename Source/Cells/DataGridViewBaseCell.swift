@@ -12,7 +12,7 @@ import UIKit
 /**
  Base class for data grid view cells.
 */
-open class DataGridViewBaseCell: UICollectionViewCell {
+@objcMembers open class DataGridViewBaseCell: UICollectionViewCell {
     /// The inset or outset margins for the rectangle around the cell’s text label.
     open dynamic var textLabelInsets = UIEdgeInsets.zero
     /// Background color for highlighted state.
@@ -47,7 +47,7 @@ open class DataGridViewBaseCell: UICollectionViewCell {
 
     open override func layoutSubviews() {
         super.layoutSubviews()
-        textLabel.frame = UIEdgeInsetsInsetRect(bounds, textLabelInsets)
+        textLabel.frame = bounds.inset(by: textLabelInsets)
     }
 
     open override func layoutSublayers(of layer: CALayer) {
