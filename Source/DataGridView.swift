@@ -334,7 +334,7 @@ import UIKit
         collectionView.indexPathsForSelectedItems?.forEach { collectionView.deselectItem(at: $0, animated: animated) }
         for column in 0..<numberOfColumns() {
             let indexPath = IndexPath(item: column, section: row)
-            collectionView.selectItem(at: indexPath, animated: animated, scrollPosition: UICollectionViewScrollPosition())
+            collectionView.selectItem(at: indexPath, animated: animated, scrollPosition: UICollectionView.ScrollPosition())
         }
     }
 
@@ -490,4 +490,6 @@ import UIKit
     open func setContentOffset(_ contentOffset: CGPoint, animated: Bool) {
         collectionView.setContentOffset(contentOffset, animated: animated)
     }
+    
+    
 }

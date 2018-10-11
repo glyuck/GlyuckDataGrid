@@ -47,7 +47,7 @@ import UIKit
 
     open override func layoutSubviews() {
         super.layoutSubviews()
-        textLabel.frame = UIEdgeInsetsInsetRect(bounds, textLabelInsets)
+        textLabel.frame = bounds.inset(by: textLabelInsets)
     }
 
     open override func layoutSublayers(of layer: CALayer) {
