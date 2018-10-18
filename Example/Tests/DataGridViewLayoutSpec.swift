@@ -24,7 +24,7 @@ class DataGridViewLayoutSpec: QuickSpec {
             dataGridView.rowHeaderWidth = 44
             dataGridView.dataSource = stubDataSource
             dataGridView.delegate = stubDelegate
-            sut = dataGridView.collectionView.collectionViewLayout as! DataGridViewLayout
+            sut = dataGridView.collectionView.collectionViewLayout as? DataGridViewLayout
         }
 
         describe("layoutAttributesForSupplementaryViewOfKind:atIndexPath:") {

@@ -26,8 +26,21 @@ open class DataGridViewContentCell: DataGridViewBaseCell {
         }
         
     }()
-    open override static func initialize() {
-        super.initialize()
+    
+    /// Initializes programmatically created views.
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         _ = DataGridViewContentCell.__once
+    }
+    
+    /// Initializes Storyboard and Xib created views.
+    required public init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        _ = DataGridViewContentCell.__once
+    }
+    
+    override open func awakeFromNib() {
+        super.awakeFromNib()
+        
     }
 }

@@ -24,7 +24,7 @@ class SpreadSheetViewController: UIViewController, DataGridViewDataSource, DataG
     var dataArray: [[String]] = [[String]](repeating: [String](repeating: "", count: Constants.numberOfLetters), count: Constants.numberOfRows)
 
     @IBOutlet weak var dataGridView: DataGridView!
-
+    
     static override func initialize() {
         super.initialize()
 
@@ -75,7 +75,7 @@ class SpreadSheetViewController: UIViewController, DataGridViewDataSource, DataG
         labelAppearance.appearanceFont = UIFont.systemFont(ofSize: 12, weight: UIFontWeightLight)
         labelAppearance.appearanceTextAlignment = .center
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 

@@ -469,13 +469,10 @@ open class DataGridView: UIView {
 
     // UIView
 
-    open override static func initialize() {
-        super.initialize()
-        _ = DataGridView.__once
-    }
-
+    /// Initializes programmatically created views.
     public override init(frame: CGRect) {
         super.init(frame: frame)
+        _ = DataGridView.__once
         setupDataGridView()
     }
 
@@ -483,6 +480,13 @@ open class DataGridView: UIView {
         super.init(coder: aDecoder)
         setupDataGridView()
     }
+    
+    open override func awakeFromNib() {
+        super.awakeFromNib()
+        
+    }
+    
+    
 
     // UIScrollView
 
