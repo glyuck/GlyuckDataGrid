@@ -9,9 +9,8 @@ cache: cocoapods
 podfile: Example/Podfile
 osx_image: xcode10
 before_install:
-- |
-  BUNDLE_GEMFILE=Example/Gemfile bundle install
-  BUNDLE_GEMFILE=Example/Gemfile bundle exec pod install --project-directory=Example
+- gem install cocoapods
+- pod install --project-directory=Example
 install:
 - gem install xcpretty --no-rdoc --no-ri --no-document --quiet
 script:
