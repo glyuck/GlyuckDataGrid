@@ -1,22 +1,27 @@
 PODS:
-  - GlyuckDataGrid (0.2.1)
-  - Nimble (5.0.0)
-  - Quick (0.10.0)
+  - GlyuckDataGrid (0.3.0)
+  - Nimble (7.3.1)
+  - Quick (1.3.2)
 
 DEPENDENCIES:
   - GlyuckDataGrid (from `../`)
   - Nimble
   - Quick
 
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - Nimble
+    - Quick
+
 EXTERNAL SOURCES:
   GlyuckDataGrid:
-    :path: ../
+    :path: "../"
 
 SPEC CHECKSUMS:
-  GlyuckDataGrid: 975d0756b74c241c3be16abe20de5b82999cc945
-  Nimble: 56fc9f5020effa2206de22c3dd910f4fb011b92f
-  Quick: 5d290df1c69d5ee2f0729956dcf0fd9a30447eaa
+  GlyuckDataGrid: 3d9eb8dc7782d608192c3c9e851063fbd1fa53a2
+  Nimble: 04f732da099ea4d153122aec8c2a88fd0c7219ae
+  Quick: 2623cb30d7a7f41ca62f684f679586558f483d46
 
 PODFILE CHECKSUM: e21efb884f3fce871cdbb16508cfe8ad6cd2c1b3
 
-COCOAPODS: 1.1.0.rc.2
+COCOAPODS: 1.5.3

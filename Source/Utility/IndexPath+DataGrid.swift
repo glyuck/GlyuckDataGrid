@@ -40,7 +40,7 @@ public extension IndexPath {
 }
 
 
-public extension NSIndexPath {
+@objc public extension NSIndexPath {
     /**
      Returns an index-path object initialized with the indexes of a specific row and column in a data grid view.
 

@@ -35,19 +35,25 @@ class StubDataGridViewDataSource: NSObject, DataGridViewDataSource {
 
 
 class StubDataGridViewDataSourceCustomCell: StubDataGridViewDataSource {
-    var cellForItemBlock: ((dataGridView: DataGridView, indexPath: IndexPath)) -> UICollectionViewCell = { (dataGridView, indexPath) in
+    var cellForItemBlock: ((dataGridView: DataGridView, indexPath: IndexPath)) -> UICollectionViewCell = { (arg) in
+        
+        let (dataGridView, indexPath) = arg
         let cell = dataGridView.dequeueReusableCellWithReuseIdentifier(DataGridView.ReuseIdentifiers.defaultCell, forIndexPath: indexPath)
         cell.tag = indexPath.dataGridColumn * 100 + indexPath.dataGridRow
         return cell
     }
 
-    var viewForColumnHeaderBlock: ((dataGridView: DataGridView, column: Int)) -> DataGridViewColumnHeaderCell = { (dataGridView, column) in
+    var viewForColumnHeaderBlock: ((dataGridView: DataGridView, column: Int)) -> DataGridViewColumnHeaderCell = { (arg) in
+        
+        let (dataGridView, column) = arg
         let view = dataGridView.dequeueReusableHeaderViewWithReuseIdentifier(DataGridView.ReuseIdentifiers.defaultColumnHeader, forColumn: column)
         view.tag = column
         return view
     }
 
-    var viewForRowHeaderBlock: ((dataGridView: DataGridView, row: Int)) -> DataGridViewRowHeaderCell = { (dataGridView, row) in
+    var viewForRowHeaderBlock: ((dataGridView: DataGridView, row: Int)) -> DataGridViewRowHeaderCell = { (arg) in
+        
+        let (dataGridView, row) = arg
         let view = dataGridView.dequeueReusableHeaderViewWithReuseIdentifier(DataGridView.ReuseIdentifiers.defaultRowHeader, forRow: row)
         view.tag = row
         return view

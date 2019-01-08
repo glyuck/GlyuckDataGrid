@@ -23,7 +23,7 @@ open class DataGridViewBaseHeaderCell: DataGridViewBaseCell {
         }
     }
     /// Background color for sorted state
-    open dynamic var sortedBackgroundColor: UIColor? {
+    @objc open dynamic var sortedBackgroundColor: UIColor? {
         didSet {
             updateSortedTitleAndBackground()
         }
@@ -37,11 +37,11 @@ open class DataGridViewBaseHeaderCell: DataGridViewBaseCell {
         }
     }
     /// This suffix will be appended to title if column/row is sorted in ascending order.
-    open dynamic var sortAscSuffix: String?
+    @objc open dynamic var sortAscSuffix: String?
     /// This suffix will be appended to title if column/row is sorted in descending order.
-    open dynamic var sortDescSuffix: String?
+    @objc open dynamic var sortDescSuffix: String?
     /// Header title. Use this property instead of assigning to textLabel.text.
-    open var title: String = "" {
+    @objc open var title: String = "" {
         didSet {
             updateSortedTitleAndBackground()
         }
@@ -95,7 +95,7 @@ open class DataGridViewBaseHeaderCell: DataGridViewBaseCell {
         self.indexPath = indexPath
     }
 
-    open func didTap(_ gesture: UITapGestureRecognizer) {
+    @objc open func didTap(_ gesture: UITapGestureRecognizer) {
         dataGridView.collectionViewDelegate.collectionView(dataGridView.collectionView, didTapHeaderForColumn: indexPath.index)
     }
 }
