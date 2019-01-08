@@ -9,7 +9,7 @@ import UIKit
 
 
 class F1DataSource: NSObject {
-    static let stats:[[String:String]] = [
+    @objc static let stats:[[String:String]] = [
         ["season": "1950", "driver": "Giuseppe Farina", "age": "44", "team": "Alfa Romeo", "engine": "Alfa Romeo", "poles": "2", "wins": "3", "podiums": "3", "fastest_laps": "3", "points": "30", "clinched": "Race 7 of 7", "point_margin": "3"],
         ["season": "1951", "driver": "Juan Manuel Fangio", "age": "40", "team": "Alfa Romeo", "engine": "Alfa Romeo", "poles": "4", "wins": "3", "podiums": "5", "fastest_laps": "5", "points": "31", "clinched": "Race 8 of 8", "point_margin": "6"],
         ["season": "1952", "driver": "Alberto Ascari", "age": "34", "team": "Ferrari", "engine": "Ferrari", "poles": "5", "wins": "6", "podiums": "6", "fastest_laps": "6", "points": "36", "clinched": "Race 6 of 8", "point_margin": "12"],
@@ -76,7 +76,7 @@ class F1DataSource: NSObject {
         ["season": "2013", "driver": "Sebastian Vettel", "age": "26", "team": "Red Bull", "engine": "Renault", "poles": "9", "wins": "13", "podiums": "16", "fastest_laps": "7", "points": "397", "clinched": "Race 16 of 19", "point_margin": "155"],
         ["season": "2014", "driver": "Lewis Hamilton", "age": "29", "team": "Mercedes", "engine": "Mercedes", "poles": "7", "wins": "11", "podiums": "16", "fastest_laps": "7", "points": "384", "clinched": "Race 19 of 19", "point_margin": "67"]
     ]
-    static let columnsTitles = ["Year", "Driver", "Age", "Team", "Engine", "Poles", "Wins", "Podiums", "Fastest\nlaps", "Points", "Clinched", "Points\nmargin"]
-    static let columns = ["season", "driver", "age", "team", "engine", "poles", "wins", "podiums", "fastest_laps", "points", "clinched", "point_margin"]
-    static let columnsWidths: [CGFloat] = [70, 150, 60, 120, 110, 70, 70, 95, 70, 75, 130, 70]
+    @objc static let columnsTitles = ["Year", "Driver", "Age", "Team", "Engine", "Poles", "Wins", "Podiums", "Fastest\nlaps", "Points", "Clinched", "Points\nmargin"]
+    @objc static let columns = ["season", "driver", "age", "team", "engine", "poles", "wins", "podiums", "fastest_laps", "points", "clinched", "point_margin"]
+    @objc static let columnsWidths: [CGFloat] = [70, 150, 60, 120, 110, 70, 70, 95, 70, 75, 130, 70]
 }
