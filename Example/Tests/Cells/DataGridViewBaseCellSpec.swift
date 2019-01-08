@@ -34,7 +34,7 @@ class DataGridViewBaseCellSpec: QuickSpec {
                 sut.textLabelInsets = UIEdgeInsets(top: 1, left: 2, bottom: 3, right: 4)
                 sut.frame = CGRect(x: 0, y: 0, width: sut.frame.width * 2, height: sut.frame.height / 2)
                 sut.layoutIfNeeded()
-                expect(sut.textLabel.frame) == UIEdgeInsetsInsetRect(sut.bounds, sut.textLabelInsets)
+                expect(sut.textLabel.frame) == sut.bounds.inset(by: sut.textLabelInsets)
             }
         }
     }

@@ -67,7 +67,9 @@ class CollectionViewDataSourceSpec: QuickSpec {
                     it("should return view created by delegate") {
                         // given
                         let expectedView = dataGridView.dequeueReusableHeaderViewWithReuseIdentifier(DataGridView.ReuseIdentifiers.defaultColumnHeader, forColumn: 1)
-                        stubDataSourceCustomCell.viewForColumnHeaderBlock = { dataGridView, column in
+                        stubDataSourceCustomCell.viewForColumnHeaderBlock = { (arg) in
+                            
+                            let (dataGridView, column) = arg
                             expectedView.tag = column
                             return expectedView
                         }
@@ -114,7 +116,9 @@ class CollectionViewDataSourceSpec: QuickSpec {
                     it("should return view created by delegate") {
                         // given
                         let expectedView = dataGridView.dequeueReusableHeaderViewWithReuseIdentifier(DataGridView.ReuseIdentifiers.defaultRowHeader, forRow: 1)
-                        stubDataSourceCustomCell.viewForRowHeaderBlock = { dataGridView, row in
+                        stubDataSourceCustomCell.viewForRowHeaderBlock = { (arg) in
+                            
+                            let (dataGridView, row) = arg
                             expectedView.tag = row
                             return expectedView
                         }
@@ -168,7 +172,9 @@ class CollectionViewDataSourceSpec: QuickSpec {
                 it("should return view created by delegate") {
                     // given
                     let expectedCell = dataGridView.dequeueReusableCellWithReuseIdentifier(DataGridView.ReuseIdentifiers.defaultCell, forIndexPath: IndexPath(item: 0, section: 0))
-                    stubDataSourceCustomCell.cellForItemBlock = { dataGridView, indexPath in
+                    stubDataSourceCustomCell.cellForItemBlock = { (arg) in
+                        
+                        let (dataGridView, indexPath) = arg
                         expectedCell.tag = indexPath.dataGridColumn * 100 + indexPath.dataGridRow
                         return expectedCell
                     }

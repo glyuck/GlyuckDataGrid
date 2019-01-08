@@ -22,7 +22,7 @@ open class DataGridViewRowHeaderCell: DataGridViewBaseHeaderCell {
         
         if let labelAppearance = UILabel.glyuck_appearanceWhenContained(in: DataGridViewRowHeaderCell.self) {
             if #available(iOS 8.2, *) {
-                labelAppearance.appearanceFont = UIFont.systemFont(ofSize: 14, weight: UIFontWeightRegular)
+                labelAppearance.appearanceFont = UIFont.systemFont(ofSize: 14, weight: UIFont.Weight.regular)
             } else {
                 labelAppearance.appearanceFont = UIFont(name: "HelveticaNeue", size: 14)
             }
@@ -32,8 +32,19 @@ open class DataGridViewRowHeaderCell: DataGridViewBaseHeaderCell {
         }
         
     }()
-    open override static func initialize() {
-        super.initialize()
+    
+//    open override static func initialize() {
+//        super.initialize()
+//        _ = DataGridViewRowHeaderCell.__once
+//    }
+    
+    public override init(frame: CGRect) {
+        super.init(frame: frame)
+        _ = DataGridViewRowHeaderCell.__once
+    }
+    
+    public required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
         _ = DataGridViewRowHeaderCell.__once
     }
 }

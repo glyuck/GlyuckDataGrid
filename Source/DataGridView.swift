@@ -227,9 +227,9 @@ open class DataGridView: UIView {
     }()
 
     /// The object that provides the data for the data grid view.
-    open weak var dataSource: DataGridViewDataSource?
+    @objc open weak var dataSource: DataGridViewDataSource?
     /// The object that acts as the delegate of the data grid view.
-    open weak var delegate: DataGridViewDelegate?
+    @objc open weak var delegate: DataGridViewDelegate?
 
     /// Height for every row in data grid view
     open var rowHeight: CGFloat = 44
@@ -238,9 +238,9 @@ open class DataGridView: UIView {
     /// Width for vertical header displayed on left of each row. If zero, vertical headers are not displayed.
     open var rowHeaderWidth: CGFloat = 0
     /// Background color for even rows of zebra-striped tables.
-    open dynamic var row1BackgroundColor: UIColor?
+    @objc open dynamic var row1BackgroundColor: UIColor?
     /// Background color for odd rows of zebra-striped tables.
-    open dynamic var row2BackgroundColor: UIColor?
+    @objc open dynamic var row2BackgroundColor: UIColor?
 
     /// Current sort column of data grid view.
     fileprivate(set) open var sortColumn: Int?
@@ -292,7 +292,7 @@ open class DataGridView: UIView {
     /**
      Reloads the rows and columns of the data grid view.
      */
-    open func reloadData() {
+    @objc open func reloadData() {
         collectionView.reloadData()
     }
 
@@ -334,7 +334,7 @@ open class DataGridView: UIView {
         collectionView.indexPathsForSelectedItems?.forEach { collectionView.deselectItem(at: $0, animated: animated) }
         for column in 0..<numberOfColumns() {
             let indexPath = IndexPath(item: column, section: row)
-            collectionView.selectItem(at: indexPath, animated: animated, scrollPosition: UICollectionViewScrollPosition())
+            collectionView.selectItem(at: indexPath, animated: animated, scrollPosition: UICollectionView.ScrollPosition())
         }
     }
 
@@ -379,7 +379,7 @@ open class DataGridView: UIView {
 
      - returns: A UICollectionView object with the associated reuse identifier. This method always returns a valid cell.
      */
-    open func dequeueReusableCellWithReuseIdentifier(_ identifier: String, forIndexPath indexPath: IndexPath) -> UICollectionViewCell {
+    @objc open func dequeueReusableCellWithReuseIdentifier(_ identifier: String, forIndexPath indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath)
         if indexPath.dataGridRow % 2 == 0 {
             cell.backgroundColor = row1BackgroundColor
@@ -419,7 +419,7 @@ open class DataGridView: UIView {
 
      - returns: A DataGridViewColumnHeaderCell object with the associated reuse identifier. This method always returns a valid view.
      */
-    open func dequeueReusableHeaderViewWithReuseIdentifier(_ identifier: String, forColumn column: NSInteger) -> DataGridViewColumnHeaderCell {
+    @objc open func dequeueReusableHeaderViewWithReuseIdentifier(_ identifier: String, forColumn column: NSInteger) -> DataGridViewColumnHeaderCell {
         let indexPath = IndexPath(index: column)
         let cell = collectionView.dequeueReusableSupplementaryView(ofKind: SupplementaryViewKind.ColumnHeader.rawValue, withReuseIdentifier: identifier, for: indexPath)
         guard let headerCell = cell as? DataGridViewColumnHeaderCell else {
@@ -439,7 +439,7 @@ open class DataGridView: UIView {
 
      - returns: A DataGridViewColumnHeaderCell object with the associated reuse identifier. This method always returns a valid view.
      */
-    open func dequeueReusableHeaderViewWithReuseIdentifier(_ identifier: String, forRow row: NSInteger) -> DataGridViewRowHeaderCell {
+    @objc open func dequeueReusableHeaderViewWithReuseIdentifier(_ identifier: String, forRow row: NSInteger) -> DataGridViewRowHeaderCell {
         let indexPath = IndexPath(index: row)
         let cell = collectionView.dequeueReusableSupplementaryView(ofKind: SupplementaryViewKind.RowHeader.rawValue, withReuseIdentifier: identifier, for: indexPath)
         guard let headerCell = cell as? DataGridViewRowHeaderCell else {
@@ -469,10 +469,11 @@ open class DataGridView: UIView {
 
     // UIView
 
-    open override static func initialize() {
-        super.initialize()
-        _ = DataGridView.__once
-    }
+//    open override static func initialize() {
+//        super.initialize()
+//        _ = DataGridView.__once
+//    }
+
 
     public override init(frame: CGRect) {
         super.init(frame: frame)
@@ -481,6 +482,7 @@ open class DataGridView: UIView {
 
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+         _ = DataGridView.__once
         setupDataGridView()
     }
 
