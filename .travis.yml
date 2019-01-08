@@ -17,4 +17,4 @@ script:
 - set -o pipefail
 - xcodebuild -version
 - xcodebuild -showsdks
-- xcodebuild test -workspace Example/GlyuckDataGrid.xcworkspace -scheme GlyuckDataGrid-Example -sdk iphonesimulator10.0 -destination 'platform=iOS Simulator,name=iPhone 8,OS=10.0' | xcpretty
+- xcodebuild test -workspace Example/GlyuckDataGrid.xcworkspace -scheme GlyuckDataGrid-Example -sdk iphonesimulator12.1 -destination 'platform=iOS Simulator,name=iPhone 8,OS=12.1' | xcpretty
