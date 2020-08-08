@@ -238,9 +238,9 @@ open class DataGridView: UIView {
     /// Width for vertical header displayed on left of each row. If zero, vertical headers are not displayed.
     open var rowHeaderWidth: CGFloat = 0
     /// Background color for even rows of zebra-striped tables.
-    open dynamic var row1BackgroundColor: UIColor?
+    @objc open dynamic var row1BackgroundColor: UIColor?
     /// Background color for odd rows of zebra-striped tables.
-    open dynamic var row2BackgroundColor: UIColor?
+    @objc open dynamic var row2BackgroundColor: UIColor?
 
     /// Current sort column of data grid view.
     fileprivate(set) open var sortColumn: Int?
@@ -334,7 +334,7 @@ open class DataGridView: UIView {
         collectionView.indexPathsForSelectedItems?.forEach { collectionView.deselectItem(at: $0, animated: animated) }
         for column in 0..<numberOfColumns() {
             let indexPath = IndexPath(item: column, section: row)
-            collectionView.selectItem(at: indexPath, animated: animated, scrollPosition: UICollectionViewScrollPosition())
+            collectionView.selectItem(at: indexPath, animated: animated, scrollPosition: UICollectionView.ScrollPosition())
         }
     }
 
@@ -469,10 +469,10 @@ open class DataGridView: UIView {
 
     // UIView
 
-    open override static func initialize() {
-        super.initialize()
-        _ = DataGridView.__once
-    }
+//    public override static func initialize() {
+//        super.initialize()
+//        _ = DataGridView.__once
+//    }
 
     public override init(frame: CGRect) {
         super.init(frame: frame)
