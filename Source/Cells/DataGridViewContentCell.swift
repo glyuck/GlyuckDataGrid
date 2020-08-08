@@ -26,8 +26,8 @@ open class DataGridViewContentCell: DataGridViewBaseCell {
         }
         
     }()
-    open override static func initialize() {
-        super.initialize()
-        _ = DataGridViewContentCell.__once
-    }
+//    open override static func initialize() {
+//        super.initialize()
+//        _ = DataGridViewContentCell.__once
+//    }
 }

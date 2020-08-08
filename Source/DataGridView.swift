@@ -469,10 +469,10 @@ open class DataGridView: UIView {
 
     // UIView
 
-    open override static func initialize() {
-        super.initialize()
-        _ = DataGridView.__once
-    }
+//    public override static func initialize() {
+//        super.initialize()
+//        _ = DataGridView.__once
+//    }
 
     public override init(frame: CGRect) {
         super.init(frame: frame)

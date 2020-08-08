@@ -32,10 +32,10 @@ open class DataGridViewColumnHeaderCell: DataGridViewBaseHeaderCell {
         
     }()
     // MARK: - UIView
-    open override static func initialize() {
-        super.initialize()
-        _ = DataGridViewColumnHeaderCell.__once
-    }
+//    open override static func initialize() {
+//        super.initialize()
+//        _ = DataGridViewColumnHeaderCell.__once
+//    }
     
     // MARK: - Custom methods
     
